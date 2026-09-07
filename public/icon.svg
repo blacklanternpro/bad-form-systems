@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BF monogram">
+  <!-- BAD FORM® favicon / app icon — BF knocked out of the yellow oval on the cobalt field -->
+  <rect width="64" height="64" fill="#2242c8"/>
+  <ellipse cx="32" cy="32" rx="27" ry="17.5" fill="#ffdf1b"/>
+  <text x="32" y="37.5" text-anchor="middle" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="14" fill="#2242c8" letter-spacing=".5">BF</text>
+</svg>
