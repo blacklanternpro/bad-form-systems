@@ -1,0 +1,152 @@
+{
+  "title": "Choose the visual world",
+  "question": "Fresh hand. Everything from the last round is out. The roll assigned Weighbridge Ticket. Keep it, take an alternate, or re-roll again.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Weighbridge Ticket",
+      "kicker": "THE ROLL",
+      "lineage": "civil weighbridge thermal dockets",
+      "thesis": "The homepage is one thermal ticket for the whole operations set: printed on site, still missing from the books.",
+      "palette": ["#e8e4dc", "#1a1a1a", "#2242c8", "#d42a2a"],
+      "materials": ["thermal paper curl", "time-clock print", "cobalt issue stamp"],
+      "viewport": "A landscape ticket filling the browser: D1 lockup in the header stamp, line items for jobs, costing, plant, variations, certificates, and capture; Book a yard visit is the weighbridge stamp at the foot.",
+      "risk": "Reads as civil-only, or as a novelty receipt, and undersells sparkies and fleet.",
+      "raised": [
+        {
+          "from": "challenger-bbs",
+          "raise": "Nav is numbered boards, not a SaaS mega-menu; the yard visit is the one scarce live connection."
+        },
+        {
+          "from": "challenger-lowicz",
+          "raise": "Ops layers stack; peel the field layer and the ledger stays intact underneath."
+        },
+        {
+          "from": "challenger-film",
+          "raise": "Capture keeps its dirt: a photographed docket is the proof it came from site, not a typed-clean form."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/r2-assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "Yard Office Whiteboard",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "morning dispatch boards in South West yards",
+      "thesis": "The homepage is the board they already look at before the first truck leaves.",
+      "palette": ["#eef0f2", "#1c1c1c", "#2242c8", "#f3d31a"],
+      "materials": ["dirty enamel", "dry-erase columns", "cobalt magnets"],
+      "viewport": "A landscape enamel board: columns for jobs, plant, variations, certificates, and capture; Book a yard visit is a magnet in the corner; BAD FORM Systems is the printed header strip.",
+      "risk": "This is also where most ops-tool sites land: a kanban that looks like software, not a yard office.",
+      "comp": ".impeccable/mocks/decision/r2-model-pick.webp"
+    },
+    {
+      "id": "challenger-vu",
+      "label": "VU Meter Bridge",
+      "verdict": "competitive",
+      "lineage": "recording-desk VU meter bridges",
+      "thesis": "Six needles, one each for jobs, costing, plant, variations, certificates, and capture; the yard is running when they lean together.",
+      "palette": ["#f3ead4", "#1a1a1a", "#5c4033", "#c41e3a"],
+      "materials": ["ivory meter glass", "walnut desk", "ballistic needles"],
+      "viewport": "A landscape meter bridge as the webpage: six identical VU faces labelled for the ops layer; Book a yard visit sits on the strip below; red is only the arc past zero.",
+      "case": "Holds product clarity: the whole layer is a single sweep. Loses identification: a recording desk is not a South West yard.",
+      "risk": "Reads as another instrument dashboard, one walnut frame from the SaaS miss.",
+      "comp": ".impeccable/mocks/decision/r2-challenger-vu.webp",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge.webp"
+    },
+    {
+      "id": "challenger-cards",
+      "label": "Numbered Insert Cards",
+      "verdict": "competitive",
+      "lineage": "numbered packet insert cards, album sold separately",
+      "thesis": "The ops layer is a numbered set. Xero is the album sold separately. Missing numbers are glovebox dockets.",
+      "palette": ["#2242c8", "#f3d31a", "#f7f2e8", "#1a1a1a"],
+      "materials": ["lithographed face", "letterpress reverse", "album slots"],
+      "viewport": "A landscape album page of six cards: jobs, costing, plant, variations, certificates, capture; one slot empty; Book a yard visit is printed on the reverse of the shown card.",
+      "case": "Holds product clarity: absence is the pitch. Loses identification: trading-card grammar is not this buyer's daily object.",
+      "risk": "Looks like a collector hobby, not a yard visit.",
+      "comp": ".impeccable/mocks/decision/r2-challenger-cards.webp",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-insert-card-numbered-series-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/pop-culture-shelf-insert-card-numbered-series.webp"
+    },
+    {
+      "id": "challenger-folio",
+      "label": "Botanical Season Folio",
+      "verdict": "competitive",
+      "lineage": "botanical plates of one plant through the seasons",
+      "thesis": "Five plates at the same scale: capture, jobs, costing, plant, then Xero; the day is comparable because nothing changes size.",
+      "palette": ["#f3ead8", "#6b7c4a", "#a33327", "#4a3f32"],
+      "materials": ["cream plate ground", "hairline sepia rules", "engraved captions"],
+      "viewport": "A landscape folio: five registered plates in one row, same job through the day; Book a yard visit is the species-name line.",
+      "case": "Holds product clarity: the field-to-ledger day is a registered sequence. Loses identification: a botanical folio is not this yard.",
+      "risk": "Reads as a nature monograph, and lands in the cream-plate cluster this work is trying to escape.",
+      "comp": ".impeccable/mocks/decision/r2-challenger-folio.webp",
+      "hero": "https://impeccable.style/worlds/cards/editorial-sequence-montage-botanical-folio-season-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/editorial-sequence-montage-botanical-folio-season.webp"
+    },
+    {
+      "id": "challenger-bbs",
+      "label": "ANSI Nightboard",
+      "verdict": "declined",
+      "lineage": "dial-up bulletin boards at 2 a.m.",
+      "thesis": "Ops layers as numbered boards on an 80-column grid; the yard visit is the one live caller.",
+      "palette": ["#000000", "#00ffff", "#ff00ff", "#0000aa"],
+      "materials": ["terminal black", "CP437 block chrome", "blinking presence"],
+      "viewport": "A title screen pouring in: BAD FORM Systems as block art, numbered exits for jobs, capture, costing, Xero; Book a yard visit is new mail.",
+      "case": "Fuses poorly: a BBS is software theatre, and the owner does not identify with a 2 a.m. phone line.",
+      "kept": "Numbered exits; presence is scarce; the yard visit is the live connection.",
+      "risk": "Looks like a developer toy, which is the miss this buyer named.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ansi-bbs-nightboard-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/medium-native-ansi-bbs-nightboard.webp"
+    },
+    {
+      "id": "challenger-lowicz",
+      "label": "Łowicz Layered Papercut",
+      "verdict": "declined",
+      "lineage": "Polish Łowicz layered paper roundels",
+      "thesis": "Ops layers are unmixed colour cuts pasted in order; depth is overlap, never shade; the ledger is the last paste.",
+      "palette": ["#e31c23", "#f5d000", "#1a8f3c", "#1a1a1a"],
+      "materials": ["glossy flat papers", "fold symmetry", "pasted layers"],
+      "viewport": "A centred roundel of the yard built in six colour layers; Book a yard visit is the last paste.",
+      "case": "Fuses poorly: folk papercut is not this yard's graphic home, and a roundel hides the ops list.",
+      "kept": "Layers paste over each other; removing one exposes the layer below intact.",
+      "risk": "Reads as a craft object, not an operations offer.",
+      "hero": "https://impeccable.style/worlds/cards/craft-making-lowicz-layered-papercut-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/craft-making-lowicz-layered-papercut.webp"
+    },
+    {
+      "id": "challenger-film",
+      "label": "Hand-Processed Film Bloom",
+      "verdict": "declined",
+      "lineage": "hand-processed 16mm film strips",
+      "thesis": "Field capture is the emulsion joining the event: scratches and light leaks are proof it came from site.",
+      "palette": ["#141414", "#8a8a82", "#e85d12", "#c4a574"],
+      "materials": ["silver emulsion", "sprocket margin", "orange light leak"],
+      "viewport": "A film strip of the day's frames: ute, docket, job, Xero draft; Book a yard visit is the edge code.",
+      "case": "Fuses poorly: experimental cinema hides the offer, and this buyer does not identify with a film lab.",
+      "kept": "The photographed event joins the record dirty; capture is not a typed-clean form.",
+      "risk": "Looks like an art-house title sequence.",
+      "hero": "https://impeccable.style/worlds/cards/cinema-cinematography-editing-hand-processed-film-bloom-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/cinema-cinematography-editing-hand-processed-film-bloom.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What SimPRO, Tradify, and AroFlo already look like, executed at full craft.",
+    "palette": ["#0b1220", "#f8fafc", "#2563eb", "#16a34a"],
+    "materials": ["product UI screenshot", "clean grid", "stock yard photography"],
+    "viewport": "A dark SaaS hero, a job-app screenshot, three feature columns, and Book a yard visit in the header.",
+    "risk": "Indistinguishable from the competition by design.",
+    "comp": ".impeccable/mocks/decision/r2-canon.webp"
+  },
+  "steer": true
+}

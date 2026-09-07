@@ -1,0 +1,10 @@
+{
+  "name": "BAD FORM Systems",
+  "short_name": "BAD FORM",
+  "description": "Custom operations and workflow IMS for Bunbury and South West WA.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0a0c0f",
+  "theme_color": "#f59e0b",
+  "icons": [{ "src": "/icon.svg", "type": "image/svg+xml", "sizes": "any" }]
+}

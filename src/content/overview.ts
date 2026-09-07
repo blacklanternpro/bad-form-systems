@@ -1,0 +1,80 @@
+export const overview = {
+  metaTitle: "BAD FORM Systems | Operations systems for South West WA",
+  metaDescription:
+    "We digitise the scattered yard workflow — Excel, paper, checklists, forms, and apps that do not talk — and sit beside Xero or MYOB. South West WA.",
+  headline: "Excel, paper, checklists, three apps. One workflow.",
+  body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk — then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
+  walkLine: "We walk the yard first.",
+  primaryCta: { href: "/contact", label: "Book a yard visit" },
+  secondaryCta: { href: "/coexistence", label: "How we sit beside Xero" },
+  fieldApp: {
+    jobNo: "10482",
+    title: "Field",
+    caption: "Theoretical field screens. Built to match the yard, not a shelf app.",
+    demoNote: "Demo layout — not a live product shot.",
+    functions: [
+      { label: "Jobs", hint: "What's live, what it costs" },
+      { label: "Photograph docket", hint: "Pilot: capture, don't retype" },
+      { label: "Hours", hint: "Labour on the job, not a pad" },
+      { label: "Pre-start", hint: "Sign-off before the key turns" },
+      { label: "Variations", hint: "Extras before anyone leaves site" },
+      { label: "Certificates", hint: "Compliance from the job, not the office" },
+    ],
+  },
+  principles: [
+    {
+      title: "The ledger stays",
+      body: "We do not replace Xero or MYOB. Your bookkeeper, BAS, and payroll keep their tool. What we remove is the retyping of dockets, receipts, hours, and checklists into it.",
+      audience: "For the owner and the bookkeeper",
+    },
+    {
+      title: "It has to work in the ute",
+      body: "If a sparky, operator, or boilermaker needs a manual, it will not get used. Capture is a photo, a short voice note, or a simple screen. The office system sits behind that.",
+      audience: "For the crew",
+    },
+    {
+      title: "We come to the yard",
+      body: "This is not a Zoom demo from another city. We are based in the South West. Evaluation is a walkthrough of dispatch, dockets, and how invoices actually leave the office.",
+      audience: "For the person who can book a visit",
+    },
+  ],
+  landscape: {
+    title: "Where the work actually lives",
+    body: "Most South West yards already have a ledger they trust. The gap is everything scattered before a line hits Xero or MYOB: Excel, paper, checklists, forms, and apps that do not talk.",
+    columns: ["Layer", "What you see today", "The gap", "What we do"],
+    rows: [
+      {
+        highlight: false,
+        layer: "Ledger and tax",
+        tools: "Xero, MYOB, Reckon",
+        gap: "Fine for BAS and payroll. Blind to live jobs, machine hours, and what happened on site.",
+        strategy: "Leave it. Connect through the official API.",
+        mobileSummary: "Accounts and BAS stay. This layer is not the problem.",
+        mobileAction: "Connect. Do not replace.",
+      },
+      {
+        highlight: true,
+        layer: "Jobs and the field",
+        tools: "Excel, WhatsApp, clipboards, glovebox dockets, checklists",
+        gap: "Hours, variations, forms, and supplier dockets live in people's heads and on paper until someone types them up.",
+        strategy: "Digitise that workflow. Pilot on dockets, or build the full job and field layer this yard actually runs.",
+        mobileSummary: "Spreadsheets, chats, paper, and forms. This is the work we take on.",
+        mobileAction: "Pilot or full custom system. Field capture included.",
+      },
+      {
+        highlight: false,
+        layer: "Off-the-shelf job apps",
+        tools: "SimPRO, AroFlo, Tradify, and similar",
+        gap: "Built for a generic workflow. Crews stop using them when the screens do not match the job.",
+        strategy: "Do not add another unused login. Build the few screens this crew will actually open.",
+        mobileSummary: "Shelf software the crew will not open on site.",
+        mobileAction: "Fewer screens. Built for this operation.",
+      },
+    ],
+    footerNote: "The point is not more software. It is one workflow for work that currently lives in five places.",
+    footerLink: {
+      href: "/coexistence",
+      label: "See how the three layers fit",
+    },
+  },
+};

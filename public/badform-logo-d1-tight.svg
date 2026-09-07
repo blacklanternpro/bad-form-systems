@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="36 66 328 148" role="img" aria-label="BAD FORM®">
+  <!-- BAD FORM® — Plate D1 v2, tight crop (floating ® omitted) · use inline in headers/nav -->
+  <rect x="40" y="70" width="320" height="140" fill="#2242c8"/>
+  <ellipse cx="200" cy="140" rx="147" ry="64" fill="#ffdf1b"/>
+  <text x="200" y="156.5" text-anchor="middle" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="46" letter-spacing="-3" fill="#2242c8">BAD FORM<tspan font-size="17" dy="-21">®</tspan></text>
+</svg>

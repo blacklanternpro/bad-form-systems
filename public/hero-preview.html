@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BAD FORM Systems — hero preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Barlow+Condensed:wght@800&family=Courier+Prime:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #efe6c8;
+        --ply: #e8b4b8;
+        --ink: #1c1814;
+        --steel: #5c5348;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+      }
+      header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: stretch;
+        border-bottom: 1px solid rgb(28 24 20 / 0.35);
+        background: var(--paper);
+      }
+      .mark {
+        display: flex;
+        align-items: baseline;
+        gap: 0.7rem;
+        background: var(--ply);
+        padding: 1.1rem 1.4rem;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .mark strong {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .mark span {
+        font-family: "Courier Prime", monospace;
+        font-size: 1rem;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        font-family: Barlow, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      nav a {
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 0.15rem;
+      }
+      nav a.active {
+        border-bottom-color: var(--ink);
+      }
+      .job {
+        display: flex;
+        align-items: center;
+        padding-right: 1.5rem;
+        font-family: "Courier Prime", monospace;
+        font-size: 0.9rem;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+        min-height: calc(100vh - 5.25rem);
+        max-width: 90rem;
+        margin: 0 auto;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem 3.5rem;
+      }
+      h1 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: clamp(2.4rem, 5.4vw + 0.6rem, 5.75rem);
+        letter-spacing: -0.03em;
+        line-height: 0.95;
+        text-transform: uppercase;
+        max-width: 13ch;
+        margin: 0 0 1.6rem;
+      }
+      .body,
+      .walk {
+        font-family: "Courier Prime", monospace;
+        font-size: 0.98rem;
+        line-height: 1.55;
+        max-width: 38ch;
+      }
+      .walk {
+        border-top: 1px solid var(--ply);
+        border-bottom: 1px solid var(--ply);
+        padding: 0.75rem 0;
+        margin: 2rem 0 2.4rem;
+      }
+      .cta {
+        font-family: "Courier Prime", monospace;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 2px solid var(--ply);
+        padding-bottom: 0.2rem;
+      }
+      figure {
+        margin: 0;
+        position: relative;
+        height: min(46rem, 88vh);
+      }
+      figure img {
+        position: absolute;
+        inset: 0;
+        width: 108%;
+        height: 108%;
+        object-fit: contain;
+        object-position: right bottom;
+        background: transparent;
+      }
+      @media (max-width: 900px) {
+        nav,
+        .job {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 1.5rem 1.25rem;
+        }
+        figure {
+          height: auto;
+        }
+        figure img {
+          position: static;
+          width: 100%;
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="mark" href="./">
+        <strong>BAD FORM</strong>
+        <span>Systems</span>
+      </a>
+      <nav>
+        <a class="active" href="./">System</a>
+        <a href="./coexistence">Process</a>
+        <a href="./sectors">Sectors</a>
+        <a href="./contact">Contact</a>
+      </nav>
+      <div class="job">JOB NO. 10482</div>
+    </header>
+    <section class="hero">
+      <div>
+        <h1>Excel, paper, checklists, three apps. One workflow.</h1>
+        <p class="body">
+          We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do
+          not talk — then gets lost. Start with a receipt-parser pilot, or go all the way to jobs,
+          costing, plant, variations, certificates, and the ute. Xero stays the books.
+        </p>
+        <p class="walk">We walk the yard first.</p>
+        <a class="cta" href="./contact">Book a yard visit →</a>
+      </div>
+      <figure>
+        <img
+          src="./images/field-hand-blended.webp"
+          alt="Work-worn hand holding a phone open on a theoretical field IMS."
+        />
+      </figure>
+    </section>
+  </body>
+</html>

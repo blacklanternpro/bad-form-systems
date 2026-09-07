@@ -1,0 +1,57 @@
+{
+  "title": "Choose the visual world",
+  "question": "Safer hand. Two re-rolls in: what felt wrong before — too clever, too civil, too software, too paper? These are remaining yard objects you already live with, plus the category standard against SimPRO, Tradify, and AroFlo. The roll is suspended; you pick.",
+  "options": [
+    {
+      "id": "run-sheet",
+      "label": "Cab Run Sheet",
+      "lineage": "laminated visor cards and Sharpie run sheets",
+      "thesis": "The homepage is the day's laminated sheet in the sun visor: jobs, plant, variations, certificates, capture, then Xero.",
+      "palette": ["#f0e36a", "#1a1a1a", "#2242c8", "#f7f7f2"],
+      "materials": ["laminate sheen", "Sharpie columns", "visor clip"],
+      "viewport": "A landscape laminated sheet filling the browser: D1 stamp in the corner, ruled columns for the ops layer, Book a yard visit as the footer Sharpie line.",
+      "risk": "Reads as a PDF form in a browser, and can feel as thin as the docket-pipe hero we already rejected.",
+      "comp": ".impeccable/mocks/decision/r3-run-sheet.webp"
+    },
+    {
+      "id": "logbook",
+      "label": "Pre-Start Logbook",
+      "lineage": "cab pre-start pads and daily plant books",
+      "thesis": "The homepage is the book they already sign before the key turns; the ops layer is today's pages.",
+      "palette": ["#d8ddd4", "#1e2a22", "#2242c8", "#c45c2a"],
+      "materials": ["boarded logbook", "numbered daily pages", "grease-pencil"],
+      "viewport": "An open landscape logbook: left page the catch, right page today's rows for jobs, plant, variations, certificates, capture; Book a yard visit is the sign-off line.",
+      "risk": "Looks like a safety-compliance product, not a custom operations system.",
+      "comp": ".impeccable/mocks/decision/r3-logbook.webp"
+    },
+    {
+      "id": "shadow-board",
+      "label": "Workshop Shadow Board",
+      "lineage": "tool shadow boards on workshop walls",
+      "thesis": "The homepage is a shadow board: every ops layer has an outline, and you can see what's missing from across the shed.",
+      "palette": ["#c4b89a", "#1a1a1a", "#2242c8", "#f3d31a"],
+      "materials": ["plywood", "painted tool outlines", "empty hooks"],
+      "viewport": "A landscape plywood board: outlines labelled jobs, costing, plant, variations, certificates, capture; one outline empty; Book a yard visit is a hanging tag.",
+      "risk": "Reads as a workshop brand film, and the empty-hook metaphor can feel cute rather than operational.",
+      "comp": ".impeccable/mocks/decision/r3-shadow-board.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "Sit next to SimPRO, Tradify, and AroFlo: dark trade-software marketing, executed at their craft level, without irony.",
+    "palette": ["#0b1220", "#f8fafc", "#2563eb", "#16a34a"],
+    "materials": ["product UI screenshot", "clean grid", "stock yard photography"],
+    "viewport": "A dark SaaS hero, a job-app screenshot, three feature columns, and Book a yard visit in the header.",
+    "risk": "Indistinguishable from those three by design.",
+    "comp": ".impeccable/mocks/decision/r3-canon.webp"
+  },
+  "steer": true
+}

@@ -1,0 +1,152 @@
+{
+  "title": "Choose the visual world",
+  "question": "The homepage needs a new world, and a hero that names the whole operations layer rather than a Xero pipe. The roll assigned Engineering Title Block. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Engineering Title Block",
+      "kicker": "THE ROLL",
+      "lineage": "AS and ISO drawing sheets, revision clouds, issue stamps",
+      "thesis": "The homepage is a working drawing of the whole operations set, issued for a yard visit.",
+      "palette": ["#cfd4d9", "#14161a", "#2242c8", "#f3d31a"],
+      "materials": ["mylar film", "plotter ink", "revision clouds", "cobalt issue stamp"],
+      "viewport": "A full drawing sheet: the title names jobs, costing, plant, variations, certificates, and ute capture; the title block holds the adapted D1 lockup and Book a yard visit as the issue sign-off.",
+      "risk": "Reads as fabrication-only, or as a poster of a drawing rather than a site the owner can act on.",
+      "raised": [
+        {
+          "from": "challenger-algorave",
+          "raise": "The field-to-ledger day is a timed cycle: capture, job cost, and the Xero draft are visible before the next beat, not a feature list."
+        },
+        {
+          "from": "challenger-dong-ho",
+          "raise": "Ops layers register in print order; the ledger is the last keyblock; the mylar ground catches light instead of sitting as a dead fill."
+        },
+        {
+          "from": "challenger-coil",
+          "raise": "Construction seams stay visible: this is custom-built for the yard, not a shelf product with a skin."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "NCR Job Card",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "triplicate docket books and numbered job cards",
+      "thesis": "The whole operations layer lives on one numbered job card the yard already knows how to fill.",
+      "palette": ["#f3e6c4", "#e8b4b8", "#2a2420", "#5a3d78"],
+      "materials": ["NCR carbon", "numbered pads", "hand-ruled boxes"],
+      "viewport": "A landscape job card filling the first screen: job no, costing, plant, variations, certificates, and a photo-capture stub; Book a yard visit is the issue line at the foot.",
+      "risk": "This is also where most trade-ops sites land: paper nostalgia that can look like a form, not a catch.",
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-six-pack",
+      "label": "Night Flight Six-Pack",
+      "verdict": "competitive",
+      "lineage": "analogue aircraft instrument panel",
+      "thesis": "Six luminous gauges, one each for jobs, costing, plant, variations, certificates, and capture; the sweep is the offer.",
+      "palette": ["#0a0c0e", "#e8eed8", "#7cff6a", "#c9a227"],
+      "materials": ["matte instrument panel", "luminous markings", "damped needles"],
+      "viewport": "Two rows of three gauges named for the ops layer; the placard under them is Book a yard visit; Xero is the ground, not a seventh gauge.",
+      "case": "Holds product clarity: the six-pack is the whole layer at a glance. Loses identification: a cockpit is aviation, and it sits one dark dashboard from the SaaS ops look this buyer would throw out.",
+      "risk": "Reads as Linear for tradies in a flight-sim skin.",
+      "comp": ".impeccable/mocks/decision/challenger-six-pack.webp",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack.webp"
+    },
+    {
+      "id": "challenger-bollywood",
+      "label": "Painted Film Poster",
+      "verdict": "competitive",
+      "lineage": "hand-painted Bombay film hoardings",
+      "thesis": "One billing-size line names the whole operations set; vignettes around the D1 lockup are jobs, plant, capture, and the ledger.",
+      "palette": ["#c4122f", "#f0c400", "#1a2a6b", "#f3d9a8"],
+      "materials": ["airbrush sky", "outlined display lettering", "painted vignettes"],
+      "viewport": "A landscape hoarding: giant adapted D1 as the portrait, title in outlined yellow, four vignettes for field, job brain, certificates, and Xero; Book a yard visit is the billing.",
+      "case": "Holds clarity: scale makes the catch unmissable and the montage proves more than dockets. Loses identification: South West trade owners do not live in film-poster grammar.",
+      "risk": "Reads as the parent site's irreverent high-end voice, which this sector will not buy.",
+      "comp": ".impeccable/mocks/decision/challenger-bollywood.webp",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-bollywood-painted-poster-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/pop-culture-shelf-bollywood-painted-poster.webp"
+    },
+    {
+      "id": "challenger-automata",
+      "label": "Crank Paper Menagerie",
+      "verdict": "competitive",
+      "lineage": "hand-cranked paper automata",
+      "thesis": "Turn the crank and the day processes: ute, docket, job cost, draft invoice — the mechanism is the pitch.",
+      "palette": ["#e6dcc8", "#2c2418", "#c41e3a", "#8a6a32"],
+      "materials": ["cut paper", "kraft board", "pinned joints", "cast shadow"],
+      "viewport": "A landscape stage with a crank at the base; four paper figures in procession; Book a yard visit is the caption strip.",
+      "case": "Holds clarity: you see the field-to-ledger loop. Loses identification: paper toys read pretty, which this buyer already rejects.",
+      "risk": "Looks like a craft project, not a yard visit.",
+      "comp": ".impeccable/mocks/decision/challenger-automata.webp",
+      "hero": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie.webp"
+    },
+    {
+      "id": "challenger-algorave",
+      "label": "Algorave Source Floor",
+      "verdict": "declined",
+      "lineage": "live-coded rave floors",
+      "thesis": "The field-to-ledger loop as live source: each layer is a pattern, edits land on the next cycle.",
+      "palette": ["#0d0d0d", "#39ff14", "#ff2bd6", "#f5c518"],
+      "materials": ["projector black", "phosphor syntax", "amber next-cycle flash"],
+      "viewport": "A stage-scale code buffer whose layers are jobs, capture, costing, and Xero; Book a yard visit is the line about to evaluate.",
+      "case": "Fuses poorly: live code is software theatre, and the owner does not identify with a rave floor.",
+      "kept": "Edits apply on the next cycle; upcoming changes are visible before they land.",
+      "risk": "Looks like a developer toy, which is the miss this buyer named.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-algorave-source-floor-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/medium-native-algorave-source-floor.webp"
+    },
+    {
+      "id": "challenger-dong-ho",
+      "label": "Đông Hồ Shell Ground",
+      "verdict": "declined",
+      "lineage": "Vietnamese Đông Hồ woodblock prints",
+      "thesis": "Ops layers print colour by colour onto a ground that catches light; the ledger is the last keyblock.",
+      "palette": ["#f4efe4", "#c41e3a", "#1c3a6b", "#d4a017"],
+      "materials": ["crushed-shell paper", "flat mineral pigment", "black keyblock"],
+      "viewport": "A centred print of the yard with colour blocks for jobs, capture, and certificates; Xero prints last; Book a yard visit sits in the character block.",
+      "case": "Fuses poorly: folk print is not this yard's graphic home, and a centred subject hides the ops layer.",
+      "kept": "Colour layers register in order; the keyblock prints last; the ground catches light.",
+      "risk": "Reads as a gallery object, not an operations offer.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-dong-ho-shell-ground-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/posters-covers-sleeves-dong-ho-shell-ground.webp"
+    },
+    {
+      "id": "challenger-coil",
+      "label": "Coiled Earth Tower",
+      "verdict": "declined",
+      "lineage": "monumental coiled earthen architecture",
+      "thesis": "The custom system is built in visible courses, each thumb-smoothed seam a layer of the yard's ops.",
+      "palette": ["#c45c2a", "#6b3a1f", "#e8d5c0", "#2e1c14"],
+      "materials": ["raw terracotta coils", "slip-white seams", "damp course in progress"],
+      "viewport": "A vertical tower of courses labelled jobs, costing, plant, variations, certificates, capture; Book a yard visit is the course being laid.",
+      "case": "Fuses poorly: earth coils speak to civil dirt, not sparkies or fleet, and slow construction does not name the offer.",
+      "kept": "Visible courses and seams: you can see how a custom system was made.",
+      "risk": "Looks like a ceramics studio, not a South West yard.",
+      "hero": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-coiled-earth-tower-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-coiled-earth-tower.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What SimPRO, Tradify, and AroFlo already look like, executed at full craft.",
+    "palette": ["#0b1220", "#f8fafc", "#2563eb", "#16a34a"],
+    "materials": ["product UI screenshot", "clean grid", "stock yard photography"],
+    "viewport": "A dark SaaS hero, a job-app screenshot, three feature columns, and Book a yard visit in the header.",
+    "risk": "Indistinguishable from the competition by design.",
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}

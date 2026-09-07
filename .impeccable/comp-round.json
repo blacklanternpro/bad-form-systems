@@ -1,0 +1,41 @@
+{
+  "title": "Choose the homepage composition",
+  "question": "NCR Job Card is the world. Which layout should we build? What should carry forward, what feels false? Approve one, or steer a combine/revise.",
+  "options": [
+    {
+      "id": "comp-a",
+      "label": "Copy and hand",
+      "thesis": "The locked decision comp: service named on the left, phone-in-hand proof on the right.",
+      "palette": ["#f3e6c4", "#e8b4b8", "#2a2420", "#2242c8"],
+      "materials": ["NCR carbon", "phone in hand", "simple capture screen"],
+      "viewport": "Split hero. Headline and Book a yard visit on the card. Work-worn hand and field screen take the right half.",
+      "risk": "The card chrome can still compete with the phone if we keep every ply and stamp at full shout.",
+      "comp": ".impeccable/mocks/ncr-home-a.webp"
+    },
+    {
+      "id": "comp-b",
+      "label": "Phone leads",
+      "thesis": "The capture screen is the homepage. The card shrinks to a header and an issue line.",
+      "palette": ["#f3e6c4", "#e8b4b8", "#2a2420", "#2242c8"],
+      "materials": ["NCR carbon", "phone in hand", "simple capture screen"],
+      "viewport": "Thin job-card header, huge phone in a work-worn hand, Book a yard visit as the footer issue line.",
+      "risk": "Reads as a device ad if the headline gets too small to name the service.",
+      "comp": ".impeccable/mocks/ncr-home-b.webp"
+    },
+    {
+      "id": "comp-c",
+      "label": "Card plus plies",
+      "thesis": "The hero stays a job card, then three carbon copies prove the rest of the page lives in the same world.",
+      "palette": ["#f3e6c4", "#e8b4b8", "#2a2420", "#2242c8"],
+      "materials": ["NCR carbon", "stacked plies", "phone in hand"],
+      "viewport": "Upper hero with copy and a smaller phone; lower first-viewport band of three offset plies: ledger stays, works in the ute, we come to the yard.",
+      "risk": "More of the page is visible, but the extra plies can bring the clutter back.",
+      "comp": ".impeccable/mocks/ncr-home-c.webp"
+    }
+  ],
+  "buildPath": {
+    "value": "comp",
+    "toggle": false
+  },
+  "steer": true
+}

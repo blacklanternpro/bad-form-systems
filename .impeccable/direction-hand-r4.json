@@ -1,0 +1,65 @@
+{
+  "title": "Choose the visual world",
+  "question": "Pinned: the first viewport has to show the product. The world is chrome; a clean phone-in-hand or office screenshot carries jobs, capture, and Xero-stays. Headline names the service. Too much decoration that does not connect is out. Same interesting worlds, translated.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Engineering Title Block",
+      "kicker": "THE ROLL",
+      "lineage": "AS and ISO drawing sheets, revision clouds, issue stamps",
+      "thesis": "A working drawing as chrome around a real office jobs screen and a small field phone; the sheet names the operations set, the screenshot proves it.",
+      "palette": ["#cfd4d9", "#14161a", "#2242c8", "#f3d31a"],
+      "materials": ["mylar film", "plotter ink", "office UI screenshot", "phone in hand"],
+      "viewport": "Quiet drawing-sheet chrome and a cobalt title block with Book a yard visit. Dominant: a clean desktop jobs/costing screenshot. A small phone in a work-worn hand shows docket photo capture. Headline: We build the job system the ute will actually use.",
+      "risk": "If the screenshot looks like SimPRO, it collapses into the category standard; if the drawing gets busy again, the product disappears.",
+      "raised": [
+        {
+          "from": "user-steer",
+          "raise": "The product shot is the subject. The drawing is the frame. One headline names the service."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/r4-title-block.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "NCR Job Card",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "triplicate docket books and numbered job cards",
+      "thesis": "The card is the page; a clean phone in a work-worn hand is the proof: photograph the docket, land it on the job, draft Xero.",
+      "palette": ["#f3e6c4", "#e8b4b8", "#2a2420", "#5a3d78"],
+      "materials": ["NCR carbon", "phone in hand", "simple capture screen"],
+      "viewport": "A quieter job-card layout: headline We build the job system the ute will actually use; the large region is a dusty hand holding a phone showing job + docket photo + Draft to Xero; Book a yard visit on the issue line.",
+      "risk": "The hand/phone can turn into a stock ad; keep the screen simple and custom, not an App Store product.",
+      "comp": ".impeccable/mocks/decision/r4-ncr.webp"
+    },
+    {
+      "id": "whiteboard",
+      "label": "Yard Office Whiteboard",
+      "lineage": "morning dispatch boards in South West yards",
+      "thesis": "The board is atmosphere; a tablet on the rail shows the live job list the office actually runs.",
+      "palette": ["#eef0f2", "#1c1c1c", "#2242c8", "#f3d31a"],
+      "materials": ["enamel board", "tablet screenshot", "one magnet CTA"],
+      "viewport": "Sparse whiteboard chrome, one headline, a clean tablet or laptop on the tray showing jobs/plant/costing. Book a yard visit is the magnet. No crowded marker columns competing with the UI.",
+      "risk": "A tablet on a whiteboard can still look like a SaaS ad if the UI is generic.",
+      "comp": ".impeccable/mocks/decision/r4-whiteboard.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "Sit next to SimPRO, Tradify, and AroFlo: the product screenshot leads, the world does not.",
+    "palette": ["#0b1220", "#f8fafc", "#2563eb", "#16a34a"],
+    "materials": ["product UI screenshot", "clean grid"],
+    "viewport": "A dark SaaS hero, a job-app screenshot, three feature columns, and Book a yard visit in the header.",
+    "risk": "Indistinguishable from those three by design.",
+    "comp": ".impeccable/mocks/decision/r3-canon.webp"
+  },
+  "steer": true
+}

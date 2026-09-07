@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 42 340 176" role="img" aria-label="BAD FORM®">
+  <!-- BAD FORM® — Plate D1 "Flagship Block" v2 · oval-to-edge + full-belly wordmark per authentic ref.
+       Fit measured in Chrome: text width = 88% of oval width. -->
+  <rect x="40" y="70" width="320" height="140" fill="#2242c8"/>
+  <ellipse cx="200" cy="140" rx="147" ry="64" fill="#ffdf1b"/>
+  <text x="200" y="156.5" text-anchor="middle" font-family="'Arial Black',Arial,sans-serif" font-weight="900" font-size="46" letter-spacing="-3" fill="#2242c8">BAD FORM<tspan font-size="17" dy="-21">®</tspan></text>
+  <text x="356" y="62" text-anchor="end" font-family="Arial,sans-serif" font-size="11" fill="#f2efe8">®</text>
+</svg>
