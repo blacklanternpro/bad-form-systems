@@ -24,7 +24,7 @@ export function SiteHeader() {
   const menuLinks = [...headerNavLinks, ...extraNavLinks];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-brand-ink/35 bg-brand-black">
+    <header className="sticky top-0 z-40 border-b border-brand-ink/35 bg-brand-header">
       <div className="grid grid-cols-[auto_1fr_auto] items-stretch">
         <SiteMark />
 
@@ -45,7 +45,7 @@ export function SiteHeader() {
           </span>
           <button
             type="button"
-            className="border border-brand-ink bg-brand-black p-2 text-brand-ink lg:hidden"
+            className="border border-brand-ink bg-brand-header p-2 text-brand-ink lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((value) => !value)}
@@ -57,7 +57,7 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="space-y-1 border-t border-brand-ink/15 bg-brand-black px-4 pt-2 pb-4 lg:hidden">
+        <div id="mobile-nav" className="space-y-1 border-t border-brand-ink/15 bg-brand-header px-4 pt-2 pb-4 lg:hidden">
           {menuLinks.map((link) => (
             <Link
               key={link.href}

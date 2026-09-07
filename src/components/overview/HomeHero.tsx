@@ -3,9 +3,9 @@ import { overview } from "@/content/overview";
 
 export function HomeHero() {
   return (
-    <section className="overflow-x-clip bg-brand-black">
-      <div className="mx-auto grid min-h-[calc(100dvh-5.25rem)] max-w-[90rem] items-center gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-6 lg:px-10 lg:py-2 xl:px-14">
-        <div className="max-w-xl lg:py-10">
+    <section className="relative overflow-hidden bg-brand-black">
+      <div className="grid min-h-[calc(100dvh-5.25rem)] lg:grid-cols-[minmax(18rem,40rem)_minmax(0,1fr)]">
+        <div className="relative z-10 px-5 py-10 sm:px-8 lg:px-10 lg:py-12 xl:pl-14">
           <h1 className="type-hero mb-7 max-w-[13ch] text-[clamp(2.4rem,5.4vw+0.6rem,5.75rem)] text-brand-ink">
             {overview.headline}
           </h1>
@@ -19,17 +19,23 @@ export function HomeHero() {
           </Link>
         </div>
 
-        <figure className="relative mx-auto w-full max-w-md lg:mx-0 lg:h-[min(46rem,88dvh)] lg:max-w-none">
+        <figure className="relative min-h-[22rem] sm:min-h-[28rem] lg:min-h-0">
           <img
-            src="/images/field-hand-blended.webp"
+            src="/images/field-hand-bleed.webp"
             alt="Work-worn hand holding a phone open on a theoretical field IMS with jobs, docket photo, hours, pre-start, variations, and certificates."
-            width={1024}
-            height={1536}
-            className="h-auto w-full bg-transparent object-contain object-center lg:absolute lg:-top-6 lg:-right-8 lg:h-[108%] lg:w-[108%] lg:max-w-none lg:object-contain lg:object-right-bottom"
+            width={1536}
+            height={1024}
+            className="h-full w-full object-cover object-right"
           />
-          <figcaption className="type-docket mt-3 text-xs text-brand-steel lg:sr-only">
-            {overview.fieldApp.demoNote}
-          </figcaption>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-brand-black to-transparent sm:w-14 lg:w-20"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-brand-black to-transparent sm:h-14 lg:h-16"
+          />
+          <figcaption className="sr-only">{overview.fieldApp.demoNote}</figcaption>
         </figure>
       </div>
     </section>
