@@ -3,11 +3,12 @@ import { overview } from "@/content/overview";
 
 interface InfoBandProps {
   children: ReactNode;
+  flushTop?: boolean;
 }
 
-export function InfoBand({ children }: InfoBandProps) {
+export function InfoBand({ children, flushTop = false }: InfoBandProps) {
   return (
-    <section className="bg-brand-black py-8 md:py-12">
+    <section className={flushTop ? "bg-brand-black pt-2 pb-8 md:pb-12" : "bg-brand-black py-8 md:py-12"}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>
     </section>
   );

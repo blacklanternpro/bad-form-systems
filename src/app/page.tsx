@@ -7,11 +7,11 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <InfoBand>
+      <InfoBand flushTop>
         <InfoPoints />
       </InfoBand>
       <SubHero />
-      <InfoBand>
+      <InfoBand flushTop>
         <PrincipleGrid />
         <LandscapeMatrix />
       </InfoBand>
