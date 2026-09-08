@@ -1,11 +1,17 @@
+export type OverviewFact = {
+  title: string;
+  body: string;
+  audience?: string;
+};
+
 export const overview = {
   metaTitle: "BAD FORM Systems | Operations systems for South West WA",
   metaDescription:
     "We digitise the scattered yard workflow — Excel, paper, checklists, forms, and apps that do not talk — and sit beside Xero or MYOB. South West WA.",
-  headline: "Workflow solutions built for your business.",
+  headline: "Keep the ledger. Build the job system.",
   body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk — then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
   walkLine:
-    "We distill broken workflows into a smooth, integrated system with a custom IMS and field app",
+    "Custom IMS and ute capture beside Xero or MYOB. Evaluation is a yard visit in the South West.",
   heroImage: {
     src: "/images/hero-cab.webp",
     width: 1536,
@@ -14,6 +20,7 @@ export const overview = {
   },
   subhero: {
     title: "From the ute to the office.",
+    punchline: "The ledger stays.",
     demoNote: "Theoretical office IMS. Demo layout — not a live customer system.",
     image: {
       src: "/images/office-ims.webp",
@@ -21,20 +28,6 @@ export const overview = {
       height: 1024,
       alt: "Site-office laptop open on a theoretical BAD FORM Systems jobs dashboard, with hi-vis and dockets in a South West yard office.",
     },
-    blocks: [
-      {
-        title: "The work that gets lost",
-        body: "Spreadsheets, pads, forms, and logins that do not talk. Hours, dockets, and extras sit in the glovebox until someone types them up.",
-      },
-      {
-        title: "Pilot, or the whole job",
-        body: "Start with a receipt-parser. Or go all the way to jobs, costing, plant, variations, certificates, and the ute.",
-      },
-      {
-        title: "The ledger stays",
-        body: "Xero or MYOB remain the books. We sit beside them. Your bookkeeper does not have to move.",
-      },
-    ],
   },
   primaryCta: { href: "/contact", label: "Book a site visit" },
   secondaryCta: { href: "/coexistence", label: "How we sit beside Xero" },
@@ -52,11 +45,20 @@ export const overview = {
       { label: "Certificates", hint: "Compliance from the job, not the office" },
     ],
   },
-  principles: [
+  visitFacts: [
     {
       title: "The ledger stays",
-      body: "We do not replace Xero or MYOB. Your bookkeeper, BAS, and payroll keep their tool. What we remove is the retyping of dockets, receipts, hours, and checklists into it.",
-      audience: "For the owner and the bookkeeper",
+      body: "Xero or MYOB remain the books. We sit beside them. Your bookkeeper does not have to move.",
+    },
+    {
+      title: "We come to the yard",
+      body: "This is not a Zoom demo from another city. We are based in the South West. Evaluation is a walkthrough of dispatch, dockets, and how invoices actually leave the office.",
+    },
+  ] satisfies OverviewFact[],
+  offerFacts: [
+    {
+      title: "The work that gets lost",
+      body: "Spreadsheets, pads, forms, and logins that do not talk. Hours, dockets, and extras sit in the glovebox until someone types them up.",
     },
     {
       title: "It has to work in the ute",
@@ -64,11 +66,10 @@ export const overview = {
       audience: "For the crew",
     },
     {
-      title: "We come to the yard",
-      body: "This is not a Zoom demo from another city. We are based in the South West. Evaluation is a walkthrough of dispatch, dockets, and how invoices actually leave the office.",
-      audience: "For the person who can book a visit",
+      title: "Pilot, or the whole job",
+      body: "Start with a receipt-parser. Or go all the way to jobs, costing, plant, variations, certificates, and the ute.",
     },
-  ],
+  ] satisfies OverviewFact[],
   landscape: {
     title: "Where the work actually lives",
     body: "Most South West yards already have a ledger they trust. The gap is everything scattered before a line hits Xero or MYOB: Excel, paper, checklists, forms, and apps that do not talk.",

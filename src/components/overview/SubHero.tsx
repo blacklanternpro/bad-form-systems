@@ -3,7 +3,6 @@ import { overview } from "@/content/overview";
 
 export function SubHero() {
   const { subhero } = overview;
-  const ledger = subhero.blocks[subhero.blocks.length - 1];
 
   return (
     <section aria-labelledby="subhero-heading">
@@ -27,11 +26,9 @@ export function SubHero() {
             >
               {subhero.title}
             </h2>
-            {ledger ? (
-              <p className="type-docket max-w-[34ch] border-t border-brand-ply pt-3 text-base text-brand-ink">
-                {ledger.title}.
-              </p>
-            ) : null}
+            <p className="type-docket max-w-[34ch] border-t border-brand-ply pt-3 text-base text-brand-ink">
+              {subhero.punchline}
+            </p>
           </SeamType>
         </div>
       </figure>

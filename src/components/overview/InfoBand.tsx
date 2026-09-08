@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { OverviewFact } from "@/content/overview";
 import { overview } from "@/content/overview";
 
 interface InfoBandProps {
@@ -14,21 +15,40 @@ export function InfoBand({ children, flushTop = false }: InfoBandProps) {
   );
 }
 
-export function InfoPoints() {
-  const points = overview.subhero.blocks.slice(0, 2);
+interface FactListProps {
+  facts: readonly OverviewFact[];
+  columns?: 2 | 3;
+}
+
+export function FactList({ facts, columns = 2 }: FactListProps) {
+  const gridClass =
+    columns === 3
+      ? "grid gap-6 border-y border-brand-ply py-8 md:grid-cols-3 md:gap-10"
+      : "grid gap-6 md:grid-cols-2 md:gap-12";
 
   return (
-    <ul className="grid gap-6 md:grid-cols-2 md:gap-12">
-      {points.map((point) => (
-        <li key={point.title}>
-          <h2 className="type-hero mb-3 text-[1.25rem] text-brand-ink md:text-[1.4rem]">
-            {point.title}
-          </h2>
+    <ul className={gridClass}>
+      {facts.map((fact) => (
+        <li key={fact.title}>
+          {fact.audience ? (
+            <p className="type-docket mb-2 text-xs tracking-[0.08em] text-brand-steel uppercase">
+              {fact.audience}
+            </p>
+          ) : null}
+          <h2 className="type-hero mb-3 text-[1.25rem] text-brand-ink md:text-[1.4rem]">{fact.title}</h2>
           <p className="type-docket max-w-[36ch] border-t border-brand-ply pt-3 text-[0.95rem] leading-relaxed text-brand-ink">
-            {point.body}
+            {fact.body}
           </p>
         </li>
       ))}
     </ul>
   );
+}
+
+export function VisitFacts() {
+  return <FactList facts={overview.visitFacts} columns={2} />;
+}
+
+export function OfferFacts() {
+  return <FactList facts={overview.offerFacts} columns={3} />;
 }

@@ -39,10 +39,13 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="ml-auto flex shrink-0 items-center gap-3 pr-4 sm:pr-6">
-          <span className="hidden font-[family-name:var(--font-docket)] text-sm tracking-wide text-brand-ink lg:inline">
+        <div className="ml-auto flex shrink-0 items-center gap-3 pr-4 sm:pr-6 lg:gap-4">
+          <span className="hidden font-[family-name:var(--font-docket)] text-sm tracking-wide text-brand-ink xl:inline">
             JOB NO. {overview.fieldApp.jobNo}
           </span>
+          <Link href={primaryCta.href} className="btn-text hidden min-h-11 lg:inline-flex">
+            {primaryCta.label}
+          </Link>
           <button
             type="button"
             className="inline-flex min-h-11 min-w-11 items-center justify-center border border-brand-ink bg-brand-header p-2 text-brand-ink lg:hidden"

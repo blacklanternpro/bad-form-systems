@@ -2,26 +2,6 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/ssr";
 import { overview } from "@/content/overview";
 
-export function PrincipleGrid() {
-  return (
-    <ul className="grid gap-6 border-y border-brand-ply py-8 md:grid-cols-3 md:gap-10">
-      {overview.principles.map((principle) => (
-        <li key={principle.title}>
-          <p className="type-docket mb-2 text-xs tracking-[0.08em] text-brand-steel uppercase">
-            {principle.audience}
-          </p>
-          <h2 className="type-hero mb-3 text-[1.25rem] text-brand-ink md:text-[1.4rem]">
-            {principle.title}
-          </h2>
-          <p className="type-docket max-w-[36ch] border-t border-brand-ply pt-3 text-[0.95rem] leading-relaxed text-brand-ink">
-            {principle.body}
-          </p>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export function LandscapeMatrix() {
   const { landscape } = overview;
   return (
@@ -76,6 +56,16 @@ export function LandscapeMatrix() {
           <ArrowRight size={16} weight="bold" />
         </Link>
       </div>
+    </div>
+  );
+}
+
+export function VisitClose() {
+  return (
+    <div className="mt-10 border-t border-brand-ply pt-8">
+      <Link href={overview.primaryCta.href} className="btn-primary min-h-11">
+        {overview.primaryCta.label}
+      </Link>
     </div>
   );
 }
