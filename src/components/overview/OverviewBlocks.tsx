@@ -4,13 +4,13 @@ import { overview } from "@/content/overview";
 
 export function PrincipleGrid() {
   return (
-    <ul className="grid gap-8 border-y border-brand-ply py-8 md:grid-cols-3 md:gap-10">
+    <ul className="grid gap-6 border-y border-brand-ply py-8 md:grid-cols-3 md:gap-10">
       {overview.principles.map((principle) => (
         <li key={principle.title}>
           <p className="type-docket mb-2 text-xs tracking-[0.08em] text-brand-steel uppercase">
             {principle.audience}
           </p>
-          <h2 className="type-hero mb-3 text-[1.15rem] text-brand-ink md:text-[1.35rem]">
+          <h2 className="type-hero mb-3 text-[1.25rem] text-brand-ink md:text-[1.4rem]">
             {principle.title}
           </h2>
           <p className="type-docket max-w-[36ch] text-[0.95rem] leading-relaxed text-brand-ink">
@@ -27,7 +27,7 @@ export function LandscapeMatrix() {
   return (
     <div className="mt-10 border-t border-brand-border pt-10">
       <div className="mb-6 max-w-3xl">
-        <h2 className="type-hero mb-3 text-[1.15rem] text-brand-ink md:text-[1.35rem]">{landscape.title}</h2>
+        <h2 className="type-hero mb-3 text-[1.25rem] text-brand-ink md:text-[1.4rem]">{landscape.title}</h2>
         <p className="type-docket max-w-[58ch] text-[0.95rem] text-brand-ink">{landscape.body}</p>
       </div>
 
@@ -55,9 +55,9 @@ export function LandscapeMatrix() {
         </table>
       </div>
 
-      <div className="space-y-8 lg:hidden">
+      <div className="space-y-6 lg:hidden">
         {landscape.rows.map((row) => (
-          <div key={row.layer} className="border-t border-brand-border pt-5">
+          <div key={row.layer} className="border-t border-brand-border pt-4">
             <h3 className="type-title text-lg text-brand-ink">{row.layer}</h3>
             <p className="mt-1 text-sm text-brand-cobalt">{row.tools}</p>
             <p className="mt-3 text-brand-steel">{row.mobileSummary}</p>

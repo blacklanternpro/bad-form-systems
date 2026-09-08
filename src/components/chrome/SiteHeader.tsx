@@ -45,7 +45,7 @@ export function SiteHeader() {
           </span>
           <button
             type="button"
-            className="border border-brand-ink bg-brand-header p-2 text-brand-ink lg:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center border border-brand-ink bg-brand-header p-2 text-brand-ink lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((value) => !value)}

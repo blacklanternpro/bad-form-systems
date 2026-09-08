@@ -12,7 +12,7 @@ export function SiteMark({ compact = false }: SiteMarkProps) {
         className={
           compact
             ? "flex items-baseline gap-2 bg-brand-ply px-3 py-2"
-            : "flex items-baseline gap-2 bg-brand-ply px-3 py-3 sm:gap-2.5 sm:px-5 sm:py-4 lg:gap-3 lg:px-6 lg:py-5"
+            : "flex items-baseline gap-2 bg-brand-ply px-2.5 py-2.5 sm:gap-2.5 sm:px-5 sm:py-4 lg:gap-3 lg:px-6 lg:py-5"
         }
       >
         <span className="font-[family-name:var(--font-display)] text-[1.375rem] font-extrabold tracking-tight sm:text-2xl lg:text-[2rem]">
