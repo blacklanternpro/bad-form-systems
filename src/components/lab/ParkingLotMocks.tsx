@@ -11,7 +11,6 @@ interface MockHeroProps {
 
 export function MockHero({ label, imageSrc, imageAlt, objectPosition, tone }: MockHeroProps) {
   const stamp = tone === "dust" ? "text-brand-ink mix-blend-multiply" : "text-brand-black";
-  const walkRule = tone === "dust" ? "border-brand-ply" : "border-brand-ply";
   const cta =
     tone === "dust"
       ? "btn-text mix-blend-multiply"
@@ -37,7 +36,7 @@ export function MockHero({ label, imageSrc, imageAlt, objectPosition, tone }: Mo
         </h1>
         <p className={`type-docket mb-8 max-w-[36ch] text-[0.92rem] ${stamp}`}>{overview.body}</p>
         <p
-          className={`type-docket mb-10 max-w-[36ch] border-y py-3 ${walkRule} ${stamp}`}
+          className={`type-docket mb-10 max-w-[36ch] border-y border-brand-ply py-3 ${stamp}`}
         >
           {overview.walkLine}
         </p>
