@@ -14,12 +14,12 @@ export function HomeHero() {
         height={heroImage.height}
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
-      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] w-full max-w-[40rem] flex-col items-start justify-start px-4 py-8 sm:px-7 lg:px-10 xl:pl-14">
+      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] w-full max-w-[40rem] flex-col items-start justify-start px-4 pt-6 pb-8 sm:px-7 sm:pt-8 lg:px-10 xl:pl-14">
         <header>
-          <h1 className="type-hero type-on-still mb-5 max-w-[13ch] text-[clamp(2.75rem,7vw+1.1rem,5.4rem)]">
+          <h1 className="type-hero type-on-still mb-3 max-w-[13ch] text-[clamp(2.25rem,6.2vw+0.85rem,5.4rem)]">
             {overview.headline}
           </h1>
-          <p className="type-docket type-on-still-docket mb-7 max-w-[28ch] border-y border-brand-ply py-3 text-base">
+          <p className="type-docket type-on-still-docket mb-4 max-w-[28ch] border-y border-brand-ply py-2 text-base">
             {overview.walkLine}
           </p>
           <Link href={overview.primaryCta.href} className="btn-text btn-text-on-still">

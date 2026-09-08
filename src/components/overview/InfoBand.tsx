@@ -7,7 +7,7 @@ interface InfoBandProps {
 
 export function InfoBand({ children }: InfoBandProps) {
   return (
-    <section className="bg-brand-black py-10 md:py-14">
+    <section className="bg-brand-black py-8 md:py-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>
     </section>
   );
