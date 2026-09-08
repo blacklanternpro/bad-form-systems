@@ -7,19 +7,19 @@ export function SubHero() {
 
   return (
     <section aria-labelledby="subhero-heading">
-      <figure className="relative min-h-[50dvh] overflow-hidden bg-brand-ink lg:min-h-[calc(100dvh-16rem)]">
-        {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed still; keep the office plate unscaled by next/image */}
-        <img
-          src={subhero.image.src}
-          alt={subhero.image.alt}
-          width={subhero.image.width}
-          height={subhero.image.height}
-          className="absolute inset-0 h-full w-full object-cover object-[78%_28%] xl:object-[74%_26%]"
-        />
+      <figure className="relative min-h-[50dvh] overflow-visible bg-brand-ink lg:min-h-[calc(100dvh-5.25rem)]">
+        <div className="absolute inset-0 overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed still; keep the office plate unscaled by next/image */}
+          <img
+            src={subhero.image.src}
+            alt={subhero.image.alt}
+            width={subhero.image.width}
+            height={subhero.image.height}
+            className="h-full w-full object-cover object-[78%_22%] xl:object-[74%_20%]"
+          />
+        </div>
         <figcaption className="sr-only">{subhero.demoNote}</figcaption>
-      </figure>
-      <div className="relative bg-brand-black pb-6 pt-0 md:pb-8">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto flex min-h-[50dvh] w-full max-w-6xl flex-col justify-end px-4 pb-8 sm:px-6 lg:min-h-[calc(100dvh-5.25rem)] lg:px-8">
           <SeamType>
             <h2
               id="subhero-heading"
@@ -34,7 +34,7 @@ export function SubHero() {
             ) : null}
           </SeamType>
         </div>
-      </div>
+      </figure>
     </section>
   );
 }
