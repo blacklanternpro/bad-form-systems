@@ -13,13 +13,16 @@ export function SubHero() {
       className="relative min-h-[calc(100dvh-5.25rem)] overflow-hidden bg-brand-ink"
       aria-labelledby="subhero-heading"
     >
-      <img
-        src={subhero.image.src}
-        alt={subhero.image.alt}
-        width={subhero.image.width}
-        height={subhero.image.height}
-        className="absolute inset-0 h-full w-full origin-[62%_48%] scale-[1.32] object-cover object-[62%_48%]"
-      />
+      <figure className="absolute inset-0 overflow-hidden">
+        <img
+          src={subhero.image.src}
+          alt={subhero.image.alt}
+          width={subhero.image.width}
+          height={subhero.image.height}
+          className="h-full w-full origin-center scale-[1.22] object-cover object-[62%_48%]"
+        />
+        <figcaption className="sr-only">{subhero.demoNote}</figcaption>
+      </figure>
       <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] max-w-[42rem] flex-col justify-center px-5 py-12 sm:px-8 lg:px-10 xl:pl-14">
         <h2
           id="subhero-heading"
@@ -39,7 +42,6 @@ export function SubHero() {
             </li>
           ))}
         </ul>
-        <p className="sr-only">{subhero.demoNote}</p>
       </div>
     </section>
   );
