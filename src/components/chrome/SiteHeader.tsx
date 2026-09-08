@@ -25,7 +25,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-brand-ink/35 bg-brand-header">
-      <div className="grid grid-cols-[auto_1fr_auto] items-stretch">
+      <div className="flex w-full items-stretch lg:grid lg:grid-cols-[auto_1fr_auto]">
         <SiteMark />
 
         <nav
@@ -39,7 +39,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3 pr-4 sm:pr-6">
+        <div className="ml-auto flex shrink-0 items-center gap-3 pr-4 sm:pr-6">
           <span className="hidden font-[family-name:var(--font-docket)] text-sm tracking-wide text-brand-ink sm:inline">
             JOB NO. {overview.fieldApp.jobNo}
           </span>

@@ -7,15 +7,15 @@ interface SiteMarkProps {
 
 export function SiteMark({ compact = false }: SiteMarkProps) {
   return (
-    <Link href="/" className="flex items-stretch text-brand-ink" aria-label={siteName}>
+    <Link href="/" className="flex min-w-0 items-stretch text-brand-ink" aria-label={siteName}>
       <span
         className={
           compact
             ? "flex items-baseline gap-2 bg-brand-ply px-3 py-2"
-            : "flex items-baseline gap-2.5 bg-brand-ply px-5 py-4 sm:gap-3 sm:px-6 sm:py-5"
+            : "flex items-baseline gap-2 bg-brand-ply px-3 py-3 sm:gap-2.5 sm:px-5 sm:py-4 lg:gap-3 lg:px-6 lg:py-5"
         }
       >
-        <span className="font-[family-name:var(--font-display)] text-2xl font-extrabold tracking-tight sm:text-[1.75rem] lg:text-[2rem]">
+        <span className="font-[family-name:var(--font-display)] text-[1.375rem] font-extrabold tracking-tight sm:text-2xl lg:text-[2rem]">
           BAD FORM
         </span>
         <span

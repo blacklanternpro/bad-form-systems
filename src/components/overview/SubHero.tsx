@@ -1,19 +1,22 @@
 import { overview } from "@/content/overview";
-
-interface SubheroBlock {
-  title: string;
-  body: string;
-}
+import { OverlayPlate } from "@/components/overview/OverlayPlate";
 
 export function SubHero() {
   const { subhero } = overview;
+  const supporting = subhero.blocks.slice(0, -1);
+  const ledger = subhero.blocks[subhero.blocks.length - 1];
+
+  if (!ledger) {
+    return null;
+  }
 
   return (
     <section
-      className="relative min-h-[calc(100dvh-5.25rem)] overflow-hidden bg-brand-ink"
+      className="deck-screen relative overflow-hidden bg-brand-ink"
       aria-labelledby="subhero-heading"
     >
       <figure className="absolute inset-0 overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed still; keep the office plate unscaled by next/image */}
         <img
           src={subhero.image.src}
           alt={subhero.image.alt}
@@ -23,25 +26,35 @@ export function SubHero() {
         />
         <figcaption className="sr-only">{subhero.demoNote}</figcaption>
       </figure>
-      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] max-w-[42rem] flex-col justify-center px-5 py-12 sm:px-8 lg:px-10 xl:pl-14">
-        <h2
-          id="subhero-heading"
-          className="type-hero mb-8 max-w-[16ch] text-[clamp(1.85rem,3.8vw+0.6rem,3.4rem)] text-brand-black"
-        >
-          {subhero.title}
-        </h2>
-        <ul className="space-y-6">
-          {subhero.blocks.map((block: SubheroBlock) => (
-            <li key={block.title}>
-              <h3 className="type-docket mb-2 font-bold tracking-[0.04em] text-brand-black uppercase">
-                {block.title}
-              </h3>
-              <p className="type-docket max-w-[36ch] text-[0.98rem] leading-relaxed text-brand-black">
-                {block.body}
-              </p>
-            </li>
-          ))}
-        </ul>
+      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] max-w-[42rem] flex-col justify-end gap-3 px-4 py-8 sm:px-7 lg:justify-center lg:px-10 xl:pl-14">
+        <OverlayPlate className="deck-enter">
+          <h2
+            id="subhero-heading"
+            className="type-hero mb-6 max-w-[16ch] text-[clamp(2.15rem,5.5vw+0.9rem,3.8rem)] text-brand-ink"
+          >
+            {subhero.title}
+          </h2>
+          <ul className="space-y-5">
+            {supporting.map((block) => (
+              <li key={block.title}>
+                <h3 className="type-docket mb-1.5 font-bold tracking-[0.04em] text-brand-ink uppercase">
+                  {block.title}
+                </h3>
+                <p className="type-docket max-w-[36ch] text-base leading-relaxed text-brand-ink">
+                  {block.body}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </OverlayPlate>
+        <OverlayPlate as="article" className="overlay-plate-ledger deck-enter">
+          <h3 className="type-hero mb-3 max-w-[12ch] text-[clamp(1.85rem,4vw+0.7rem,2.75rem)] text-brand-ink">
+            {ledger.title}
+          </h3>
+          <p className="type-docket max-w-[34ch] text-base leading-relaxed text-brand-ink">
+            {ledger.body}
+          </p>
+        </OverlayPlate>
       </div>
     </section>
   );
