@@ -89,10 +89,10 @@ select {
   }
 
   .type-on-still-docket {
-    color: color-mix(in srgb, var(--color-brand-black) 72%, var(--color-brand-ink));
-    -webkit-text-stroke: 0.2px var(--color-brand-ink);
+    color: color-mix(in srgb, var(--color-brand-black) 82%, var(--color-brand-ink));
+    -webkit-text-stroke: 0.25px var(--color-brand-ink);
     paint-order: stroke fill;
-    text-shadow: 0 1px 6px rgb(28 24 20 / 0.35);
+    text-shadow: 0 1px 8px rgb(28 24 20 / 0.5);
   }
 
   .type-title {
@@ -198,7 +198,7 @@ select {
 
   .btn-text-on-still {
     min-height: 2.75rem;
-    color: var(--color-brand-black);
+    color: color-mix(in srgb, var(--color-brand-black) 82%, var(--color-brand-ink));
     border-bottom-color: var(--color-brand-ply);
     text-shadow: 0 1px 8px rgb(28 24 20 / 0.45);
   }

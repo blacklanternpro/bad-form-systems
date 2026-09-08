@@ -40,7 +40,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex shrink-0 items-center gap-3 pr-4 sm:pr-6">
-          <span className="hidden font-[family-name:var(--font-docket)] text-sm tracking-wide text-brand-ink sm:inline">
+          <span className="hidden font-[family-name:var(--font-docket)] text-sm tracking-wide text-brand-ink lg:inline">
             JOB NO. {overview.fieldApp.jobNo}
           </span>
           <button
