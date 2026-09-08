@@ -21,7 +21,7 @@ export function HomeHero() {
         <p className="sr-only">{overview.fieldApp.demoNote}</p>
         <div className="relative z-10 mx-auto flex min-h-[50dvh] w-full max-w-6xl flex-col justify-end px-4 pb-8 sm:px-6 lg:min-h-[calc(100dvh-5.25rem)] lg:px-8">
           <SeamType>
-            <header>
+            <div>
               <h1 className="type-hero mb-5 max-w-[20ch] min-w-0 text-[2.5rem] font-bold text-brand-ink xl:text-[3rem]">
                 {overview.headline}
               </h1>
@@ -37,7 +37,7 @@ export function HomeHero() {
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>
-            </header>
+            </div>
           </SeamType>
         </div>
       </div>
