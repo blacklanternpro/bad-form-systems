@@ -10,7 +10,7 @@ export function PrincipleGrid() {
           <p className="type-docket mb-2 text-xs tracking-[0.08em] text-brand-steel uppercase">
             {principle.audience}
           </p>
-          <h2 className="type-title mb-3 text-[1.35rem] text-brand-ink sm:text-[1.6rem] md:text-[1.75rem]">
+          <h2 className="type-hero mb-3 text-[1.15rem] text-brand-ink md:text-[1.35rem]">
             {principle.title}
           </h2>
           <p className="type-docket max-w-[36ch] text-[0.95rem] leading-relaxed text-brand-ink">
@@ -27,7 +27,7 @@ export function LandscapeMatrix() {
   return (
     <div className="mt-10 border-t border-brand-border pt-10">
       <div className="mb-6 max-w-3xl">
-        <h2 className="type-title mb-3 text-xl text-brand-ink sm:text-2xl">{landscape.title}</h2>
+        <h2 className="type-hero mb-3 text-[1.15rem] text-brand-ink md:text-[1.35rem]">{landscape.title}</h2>
         <p className="type-docket max-w-[58ch] text-[0.95rem] text-brand-ink">{landscape.body}</p>
       </div>
 

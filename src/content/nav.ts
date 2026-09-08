@@ -29,7 +29,7 @@ export const extraNavLinks: NavLink[] = [
 
 export const primaryCta: NavLink = {
   href: "/contact",
-  label: "Book a yard visit",
+  label: "Book a site visit",
 };
 
 export const HASH_TO_PATH: Record<string, string> = {

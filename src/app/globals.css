@@ -64,10 +64,10 @@ select {
   }
 
   .type-hero {
-    font-family: var(--font-display), var(--font-sans), sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.18;
     text-transform: uppercase;
     text-wrap: balance;
   }

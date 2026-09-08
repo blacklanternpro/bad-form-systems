@@ -2,9 +2,10 @@ export const overview = {
   metaTitle: "BAD FORM Systems | Operations systems for South West WA",
   metaDescription:
     "We digitise the scattered yard workflow — Excel, paper, checklists, forms, and apps that do not talk — and sit beside Xero or MYOB. South West WA.",
-  headline: "Excel, paper, checklists, three apps. One workflow.",
+  headline: "Workflow solutions built for your business.",
   body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk — then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
-  walkLine: "We walk the yard first.",
+  walkLine:
+    "We distill broken workflows into a smooth, integrated system with a custom IMS and field app",
   heroImage: {
     src: "/images/hero-cab.webp",
     width: 1536,
@@ -35,7 +36,7 @@ export const overview = {
       },
     ],
   },
-  primaryCta: { href: "/contact", label: "Book a yard visit" },
+  primaryCta: { href: "/contact", label: "Book a site visit" },
   secondaryCta: { href: "/coexistence", label: "How we sit beside Xero" },
   fieldApp: {
     jobNo: "10482",

@@ -20,7 +20,7 @@ export function InfoPoints() {
     <ul className="grid gap-8 md:grid-cols-2 md:gap-12">
       {points.map((point) => (
         <li key={point.title}>
-          <h2 className="type-title mb-3 text-[1.35rem] text-brand-ink sm:text-[1.6rem] md:text-[1.75rem]">
+          <h2 className="type-hero mb-3 text-[1.15rem] text-brand-ink md:text-[1.35rem]">
             {point.title}
           </h2>
           <p className="type-docket max-w-[36ch] border-t border-brand-ply pt-3 text-[0.95rem] leading-relaxed text-brand-ink">

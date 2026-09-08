@@ -11,7 +11,7 @@ export const calculatorCopy = {
   leakageLabel: "Monthly leakage, annualised",
   cashTrapLabel: "Invoice lag you entered",
   cashTrapSuffix: " days",
-  cta: { href: "/contact", label: "Book a yard visit" },
+  cta: { href: "/contact", label: "Book a site visit" },
   hoursHelp: "Office time spent retyping dockets, chasing tickets, and matching receipts.",
   leakageHelp: "Unsigned extras, materials that never hit the job, hours that get disputed.",
 };

@@ -1,8 +1,8 @@
 export const contactCopy = {
-  metaTitle: "Book a yard visit",
+  metaTitle: "Book a site visit",
   metaDescription:
     "Book a yard or workshop walkthrough in Bunbury and the South West. No slide deck.",
-  title: "Book a yard visit",
+  title: "Book a site visit",
   body: "We come to the yard, shop, or site. We look at jobs, dockets, and how invoices leave. Then we say plainly whether we can help. Picton, Davenport, Halifax, Treendale, Australind, Kemerton, Collie, and the rest of the South West.",
   aside: "Bunbury based. No lock-in to talk.",
   submit: "Send the request",
