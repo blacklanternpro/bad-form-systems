@@ -5,6 +5,36 @@ export const overview = {
   headline: "Excel, paper, checklists, three apps. One workflow.",
   body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk — then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
   walkLine: "We walk the yard first.",
+  heroImage: {
+    src: "/images/hero-cab.webp",
+    width: 1536,
+    height: 1024,
+    alt: "Overhead in a dusty ute: a work-worn hand on a phone open to a theoretical field IMS, and a paper docket on the other thigh.",
+  },
+  subhero: {
+    title: "From the ute to the office.",
+    demoNote: "Theoretical office IMS. Demo layout — not a live customer system.",
+    image: {
+      src: "/images/office-ims.webp",
+      width: 1536,
+      height: 1024,
+      alt: "Site-office laptop open on a theoretical BAD FORM Systems jobs dashboard, with hi-vis and dockets in a South West yard office.",
+    },
+    blocks: [
+      {
+        title: "The work that gets lost",
+        body: "Spreadsheets, pads, forms, and logins that do not talk. Hours, dockets, and extras sit in the glovebox until someone types them up.",
+      },
+      {
+        title: "Pilot, or the whole job",
+        body: "Start with a receipt-parser. Or go all the way to jobs, costing, plant, variations, certificates, and the ute.",
+      },
+      {
+        title: "The ledger stays",
+        body: "Xero or MYOB remain the books. We sit beside them. Your bookkeeper does not have to move.",
+      },
+    ],
+  },
   primaryCta: { href: "/contact", label: "Book a yard visit" },
   secondaryCta: { href: "/coexistence", label: "How we sit beside Xero" },
   fieldApp: {
