@@ -79,22 +79,6 @@ select {
     letter-spacing: 0.01em;
   }
 
-  .type-on-still {
-    color: var(--color-brand-black);
-    -webkit-text-stroke: 0.6px var(--color-brand-ink);
-    paint-order: stroke fill;
-    text-shadow:
-      0 1px 0 var(--color-brand-ink),
-      0 2px 14px rgb(28 24 20 / 0.55);
-  }
-
-  .type-on-still-docket {
-    color: color-mix(in srgb, var(--color-brand-black) 82%, var(--color-brand-ink));
-    -webkit-text-stroke: 0.25px var(--color-brand-ink);
-    paint-order: stroke fill;
-    text-shadow: 0 1px 8px rgb(28 24 20 / 0.5);
-  }
-
   .type-title {
     font-family: var(--font-display), var(--font-sans), sans-serif;
     font-weight: 700;
@@ -194,18 +178,6 @@ select {
   .btn-text:hover {
     border-color: var(--color-brand-cobalt);
     color: var(--color-brand-cobalt);
-  }
-
-  .btn-text-on-still {
-    min-height: 2.75rem;
-    color: color-mix(in srgb, var(--color-brand-black) 82%, var(--color-brand-ink));
-    border-bottom-color: var(--color-brand-ply);
-    text-shadow: 0 1px 8px rgb(28 24 20 / 0.45);
-  }
-
-  .btn-text-on-still:hover {
-    border-color: var(--color-brand-stamp);
-    color: var(--color-brand-stamp);
   }
 
   .field-control {
