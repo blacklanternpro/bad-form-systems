@@ -79,30 +79,20 @@ select {
     letter-spacing: 0.01em;
   }
 
-  .overlay-plate {
-    width: fit-content;
-    max-width: min(32rem, 100%);
-    border: 1px solid color-mix(in srgb, var(--color-brand-ink) 22%, transparent);
-    background: var(--color-brand-black);
-    color: var(--color-brand-ink);
-    padding: 1.05rem 1.1rem 1.2rem;
+  .type-on-still {
+    color: var(--color-brand-black);
+    -webkit-text-stroke: 0.6px var(--color-brand-ink);
+    paint-order: stroke fill;
+    text-shadow:
+      0 1px 0 var(--color-brand-ink),
+      0 2px 14px rgb(28 24 20 / 0.55);
   }
 
-  .overlay-plate-ledger {
-    max-width: min(34rem, 100%);
-    border-color: var(--color-brand-ply);
-    padding-block: 1.35rem;
-  }
-
-  .deck-screen {
-    min-height: calc(100dvh - 5.25rem);
-    scroll-snap-align: start;
-  }
-
-  .deck-enter {
-    animation: deck-enter 0.7s ease both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 42%;
+  .type-on-still-docket {
+    color: var(--color-brand-black);
+    -webkit-text-stroke: 0.35px var(--color-brand-ink);
+    paint-order: stroke fill;
+    text-shadow: 0 1px 8px rgb(28 24 20 / 0.45);
   }
 
   .type-title {
@@ -206,6 +196,17 @@ select {
     color: var(--color-brand-cobalt);
   }
 
+  .btn-text-on-still {
+    color: var(--color-brand-black);
+    border-bottom-color: var(--color-brand-ply);
+    text-shadow: 0 1px 8px rgb(28 24 20 / 0.45);
+  }
+
+  .btn-text-on-still:hover {
+    border-color: var(--color-brand-stamp);
+    color: var(--color-brand-stamp);
+  }
+
   .field-control {
     width: 100%;
     border-radius: 2px;
@@ -269,31 +270,4 @@ input[type="range"]::-moz-range-thumb {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-brand-cobalt);
-}
-
-html.home-deck {
-  scroll-padding-top: 5.25rem;
-  scroll-snap-type: y proximity;
-}
-
-@keyframes deck-enter {
-  from {
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.home-deck {
-    scroll-snap-type: none;
-  }
-
-  .deck-enter {
-    animation: none;
-  }
 }
