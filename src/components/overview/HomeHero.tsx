@@ -15,7 +15,7 @@ export function HomeHero() {
         height={heroImage.height}
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
-      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] max-w-[40rem] flex-col items-stretch justify-start px-4 py-8 sm:px-7 lg:justify-center lg:px-10 xl:pl-14">
+      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] w-full flex-col items-start justify-start px-4 py-7 sm:px-7 lg:items-end lg:px-10 xl:pr-16">
         <OverlayPlate as="header" className="deck-enter">
           <h1 className="type-hero mb-5 max-w-[13ch] text-[clamp(2.75rem,7vw+1.1rem,5.4rem)] text-brand-ink">
             {overview.headline}

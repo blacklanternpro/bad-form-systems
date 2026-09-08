@@ -26,7 +26,7 @@ export function SubHero() {
         />
         <figcaption className="sr-only">{subhero.demoNote}</figcaption>
       </figure>
-      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] max-w-[42rem] flex-col justify-end gap-3 px-4 py-8 sm:px-7 lg:justify-center lg:px-10 xl:pl-14">
+      <div className="relative z-10 flex min-h-[calc(100dvh-5.25rem)] w-full flex-col items-start justify-end gap-2.5 px-4 py-7 sm:px-7 lg:justify-center lg:px-10 xl:pl-14">
         <OverlayPlate className="deck-enter">
           <h2
             id="subhero-heading"
@@ -34,7 +34,7 @@ export function SubHero() {
           >
             {subhero.title}
           </h2>
-          <ul className="space-y-5">
+            <ul className="space-y-4">
             {supporting.map((block) => (
               <li key={block.title}>
                 <h3 className="type-docket mb-1.5 font-bold tracking-[0.04em] text-brand-ink uppercase">
