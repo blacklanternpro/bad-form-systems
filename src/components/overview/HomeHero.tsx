@@ -7,7 +7,7 @@ export function HomeHero() {
 
   return (
     <section>
-      <div className="relative min-h-[50dvh] overflow-hidden bg-brand-ink lg:min-h-[calc(100dvh-5.25rem)]">
+      <div className="relative min-h-[50dvh] overflow-hidden bg-brand-ink lg:min-h-[calc(100dvh-16rem)]">
         {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed still; avoid next/image re-encode of the cab plate */}
         <img
           src={heroImage.src}

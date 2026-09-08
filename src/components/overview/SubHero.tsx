@@ -7,7 +7,7 @@ export function SubHero() {
 
   return (
     <section aria-labelledby="subhero-heading">
-      <figure className="relative min-h-[50dvh] overflow-hidden bg-brand-ink lg:min-h-[calc(100dvh-5.25rem)]">
+      <figure className="relative min-h-[50dvh] overflow-hidden bg-brand-ink lg:min-h-[calc(100dvh-16rem)]">
         {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed still; keep the office plate unscaled by next/image */}
         <img
           src={subhero.image.src}
