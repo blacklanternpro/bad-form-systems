@@ -96,25 +96,25 @@ export function ImsCompare() {
       src: imsCopy.stills.cabDay,
       label: "Cab · daylight keeper",
       objectPositionClass: imsCopy.stills.cabObjectPositionClass,
-      alt: "Keeper cab photograph with the real HTML field IMS warped into the phone glass.",
+      alt: "Daylight cab photograph with a built-out field IMS on the phone.",
     },
     {
       src: imsCopy.stills.cabDusk,
       label: "Cab · dusk keeper",
       objectPositionClass: imsCopy.stills.cabObjectPositionClass,
-      alt: "Keeper cab photograph with the real dusk HTML field IMS warped into the phone glass.",
+      alt: "Dusk cab photograph with a built-out field IMS on the phone.",
     },
     {
       src: imsCopy.stills.officeDay,
       label: "Office · daylight keeper",
       objectPositionClass: imsCopy.stills.officeObjectPositionClass,
-      alt: "Keeper office photograph with the real HTML desk IMS warped into the laptop glass.",
+      alt: "Daylight office photograph with a built-out jobs IMS on the laptop.",
     },
     {
       src: imsCopy.stills.officeDusk,
       label: "Office · dusk keeper",
       objectPositionClass: imsCopy.stills.officeObjectPositionClass,
-      alt: "Keeper office photograph with the real dusk HTML desk IMS warped into the laptop glass.",
+      alt: "Dusk office photograph with a built-out jobs IMS on the laptop.",
     },
   ];
 
@@ -149,9 +149,9 @@ export function ImsCompare() {
       <section>
         <h2 className="type-title mb-3 text-2xl">Keeper stills</h2>
         <p className="type-body mb-8 text-brand-steel">
-          Keeper photographs, real HTML IMS in the glass, cropped for the homepage still frame.
-          Live homepage files stay on rollback until a pair is chosen. Default look after review:
-          dusk in the cab, daylight in the office.
+          Native cab and office photographs with a built-out IMS in the glass, cropped for the
+          homepage still frame. Live homepage files stay on rollback until a pair is chosen.
+          Default look after review: dusk in the cab, daylight in the office.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           {stills.map((still) => (

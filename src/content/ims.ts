@@ -11,11 +11,14 @@ export type ImsJobRow = {
 export const imsCopy = {
   labTitle: "IMS screens",
   labBody:
-    "Lab only. Theoretical field and office chrome, plus keeper photographs with the real HTML IMS in the glass. Same job system, two paints. Not a shipped product.",
+    "Lab only. Theoretical field and office chrome. Same job system, two paints. Not a shipped product.",
   jobTitle: "Kemerton pad",
   demo: "DEMO",
   demoNote: "Theoretical IMS. Demo layout, not a live customer job.",
+  openJob: "Open job",
   productName: "BAD FORM Systems",
+  brandMark: "BAD FORM",
+  brandArm: "Systems",
   tiles: [
     { label: "Hours", value: "7.0" },
     { label: "Plant", value: "EX20" },
@@ -42,6 +45,20 @@ export const imsCopy = {
     { id: "jobs", label: "Jobs" },
     { id: "variations", label: "Variations" },
     { id: "certificates", label: "Certificates" },
+  ],
+  tabs: [
+    { id: "jobs", label: "Jobs" },
+    { id: "capture", label: "Capture" },
+    { id: "hours", label: "Hours" },
+  ],
+  selectedTab: "jobs",
+  filters: ["All", "live demo", "draft", "pre-start"] as const,
+  selectedFilter: "All",
+  activityHeading: "On this job",
+  activity: [
+    { label: "Docket", value: "captured" },
+    { label: "Hours", value: "7.0 logged" },
+    { label: "Pre-start", value: "Plant EX20" },
   ],
   nav: [
     { id: "jobs", label: "Jobs" },

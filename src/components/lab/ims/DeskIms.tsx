@@ -33,7 +33,10 @@ export function DeskIms({ paint }: DeskImsProps) {
       aria-label={imsCopy.demoNote}
     >
       <header className="ims-desk-top">
-        <p className="ims-desk-brand">{imsCopy.productName}</p>
+        <p className="ims-desk-brand">
+          <span className="ims-desk-brand-mark">{imsCopy.brandMark}</span>
+          <span className="ims-desk-brand-arm">{imsCopy.brandArm}</span>
+        </p>
         <p className="ims-desk-job">{imsCopy.jobTitle}</p>
         <span className="ims-demo">{imsCopy.demo}</span>
       </header>
@@ -56,7 +59,21 @@ export function DeskIms({ paint }: DeskImsProps) {
       </nav>
 
       <div className="ims-desk-main">
-        <h1 className="ims-desk-heading">{imsCopy.jobsHeading}</h1>
+        <div className="ims-desk-heading-row">
+          <h1 className="ims-desk-heading">{imsCopy.jobsHeading}</h1>
+          <div className="ims-filters" aria-label="Job status">
+            {imsCopy.filters.map((filter) => (
+              <span
+                key={filter}
+                className={
+                  filter === imsCopy.selectedFilter ? "ims-filter ims-filter-active" : "ims-filter"
+                }
+              >
+                {filter}
+              </span>
+            ))}
+          </div>
+        </div>
         <table className="ims-table">
           <thead>
             <tr>
@@ -91,6 +108,13 @@ export function DeskIms({ paint }: DeskImsProps) {
           <p key={stat.label} className="ims-books-stat">
             <span>{stat.label}</span>
             <span>{stat.value}</span>
+          </p>
+        ))}
+        <p className="ims-activity-heading">{imsCopy.activityHeading}</p>
+        {imsCopy.activity.map((item) => (
+          <p key={item.label} className="ims-activity-row">
+            <span>{item.label}</span>
+            <span>{item.value}</span>
           </p>
         ))}
         <p className="ims-books-foot">{imsCopy.books.foot}</p>
