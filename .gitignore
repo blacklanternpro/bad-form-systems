@@ -44,6 +44,7 @@ next-env.d.ts
 # design-session dumps
 .impeccable/
 .agents/
+.superdesign/tmp/
 
 # local lookalikes
 public/hero-preview.html
