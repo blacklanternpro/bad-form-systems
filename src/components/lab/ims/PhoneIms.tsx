@@ -71,7 +71,7 @@ export function PhoneIms({ paint }: PhoneImsProps) {
         <div className="ims-list">
           {list.map((item, index) => {
             const Icon = listIcons[item.id as keyof typeof listIcons];
-            const hint = "hint" in item ? item.hint : undefined;
+            const hint = "hint" in item && typeof item.hint === "string" ? item.hint : undefined;
             return (
               <div
                 key={item.id}
