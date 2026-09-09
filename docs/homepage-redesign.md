@@ -139,7 +139,7 @@ Same label as the header and paper open. That is one conversion, not a second in
 - Paper sections sit on `--color-brand-black` (`#efe6c8`).
 - Stills are full-bleed photographs on `--color-brand-ink`. No cream plate, no burst, no type in the figure.
 - First viewport is paper, not the cab still. The cab still is the next section so the service is still proven with a readable field phone.
-- Paper open: left-aligned, top padding at or under `pt-24` desktop, `min-h-[calc(100dvh-5.25rem)]` so the stamp is in the first viewport. Headline uses existing `.type-hero`. Walk uses `.type-docket`, max-width about `36ch`.
+- Paper open: left-aligned, top padding at or under `pt-24` desktop. Do not force a full-viewport min-height; the cab still should follow the CTAs without a dead cream band. Headline, walk, and stamp stay in the first viewport. Headline uses existing `.type-hero`. Walk uses `.type-docket`, max-width about `36ch`.
 - Two truths: CSS Grid `1fr` on small screens, `2fr 1fr` from `md`. Lead is the large statement. Support is a docket note. One hairline for the group, not a card box around each fact.
 - How we work: stacked ordered list, full width, sparse divider between items (bottom border between items only, not border-t plus border-b). Not `md:grid-cols-3`.
 - Close: stacked headline then stamp. Not a split-header.
@@ -193,7 +193,7 @@ One banner landmark: do not nest `<header>` inside the homepage. Paper open is a
 
 ## Done when
 
-- First viewport is cream paper with headline, walk, stamp, and Xero link. Stamp visible without scroll at 1440 and 390.
+- First viewport is cream paper with headline, walk, stamp, and Xero link. Stamp visible without scroll at 1440 and 390. Cab still may peek under the paper block; type does not sit on the still.
 - No type, burst, or plate on either still. Phone and laptop IMS remain readable.
 - No 2-col/3-col docket dump. No landscape table on `/`.
 - CTAs hit `/contact` and `/coexistence`. Nav labels unchanged.

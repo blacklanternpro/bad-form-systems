@@ -4,7 +4,7 @@ import { overview } from "@/content/overview";
 export function PaperOpen() {
   return (
     <section className="bg-brand-black">
-      <div className="mx-auto flex min-h-[calc(100dvh-5.25rem)] w-full max-w-6xl flex-col justify-start px-4 pt-10 pb-12 sm:px-6 lg:px-8 lg:pt-16 lg:pb-16">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-10 pb-12 sm:px-6 lg:px-8 lg:pt-16 lg:pb-16">
         <h1 className="type-hero mb-5 max-w-[20ch] text-[2.5rem] font-bold text-brand-ink xl:text-[3rem]">
           {overview.headline}
         </h1>
