@@ -26,7 +26,7 @@ export const overview = {
     height: 1024,
     alt: "Overhead in a dusty ute: a work-worn hand on a phone open to a theoretical field IMS, and a paper docket on the other thigh.",
     demoNote: "Demo layout. Not a live product shot.",
-    objectPositionClass: "object-[38%_46%] xl:object-[40%_42%]",
+    objectPositionClass: "object-[38%_28%] xl:object-[40%_24%]",
   } satisfies OverviewStill,
   officeStill: {
     src: "/images/office-ims.webp",
