@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "targets": {
+    "/": {
+      "targetKind": "existing-ui",
+      "projectId": "f6286e9b-3bf1-4ae4-aa43-24336abaf765",
+      "baselineDraftId": "1204a730-1fec-4b88-9542-39b24e68bbcc",
+      "activeDraftId": "1204a730-1fec-4b88-9542-39b24e68bbcc",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "4cb3ebbd-6527-4da7-998a-9b1248e5d506",
+        "824c386c-8d7c-4a7d-b999-87fa493c978e",
+        "0f3a7cfa-6e60-474e-a630-f7df159dcfb0"
+      ],
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/init/theme.md",
+        "src/app/page.tsx",
+        "src/components/overview/HomeHero.tsx",
+        "src/components/overview/SubHero.tsx",
+        "src/components/overview/SeamType.tsx",
+        "src/components/overview/InfoBand.tsx",
+        "src/components/overview/OverviewBlocks.tsx",
+        "src/components/chrome/SiteHeader.tsx",
+        "src/components/chrome/SiteFooter.tsx",
+        "src/components/chrome/SiteMark.tsx",
+        "src/content/overview.ts",
+        "src/content/nav.ts"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "1fc9e72971e2db8eba9166dafd2d87b2d7f1653a381d78e84612a700ee3516e2",
+        ".superdesign/init/theme.md": "2cbc71ea57eba72cb07ecdfaa61093055bb7c6143bf695d8ed63ef4121d9d4b2",
+        "src/app/page.tsx": "c3e161ccb136af391843f2200ed3ce578231ee9f81bd64912f241e2dfc2a8ea3",
+        "src/components/overview/HomeHero.tsx": "8bd2e029c24587878bc8b2d38fddf75f0c44a20bb9560bed46cac2abb0b6920d",
+        "src/content/overview.ts": "36eb8621c7d94b1bc0f34dee440953c81af9d591b5cf1edce48ac4e87ca8db19"
+      },
+      "components": [
+        {
+          "name": "SiteHeader",
+          "id": "6c656615-2865-4012-b6e1-321c321a239c",
+          "sourcePath": "src/components/chrome/SiteHeader.tsx"
+        },
+        {
+          "name": "SiteFooter",
+          "id": "073cbb8f-2c6f-49be-82a3-ccb8fd4775c5",
+          "sourcePath": "src/components/chrome/SiteFooter.tsx"
+        }
+      ],
+      "drafts": {
+        "1204a730-1fec-4b88-9542-39b24e68bbcc": {
+          "title": "Current homepage",
+          "visualDirection": "baseline reproduction"
+        },
+        "713c6bd8-fb5c-4735-8692-9431548e86b6": {
+          "title": "Paper First Homepage",
+          "visualDirection": "type on cream before stills",
+          "parentDraftId": "1204a730-1fec-4b88-9542-39b24e68bbcc"
+        },
+        "2556591d-b626-4b8c-8941-9aa878fcf0c8": {
+          "title": "Split Dock Homepage",
+          "visualDirection": "still 55 percent / paper type panel 45 percent",
+          "parentDraftId": "1204a730-1fec-4b88-9542-39b24e68bbcc"
+        },
+        "ee998edc-5c3b-4bf1-87c1-c09d1662d4bd": {
+          "title": "Docket Layout",
+          "visualDirection": "job-card paperwork with inset stills",
+          "parentDraftId": "1204a730-1fec-4b88-9542-39b24e68bbcc"
+        }
+      }
+    }
+  }
+}
