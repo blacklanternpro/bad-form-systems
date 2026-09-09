@@ -11,7 +11,7 @@ export type ImsJobRow = {
 export const imsCopy = {
   labTitle: "IMS screens",
   labBody:
-    "Lab only. Theoretical field and office chrome, plus native stills reshot so the screens sit in the glass. Same job system, two paints. Not a shipped product.",
+    "Lab only. Theoretical field and office chrome, plus keeper photographs with the real HTML IMS in the glass. Same job system, two paints. Not a shipped product.",
   jobTitle: "Kemerton pad",
   demo: "DEMO",
   demoNote: "Theoretical IMS. Demo layout, not a live customer job.",

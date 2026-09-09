@@ -94,27 +94,27 @@ export function ImsCompare() {
   const stills = [
     {
       src: imsCopy.stills.cabDay,
-      label: "Cab · daylight native still",
+      label: "Cab · daylight keeper",
       objectPositionClass: imsCopy.stills.cabObjectPositionClass,
-      alt: "Native cab still with daylight IMS in the phone glass.",
+      alt: "Keeper cab photograph with the real HTML field IMS warped into the phone glass.",
     },
     {
       src: imsCopy.stills.cabDusk,
-      label: "Cab · dusk native still",
+      label: "Cab · dusk keeper",
       objectPositionClass: imsCopy.stills.cabObjectPositionClass,
-      alt: "Native cab still with dusk IMS in the phone glass.",
+      alt: "Keeper cab photograph with the real dusk HTML field IMS warped into the phone glass.",
     },
     {
       src: imsCopy.stills.officeDay,
-      label: "Office · daylight native still",
+      label: "Office · daylight keeper",
       objectPositionClass: imsCopy.stills.officeObjectPositionClass,
-      alt: "Native office still with daylight IMS in the laptop glass.",
+      alt: "Keeper office photograph with the real HTML desk IMS warped into the laptop glass.",
     },
     {
       src: imsCopy.stills.officeDusk,
-      label: "Office · dusk native still",
+      label: "Office · dusk keeper",
       objectPositionClass: imsCopy.stills.officeObjectPositionClass,
-      alt: "Native office still with dusk IMS in the laptop glass.",
+      alt: "Keeper office photograph with the real dusk HTML desk IMS warped into the laptop glass.",
     },
   ];
 
@@ -147,11 +147,11 @@ export function ImsCompare() {
       </section>
 
       <section>
-        <h2 className="type-title mb-3 text-2xl">Native stills</h2>
+        <h2 className="type-title mb-3 text-2xl">Keeper stills</h2>
         <p className="type-body mb-8 text-brand-steel">
-          Whole-frame reshoots, not a warp onto the old overlay plates. Large type in the glass,
-          cropped for the homepage still frame. Live homepage files stay on rollback until a pair is
-          chosen. Default look after review: dusk in the cab, daylight in the office.
+          Keeper photographs, real HTML IMS in the glass, cropped for the homepage still frame.
+          Live homepage files stay on rollback until a pair is chosen. Default look after review:
+          dusk in the cab, daylight in the office.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           {stills.map((still) => (
@@ -163,8 +163,7 @@ export function ImsCompare() {
       <section>
         <h2 className="type-title mb-3 text-2xl">Rollback plates</h2>
         <p className="type-body mb-8 text-brand-steel">
-          Current homepage plates, copied before the native reshoot. Homepage still points at these
-          pixels.
+          Live homepage stills still use these rollback plates. Lab keepers are a separate set.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           <CropStill
