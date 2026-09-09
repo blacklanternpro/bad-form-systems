@@ -22,11 +22,11 @@ export const overview = {
     "Keep Xero or MYOB. We build the job system the crew will use. Next step is a yard visit.",
   cabStill: {
     src: "/images/hero-cab.webp",
-    width: 1536,
-    height: 1024,
+    width: 1920,
+    height: 1080,
     alt: "Overhead in a dusty ute: a work-worn hand on a phone open to a theoretical field IMS, and a paper docket on the other thigh.",
     demoNote: "Demo layout. Not a live product shot.",
-    objectPositionClass: "object-[42%_28%] xl:object-[44%_26%]",
+    objectPositionClass: "object-[40%_52%] xl:object-center",
   } satisfies OverviewStill,
   officeStill: {
     src: "/images/office-ims.webp",
