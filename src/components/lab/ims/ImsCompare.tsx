@@ -96,13 +96,13 @@ export function ImsCompare() {
       src: imsCopy.stills.cabDay,
       label: "Cab · daylight keeper",
       objectPositionClass: imsCopy.stills.cabObjectPositionClass,
-      alt: "Daylight cab photograph with a built-out field IMS on the phone.",
+      alt: "Daylight cab photograph with a built-out field IMS on the phone and a paper docket on the thigh.",
     },
     {
       src: imsCopy.stills.cabDusk,
       label: "Cab · dusk keeper",
       objectPositionClass: imsCopy.stills.cabObjectPositionClass,
-      alt: "Dusk cab photograph with a built-out field IMS on the phone.",
+      alt: "Dusk cab photograph with a built-out field IMS on the phone and a paper docket on the thigh.",
     },
     {
       src: imsCopy.stills.officeDay,
@@ -150,7 +150,8 @@ export function ImsCompare() {
         <h2 className="type-title mb-3 text-2xl">Keeper stills</h2>
         <p className="type-body mb-8 text-brand-steel">
           Native cab and office photographs with a built-out IMS in the glass, cropped for the
-          homepage still frame. Live homepage files stay on rollback until a pair is chosen.
+          homepage still frame. Cab stills keep the paper docket on the thigh so capture still
+          reads as paper to phone. Live homepage files stay on rollback until a pair is chosen.
           Default look after review: dusk in the cab, daylight in the office.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
