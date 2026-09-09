@@ -14,7 +14,11 @@ export default function LabPage() {
     <PageFrame>
       <PageIntro compact title={labCopy.title} body={labCopy.body} />
       <p className="type-docket mb-10 text-sm text-brand-steel">
-        Parking-lot hero stills (draft, not live):{" "}
+        Theoretical IMS screens for the stills:{" "}
+        <Link href="/lab/ims" className="btn-text text-sm">
+          Phone and desk paints
+        </Link>
+        . Parking-lot hero stills (draft, not live):{" "}
         <Link href="/lab/mocks" className="btn-text text-sm">
           Yard stamp and passenger seat
         </Link>
