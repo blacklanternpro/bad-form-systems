@@ -94,27 +94,27 @@ export function ImsCompare() {
   const stills = [
     {
       src: imsCopy.stills.cabDay,
-      label: "Cab · daylight composite",
-      objectPositionClass: overview.cabStill.objectPositionClass,
-      alt: "Cab still with daylight IMS on the phone glass.",
+      label: "Cab · daylight native still",
+      objectPositionClass: imsCopy.stills.cabObjectPositionClass,
+      alt: "Native cab still with daylight IMS in the phone glass.",
     },
     {
       src: imsCopy.stills.cabDusk,
-      label: "Cab · dusk composite",
-      objectPositionClass: overview.cabStill.objectPositionClass,
-      alt: "Cab still with dusk IMS on the phone glass.",
+      label: "Cab · dusk native still",
+      objectPositionClass: imsCopy.stills.cabObjectPositionClass,
+      alt: "Native cab still with dusk IMS in the phone glass.",
     },
     {
       src: imsCopy.stills.officeDay,
-      label: "Office · daylight composite",
-      objectPositionClass: overview.officeStill.objectPositionClass,
-      alt: "Office still with daylight IMS on the laptop panel.",
+      label: "Office · daylight native still",
+      objectPositionClass: imsCopy.stills.officeObjectPositionClass,
+      alt: "Native office still with daylight IMS in the laptop glass.",
     },
     {
       src: imsCopy.stills.officeDusk,
-      label: "Office · dusk composite",
-      objectPositionClass: overview.officeStill.objectPositionClass,
-      alt: "Office still with dusk IMS on the laptop panel.",
+      label: "Office · dusk native still",
+      objectPositionClass: imsCopy.stills.officeObjectPositionClass,
+      alt: "Native office still with dusk IMS in the laptop glass.",
     },
   ];
 
@@ -147,10 +147,11 @@ export function ImsCompare() {
       </section>
 
       <section>
-        <h2 className="type-title mb-3 text-2xl">Composited stills</h2>
+        <h2 className="type-title mb-3 text-2xl">Native stills</h2>
         <p className="type-body mb-8 text-brand-steel">
-          LCD warp only, cropped the way the homepage stills crop. Live homepage files are unchanged
-          until a pair is chosen. Default look after review: dusk in the cab, daylight in the office.
+          Whole-frame reshoots, not a warp onto the old overlay plates. Large type in the glass,
+          cropped for the homepage still frame. Live homepage files stay on rollback until a pair is
+          chosen. Default look after review: dusk in the cab, daylight in the office.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           {stills.map((still) => (
@@ -162,7 +163,8 @@ export function ImsCompare() {
       <section>
         <h2 className="type-title mb-3 text-2xl">Rollback plates</h2>
         <p className="type-body mb-8 text-brand-steel">
-          Current homepage plates, copied before any warp. Homepage still points at these pixels.
+          Current homepage plates, copied before the native reshoot. Homepage still points at these
+          pixels.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           <CropStill

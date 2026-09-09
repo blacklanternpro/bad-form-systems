@@ -11,7 +11,7 @@ export type ImsJobRow = {
 export const imsCopy = {
   labTitle: "IMS screens",
   labBody:
-    "Lab only. Theoretical field and office chrome for the cab and desk stills. Same job system, two paints. Not a shipped product.",
+    "Lab only. Theoretical field and office chrome, plus native stills reshot so the screens sit in the glass. Same job system, two paints. Not a shipped product.",
   jobTitle: "Kemerton pad",
   demo: "DEMO",
   demoNote: "Theoretical IMS. Demo layout, not a live customer job.",
@@ -106,6 +106,8 @@ export const imsCopy = {
     officeDusk: "/images/office-ims-dusk.webp",
     cabRollback: "/images/hero-cab-rollback.webp",
     officeRollback: "/images/office-ims-rollback.webp",
+    cabObjectPositionClass: "object-[48%_46%]",
+    officeObjectPositionClass: "object-[72%_32%]",
   },
 };
 
