@@ -47,6 +47,14 @@
   padding: 0 22px 18px;
 }
 
+.ims-status,
+.ims-phone-head,
+.ims-tiles,
+.ims-secondary,
+.ims-home-pill {
+  flex-shrink: 0;
+}
+
 .ims-status {
   display: flex;
   align-items: center;
@@ -427,8 +435,8 @@ html:has([data-ims-capture-page]) body {
   background: #000;
 }
 
-html:has([data-ims-capture-page]) header,
-html:has([data-ims-capture-page]) footer {
+html:has([data-ims-capture-page]) body > header,
+html:has([data-ims-capture-page]) body > footer {
   display: none !important;
 }
 
