@@ -1,75 +1,72 @@
-export type OverviewFact = {
+export type OverviewStill = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  demoNote: string;
+  objectPositionClass: string;
+};
+
+export type OverviewBeat = {
   title: string;
   body: string;
-  audience?: string;
 };
 
 export const overview = {
   metaTitle: "BAD FORM Systems | Operations systems for South West WA",
   metaDescription:
-    "We digitise the scattered yard workflow — Excel, paper, checklists, forms, and apps that do not talk — and sit beside Xero or MYOB. South West WA.",
-  headline: "Keep the ledger. Build the job system.",
-  body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk — then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
+    "Keep Xero or MYOB. Custom IMS and ute capture for South West yards. Evaluation is a site visit.",
+  headline: "The job system sits beside the books.",
+  body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk, then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
   walkLine:
-    "Custom IMS and ute capture beside Xero or MYOB. Evaluation is a yard visit in the South West.",
-  heroImage: {
+    "Keep Xero or MYOB. We build the job system the crew will use. Next step is a yard visit.",
+  cabStill: {
     src: "/images/hero-cab.webp",
     width: 1536,
     height: 1024,
     alt: "Overhead in a dusty ute: a work-worn hand on a phone open to a theoretical field IMS, and a paper docket on the other thigh.",
-  },
-  subhero: {
-    title: "From the ute to the office.",
-    punchline: "The ledger stays.",
-    demoNote: "Theoretical office IMS. Demo layout — not a live customer system.",
-    image: {
-      src: "/images/office-ims.webp",
-      width: 1536,
-      height: 1024,
-      alt: "Site-office laptop open on a theoretical BAD FORM Systems jobs dashboard, with hi-vis and dockets in a South West yard office.",
-    },
-  },
+    demoNote: "Demo layout. Not a live product shot.",
+    objectPositionClass: "object-[42%_28%] xl:object-[44%_26%]",
+  } satisfies OverviewStill,
+  officeStill: {
+    src: "/images/office-ims.webp",
+    width: 1536,
+    height: 1024,
+    alt: "Site-office laptop open on a theoretical BAD FORM Systems jobs dashboard, with hi-vis and dockets in a South West yard office.",
+    demoNote: "Theoretical office IMS. Demo layout, not a live customer system.",
+    objectPositionClass: "object-[78%_22%] xl:object-[74%_20%]",
+  } satisfies OverviewStill,
   primaryCta: { href: "/contact", label: "Book a site visit" },
   secondaryCta: { href: "/coexistence", label: "How we sit beside Xero" },
   fieldApp: {
     jobNo: "10482",
-    title: "Field",
-    caption: "Theoretical field screens. Built to match the yard, not a shelf app.",
-    demoNote: "Demo layout — not a live product shot.",
-    functions: [
-      { label: "Jobs", hint: "What's live, what it costs" },
-      { label: "Photograph docket", hint: "Pilot: capture, don't retype" },
-      { label: "Hours", hint: "Labour on the job, not a pad" },
-      { label: "Pre-start", hint: "Sign-off before the key turns" },
-      { label: "Variations", hint: "Extras before anyone leaves site" },
-      { label: "Certificates", hint: "Compliance from the job, not the office" },
-    ],
   },
-  visitFacts: [
-    {
+  truths: {
+    lead: {
       title: "The ledger stays",
-      body: "Xero or MYOB remain the books. We sit beside them. Your bookkeeper does not have to move.",
+      body: "You do not rip out accounting. Xero or MYOB remain the books. IMS is built beside them.",
     },
-    {
+    support: {
       title: "We come to the yard",
-      body: "This is not a Zoom demo from another city. We are based in the South West. Evaluation is a walkthrough of dispatch, dockets, and how invoices actually leave the office.",
+      body: "Evaluation is a walkthrough in the South West, not a demo call from another city.",
     },
-  ] satisfies OverviewFact[],
-  offerFacts: [
+  },
+  workHeading: "How we work",
+  beats: [
     {
-      title: "The work that gets lost",
-      body: "Spreadsheets, pads, forms, and logins that do not talk. Hours, dockets, and extras sit in the glovebox until someone types them up.",
-    },
-    {
-      title: "It has to work in the ute",
-      body: "If a sparky, operator, or boilermaker needs a manual, it will not get used. Capture is a photo, a short voice note, or a simple screen. The office system sits behind that.",
-      audience: "For the crew",
+      title: "Sit on the ute first",
+      body: "We sit in the office and on the ute before we write a line.",
     },
     {
-      title: "Pilot, or the whole job",
-      body: "Start with a receipt-parser. Or go all the way to jobs, costing, plant, variations, certificates, and the ute.",
+      title: "Custom IMS plus cab capture",
+      body: "Not another SaaS login. Screens this crew will actually open.",
     },
-  ] satisfies OverviewFact[],
+    {
+      title: "Built in the South West",
+      body: "Build happens here. You are not a remote ticket.",
+    },
+  ] satisfies OverviewBeat[],
+  closeLine: "If the books stay and the crew will use it, we should be on the yard.",
   landscape: {
     title: "Where the work actually lives",
     body: "Most South West yards already have a ledger they trust. The gap is everything scattered before a line hits Xero or MYOB: Excel, paper, checklists, forms, and apps that do not talk.",
