@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import "./ims.css";
+import "@/styles/ims.css";
 
 export const metadata: Metadata = {
   title: "IMS lab",

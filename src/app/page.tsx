@@ -1,28 +1,22 @@
-import { HowWeWork } from "@/components/overview/HowWeWork";
-import { PaperOpen } from "@/components/overview/PaperOpen";
-import { StillFrame } from "@/components/overview/StillFrame";
-import { TwoTruths } from "@/components/overview/TwoTruths";
+import { CustomBuild } from "@/components/overview/CustomBuild";
+import { DocketSlice } from "@/components/overview/DocketSlice";
+import { HeroOpen } from "@/components/overview/HeroOpen";
+import { ProductBand } from "@/components/overview/ProductBand";
+import { SystemMap } from "@/components/overview/SystemMap";
+import { TuesdayTwice } from "@/components/overview/TuesdayTwice";
 import { VisitClose } from "@/components/overview/VisitClose";
-import { overview } from "@/content/overview";
-
-const HOME_DIRECTION = `<!--
-THESIS: A South West owner leaves knowing the ledger stays, the crew can capture from the ute, and the next step is a yard visit, not another SaaS hero.
-OWN-WORLD: Incumbent paper/docket system. Type lives on cream. Stills are photographs. Stamp button is the visit verb.
-STORY: Paper offer, cab still, two objections, office still, how the work is taken on, book.
-FIRST VIEWPORT: Cream paper, headline, walk, stamp Book a site visit, text link How we sit beside Xero.
-FORM: Paper then still, not type on pixels. Asymmetric truths. Numbered process. No landscape table.
-FINISH: Desktop and mobile pass. IMS still readable. No plates, slab, mirror, or burst regressions.
--->`;
+import { VisitOffer } from "@/components/overview/VisitOffer";
 
 export default function HomePage() {
   return (
     <>
-      <div hidden dangerouslySetInnerHTML={{ __html: HOME_DIRECTION }} />
-      <PaperOpen />
-      <StillFrame still={overview.cabStill} />
-      <TwoTruths />
-      <StillFrame still={overview.officeStill} />
-      <HowWeWork />
+      <HeroOpen />
+      <TuesdayTwice />
+      <ProductBand />
+      <SystemMap />
+      <CustomBuild />
+      <DocketSlice />
+      <VisitOffer />
       <VisitClose />
     </>
   );

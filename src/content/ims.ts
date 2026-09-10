@@ -313,17 +313,6 @@ export const imsCopy = {
       href: { phone: "/lab/ims/phone-dusk", desk: "/lab/ims/desk-dusk" },
     },
   },
-
-  stills: {
-    cabDay: "/images/hero-cab-day.webp",
-    cabDusk: "/images/hero-cab-dusk.webp",
-    officeDay: "/images/office-ims-day.webp",
-    officeDusk: "/images/office-ims-dusk.webp",
-    cabRollback: "/images/hero-cab-rollback.webp",
-    officeRollback: "/images/office-ims-rollback.webp",
-    cabObjectPositionClass: "object-[48%_46%]",
-    officeObjectPositionClass: "object-[72%_32%]",
-  },
 };
 
 export const IMS_PHONE = { width: 390, height: 844 } as const;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StillComposite } from "@/components/lab/composite/StillComposite";
 import { stillPlates, stillSlugs, type StillSlug } from "@/content/stills";
-import "@/app/lab/ims/ims.css";
+import "@/styles/ims.css";
 import "../composite.css";
 
 export const metadata: Metadata = {
