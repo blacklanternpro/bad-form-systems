@@ -1,0 +1,121 @@
+.still-stage {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  isolation: isolate;
+}
+
+.still-plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.still-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+.still-spill {
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.still-screen-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.still-grade,
+.still-sheen,
+.still-grain,
+.still-falloff {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.still-grade {
+  mix-blend-mode: soft-light;
+}
+
+.still-sheen {
+  mix-blend-mode: screen;
+}
+
+/* Fine sensor noise so the composited screen sits in the photograph rather than on it. */
+.still-grain {
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+.still-falloff {
+  background: radial-gradient(
+    120% 100% at 50% 40%,
+    rgb(0 0 0 / 0) 55%,
+    rgb(0 0 0 / 0.22) 100%
+  );
+}
+
+.still-debug {
+  outline: 2px solid #ff00c8;
+  background: rgb(255 0 200 / 0.18);
+  pointer-events: none;
+}
+
+.still-debug-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #00ffd5;
+}
+
+.composite-lab {
+  padding: 1.5rem 1rem 4rem;
+}
+
+.composite-lab-stage {
+  width: max-content;
+  margin: 1rem auto 0;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-brand-ink) 20%, transparent);
+}
+
+html:has([data-still-capture-page]) {
+  background: #000;
+}
+
+html:has([data-still-capture-page]) body {
+  min-height: 0;
+  background: #000;
+}
+
+html:has([data-still-capture-page]) body > header,
+html:has([data-still-capture-page]) body > footer,
+html:has([data-still-capture-page]) body > a[href="#main"],
+html:has([data-still-capture-page]) nextjs-portal {
+  display: none !important;
+}
+
+html:has([data-still-capture-page]) main {
+  display: block;
+  flex-grow: 0;
+}
+
+.still-capture-page {
+  width: max-content;
+  height: max-content;
+  margin: 0;
+  padding: 0;
+  background: #000;
+}

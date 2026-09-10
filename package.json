@@ -6,7 +6,9 @@
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3000",
-    "lint": "eslint"
+    "lint": "eslint",
+    "stills": "node scripts/shoot-stills.mjs",
+    "quad": "node scripts/measure-screen-quad.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

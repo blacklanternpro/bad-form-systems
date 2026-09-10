@@ -327,4 +327,4 @@ export const imsCopy = {
 };
 
 export const IMS_PHONE = { width: 390, height: 844 } as const;
-export const IMS_DESK = { width: 1440, height: 900 } as const;
+export const IMS_DESK = { width: 1440, height: 810 } as const;

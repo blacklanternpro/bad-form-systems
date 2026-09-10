@@ -497,7 +497,7 @@
 
 .ims-desk {
   width: var(--ims-desk-w, 1440px);
-  height: var(--ims-desk-h, 900px);
+  height: var(--ims-desk-h, 810px);
   overflow: hidden;
   display: grid;
   grid-template-columns: 232px minmax(0, 1fr) 336px;
@@ -509,7 +509,9 @@
   display: flex;
   align-items: center;
   gap: 22px;
-  padding: 0 24px;
+  /* Wider right gutter: on the photographed laptop the screen's top-right corner
+     sits just past the frame edge, so nothing may run to the window edge. */
+  padding: 0 44px 0 24px;
   background: var(--ims-surface);
   border-bottom: 1px solid var(--ims-hairline);
 }
@@ -531,6 +533,11 @@
   color: var(--ims-muted);
 }
 
+.ims-desk-brand .ims-demo {
+  align-self: center;
+  margin-left: 6px;
+}
+
 .ims-desk-crumb {
   flex: 1;
   padding-left: 22px;
@@ -538,12 +545,6 @@
   color: var(--ims-muted);
   font-size: 14px;
   font-weight: 500;
-}
-
-.ims-desk-top-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
 .ims-xero {
@@ -601,8 +602,8 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 22px 26px 0;
+  gap: 16px;
+  padding: 18px 24px 16px;
   background: var(--ims-ground);
 }
 
@@ -676,7 +677,7 @@
 }
 
 .ims-summary-cell {
-  padding: 13px 0 14px;
+  padding: 11px 0 12px;
 }
 
 .ims-summary-cell + .ims-summary-cell {
@@ -714,7 +715,7 @@
 }
 
 .ims-table th {
-  padding: 11px 18px;
+  padding: 9px 18px;
   text-align: left;
   font-size: 10.5px;
   font-weight: 700;
@@ -727,7 +728,7 @@
 }
 
 .ims-table td {
-  padding: 15px 18px;
+  padding: 12px 18px;
   font-size: 15px;
   font-weight: 500;
   border-bottom: 1px solid var(--ims-hairline);

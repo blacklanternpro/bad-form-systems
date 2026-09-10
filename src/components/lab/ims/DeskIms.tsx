@@ -115,19 +115,17 @@ export function DeskIms({ paint }: DeskImsProps) {
         <p className="ims-desk-brand">
           <span className="ims-desk-brand-mark">{imsCopy.brandMark}</span>
           <span className="ims-desk-brand-arm">{imsCopy.brandArm}</span>
+          <span className="ims-demo">{imsCopy.demo}</span>
         </p>
         <p className="ims-desk-crumb">
           {desk.breadcrumb}
           <span className="ims-dot" aria-hidden="true" />
           {desk.week}
         </p>
-        <div className="ims-desk-top-right">
-          <span className="ims-xero ims-num">
-            <ArrowsClockwise size={14} weight="bold" aria-hidden />
-            {desk.topSync}
-          </span>
-          <span className="ims-demo">{imsCopy.demo}</span>
-        </div>
+        <span className="ims-xero ims-num">
+          <ArrowsClockwise size={14} weight="bold" aria-hidden />
+          {desk.topSync}
+        </span>
       </header>
 
       <nav className="ims-desk-nav" aria-label="IMS">
