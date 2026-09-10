@@ -29,6 +29,11 @@ export type StillPlate = {
     /** Light spill from the screen onto the surrounding photograph. */
     spillOpacity: number;
     spillBlur: number;
+    /**
+     * Grow the mapped quad past the bezel. Phones must stay at 0: the glass is
+     * rounded and notched, so expanding a rectangle puts UI on the chassis.
+     */
+    expand: number;
   };
   alt: string;
   note: string;
@@ -53,10 +58,11 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       brightness: 1.02,
       tint: "#f0d9a8",
       tintOpacity: 0.06,
-      blur: 0.35,
+      blur: 0.2,
       sheenOpacity: 0.1,
       spillOpacity: 0.16,
       spillBlur: 26,
+      expand: 3,
     },
     alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to the demo field app, with a paper docket on the other thigh.",
     note: "Demo field app in the glass. Not a live customer job.",
@@ -79,10 +85,11 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       brightness: 1.04,
       tint: "#ffe9c2",
       tintOpacity: 0.05,
-      blur: 0.25,
+      blur: 0.15,
       sheenOpacity: 0.13,
       spillOpacity: 0.1,
       spillBlur: 30,
+      expand: 4,
     },
     alt: "A work-worn hand holding a phone open to the demo field app: one job, one capture button, and the day's captures underneath.",
     note: "Demo field app in the glass. Not a live customer job.",
@@ -109,6 +116,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       sheenOpacity: 0.07,
       spillOpacity: 0.08,
       spillBlur: 34,
+      expand: 1,
     },
     alt: "Site-office laptop open on the demo jobs board, with hi-vis, a two-way radio, and paper dockets in a South West yard office.",
     note: "Demo jobs board in the glass. Not a live customer system.",

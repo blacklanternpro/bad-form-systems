@@ -8,8 +8,10 @@ interface StillCompositeProps {
   debug?: boolean;
 }
 
-/** Push the mapped screen slightly past the photographed bezel so no old glass shows at the seam. */
+/** Grow or shrink the mapped quad. Phones stay at 0 so the glass mask can meet the bezel. */
 function expandQuad(quad: Quad, pixels: number): Quad {
+  if (pixels === 0) return quad;
+
   const centreX = quad.reduce((sum, point) => sum + point[0], 0) / 4;
   const centreY = quad.reduce((sum, point) => sum + point[1], 0) / 4;
 
@@ -27,11 +29,12 @@ function quadWidth(quad: Quad): number {
 
 export function StillComposite({ still, debug = false }: StillCompositeProps) {
   const { stage, screen, glass } = still;
-  const screenQuad = expandQuad(still.quad, 2);
+  const screenQuad = expandQuad(still.quad, glass.expand);
   const spillQuad = expandQuad(still.quad, glass.spillBlur * 0.9);
 
   const scale = quadWidth(screenQuad) / screen.width;
   const angle = quadTopAngle(still.quad);
+  const isPhone = still.device === "phone";
 
   const screenTransform = matrix3dForQuad(screen.width, screen.height, screenQuad);
   const spillTransform = matrix3dForQuad(screen.width, screen.height, spillQuad);
@@ -57,37 +60,58 @@ export function StillComposite({ still, debug = false }: StillCompositeProps) {
         aria-hidden="true"
       />
 
+      {isPhone ? (
+        <div
+          className="still-layer still-phone-cover"
+          style={{
+            width: `${screen.width}px`,
+            height: `${screen.height}px`,
+            transform: matrix3dForQuad(
+              screen.width,
+              screen.height,
+              expandQuad(still.quad, glass.expand + 5),
+            ),
+            background: still.paint === "dusk" ? "#14161a" : "#eef0f3",
+          }}
+          aria-hidden="true"
+        />
+      ) : null}
+
       <div
         className="still-layer"
         style={{
           width: `${screen.width}px`,
           height: `${screen.height}px`,
           transform: screenTransform,
-          filter: `brightness(${glass.brightness}) blur(${(glass.blur / scale).toFixed(2)}px)`,
         }}
       >
-        <div className="still-screen-inner">
-          {still.device === "phone" ? (
-            <PhoneIms paint={still.paint} />
-          ) : (
-            <DeskIms paint={still.paint} />
-          )}
-
+        {/* Blur lives inside the mask. On the outer layer it would halo past the
+            glass and paint a rectangle of UI onto the bezel and the camera. */}
+        <div className={isPhone ? "still-screen-inner still-phone-glass" : "still-screen-inner"}>
           <div
-            className="still-grade"
-            style={{ background: glass.tint, opacity: glass.tintOpacity }}
-            aria-hidden="true"
-          />
-          <div
-            className="still-sheen"
+            className="still-screen-body"
             style={{
-              background: `linear-gradient(${(angle + 104).toFixed(1)}deg, rgb(255 255 255 / 0.9) 0%, rgb(255 255 255 / 0) 34%, rgb(255 255 255 / 0) 68%, rgb(255 255 255 / 0.5) 100%)`,
-              opacity: glass.sheenOpacity,
+              filter: `brightness(${glass.brightness}) blur(${(glass.blur / scale).toFixed(2)}px)`,
             }}
-            aria-hidden="true"
-          />
-          <div className="still-falloff" aria-hidden="true" />
-          <div className="still-grain" aria-hidden="true" />
+          >
+            {isPhone ? <PhoneIms paint={still.paint} /> : <DeskIms paint={still.paint} />}
+
+            <div
+              className="still-grade"
+              style={{ background: glass.tint, opacity: glass.tintOpacity }}
+              aria-hidden="true"
+            />
+            <div
+              className="still-sheen"
+              style={{
+                background: `linear-gradient(${(angle + 104).toFixed(1)}deg, rgb(255 255 255 / 0.9) 0%, rgb(255 255 255 / 0) 34%, rgb(255 255 255 / 0) 68%, rgb(255 255 255 / 0.5) 100%)`,
+                opacity: glass.sheenOpacity,
+              }}
+              aria-hidden="true"
+            />
+            <div className="still-falloff" aria-hidden="true" />
+            <div className="still-grain" aria-hidden="true" />
+          </div>
         </div>
       </div>
 

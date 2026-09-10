@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844">
+  <!-- Local-space iPhone glass. White is the overlay; the notch is a hole so
+       the photographed camera shows through after the warp. -->
+  <path
+    fill="#fff"
+    fill-rule="evenodd"
+    d="M32 0
+       h326
+       a32 32 0 0 1 32 32
+       v780
+       a32 32 0 0 1-32 32
+       H32
+       A32 32 0 0 1 0 812
+       V32
+       A32 32 0 0 1 32 0
+       Z
+       M115 0
+       h160
+       v20
+       a14 14 0 0 1-14 14
+       H129
+       A14 14 0 0 1 115 20
+       V0
+       Z"
+  />
+</svg>

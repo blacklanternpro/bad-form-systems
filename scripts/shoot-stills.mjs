@@ -90,6 +90,7 @@ function capture({ chrome, url, file, width, height, scale }) {
         "--disable-gpu",
         "--hide-scrollbars",
         "--force-color-profile=srgb",
+        `--user-data-dir=${join(tmpdir(), `bad-form-stills-chrome-${Date.now()}`)}`,
         `--force-device-scale-factor=${scale}`,
         `--window-size=${width},${height}`,
         `--screenshot=${file}`,

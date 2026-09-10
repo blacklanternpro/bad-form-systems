@@ -72,7 +72,8 @@ Pipeline:
 1. `src/content/stills.ts` holds each plate, its output name, the app size, the measured screen quad, and the glass grading.
 2. `npm run quad hand|desk` measures a plate's screen quad by walking scan lines for the dark screen edge and fitting lines to the result. The `cab` plate cannot be detected (its photographed screen was already near black against a black bezel); that quad was stepped out by hand and checked with `/lab/composite/cab?debug=1`.
 3. `/lab/composite/<slug>` renders the live `PhoneIms` or `DeskIms` inside a four-point projective `matrix3d` mapped onto that quad, with the glass layers over it.
-4. `npm run stills` (dev server must be running) screenshots each composite at 2x and encodes webp.
+4. Phone plates get a local-space glass mask (`public/images/ims/phone-glass.svg`): a rounded display plus a notch hole, so the photographed camera and bezel show through. A dark underlay, warped slightly larger than the UI, covers the original generated screen so it cannot peek around the edges. Blur is applied inside the mask, never on the warped layer, or it halos onto the chassis.
+5. `npm run stills` (dev server must be running) screenshots each composite at 2x and encodes webp. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open.
 
 Reshoot after any change to the app screens, or the photographs will disagree with the live ones sitting beside them on the page.
 
