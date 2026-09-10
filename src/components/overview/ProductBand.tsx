@@ -37,28 +37,38 @@ export function ProductBand() {
       <StillFrame still={cabStill} />
 
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-        <h2
-          id="product-heading"
-          className="type-hero max-w-[16ch] text-[1.6rem] text-brand-sheet md:text-[2rem]"
-        >
-          {heading}
-        </h2>
-        <p className="type-body mt-4 max-w-[54ch] text-brand-sheet/70">{lead}</p>
-
-        <div className="mt-10 flex flex-col gap-10 lg:mt-14 lg:flex-row lg:items-center lg:gap-16">
-          <LiveScreen device="phone" paint="dusk" className="shrink-0" />
-          <CaptionRail caption={field} className="lg:pt-4" />
+        {/* Reversed at lg so the phone sits under the photographed phone above it
+            while the heading still reads first on a narrow screen. */}
+        <div className="flex flex-col gap-10 lg:flex-row-reverse lg:items-center lg:gap-16">
+          <div className="lg:flex-1">
+            <h2
+              id="product-heading"
+              className="type-hero max-w-[16ch] text-[1.6rem] text-brand-sheet md:text-[2rem]"
+            >
+              {heading}
+            </h2>
+            <p className="type-body mt-4 max-w-[54ch] text-brand-sheet/70">{lead}</p>
+            <CaptionRail
+              caption={field}
+              className="mt-10 border-t border-brand-sheet/15 pt-8 lg:mt-12 lg:pt-10"
+            />
+          </div>
+          <LiveScreen
+            device="phone"
+            paint="dusk"
+            className="shrink-0 ring-1 ring-brand-sheet/15"
+          />
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 md:pb-16 lg:px-8">
+      {/* The board is wider than the text column at every size it renders, so the
+          rail above it shares the board's own box rather than the page container.
+          Below lg the board is too dense to shrink, and the photograph carries it. */}
+      <div className="mx-auto max-w-6xl px-4 pb-12 sm:px-6 md:pb-16 lg:w-fit lg:max-w-none lg:px-6 xl:pb-16 2xl:px-8">
         <CaptionRail caption={desk} />
-      </div>
-
-      {/* The board carries too much detail to shrink below a laptop column. Under lg
-          the photograph above is the board, and the caption rail carries the argument. */}
-      <div className="hidden justify-center px-4 pb-12 lg:flex lg:px-6 xl:pb-16 2xl:px-8">
-        <LiveScreen device="desk" paint="day" />
+        <div className="mt-8 hidden lg:block lg:mt-10">
+          <LiveScreen device="desk" paint="day" className="ring-1 ring-brand-sheet/15" />
+        </div>
       </div>
 
       <StillFrame still={officeStill} />

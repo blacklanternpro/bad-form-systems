@@ -200,6 +200,25 @@ select {
   }
 }
 
+/*
+ * A photograph whose left and bottom edges land inside the cream page instead
+ * of at a viewport edge. Without this the plate reads as a rectangle pasted on
+ * the paper, because the out of focus ground in these stills is almost the same
+ * tone as the page. Only needed from lg up, where the still stops being
+ * full width.
+ */
+@media (min-width: 1024px) {
+  .still-dissolve {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%),
+      linear-gradient(to top, transparent, black 14%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, black 20%),
+      linear-gradient(to top, transparent, black 14%);
+    mask-composite: intersect;
+    mask-repeat: no-repeat;
+  }
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;

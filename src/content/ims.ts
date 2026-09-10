@@ -60,7 +60,10 @@ export const imsCopy = {
   brandArm: "Systems",
 
   field: {
-    statusTime: "6:52",
+    /* Both screens show the same demo day, late afternoon: the phone still
+       clocked on, the board already synced. Times have to agree across the two
+       or the pair stops reading as one system. */
+    statusTime: "17:04",
     jobNo: "BF-2025-0325",
     jobTitle: "Kemerton pad",
     jobMeta: "Kemerton",
@@ -80,49 +83,53 @@ export const imsCopy = {
       { id: "variation", label: "Raise variation" },
     ],
     metrics: [
-      { label: "Today", value: "7.0", unit: "hrs" },
+      { label: "Today", value: "9.5", unit: "hrs" },
       { label: "Job to date", value: "41.5", unit: "hrs" },
       { label: "EX20 meter", value: "1,284.6", unit: "hrs" },
     ] satisfies ImsMetric[],
     feedHeading: "Captured today",
+    /* Newest first, and the times match the Tuesday timeline on the homepage,
+       because the copy sends the reader from one to the other. Four rows fit the
+       screen; the pre-start sits below the fold on purpose, so the feed reads as
+       a list that carries on. */
     feed: [
       {
-        id: "docket",
-        label: "Supplier docket",
-        meta: "Bunbury counter",
-        time: "9:22",
+        id: "hours",
+        label: "Crew hours, four on the pad",
+        meta: "Split across two pours",
+        time: "16:40",
         sync: "synced",
-        thumb: docketThumb,
-      },
-      {
-        id: "site",
-        label: "Second pour, edge",
-        meta: "4 photos",
-        time: "12:05",
-        sync: "queued",
-        thumb: siteThumb,
+        glyph: "hours",
       },
       {
         id: "variation",
         label: "Variation 02, signed",
         meta: "D. Brown on site",
-        time: "13:15",
+        time: "11:00",
         sync: "queued",
         glyph: "signature",
       },
       {
-        id: "hours",
-        label: "Crew hours, four on the pad",
-        meta: "Split across two pours",
-        time: "11:30",
+        id: "site",
+        label: "Second pour, edge",
+        meta: "4 photos",
+        time: "9:15",
+        sync: "queued",
+        thumb: siteThumb,
+      },
+      {
+        id: "docket",
+        label: "Supplier docket",
+        meta: "Bunbury counter",
+        time: "6:52",
         sync: "synced",
-        glyph: "hours",
+        thumb: docketThumb,
       },
       {
         id: "prestart",
         label: "Pre-start, EX20",
         meta: "Ten checks, all clear",
-        time: "6:48",
+        time: "6:45",
         sync: "synced",
         glyph: "prestart",
       },
@@ -139,7 +146,7 @@ export const imsCopy = {
   desk: {
     breadcrumb: "Jobs",
     week: "Week 12",
-    topSync: "Xero synced 7:02",
+    topSync: "Xero synced 17:02",
     heading: "Jobs",
     newJob: "New job",
     filters: ["All", "On site", "Draft", "Closed"] as const,
@@ -228,30 +235,6 @@ export const imsCopy = {
     capturesHeading: "Captures today",
     captures: [
       {
-        id: "docket",
-        label: "Supplier docket",
-        meta: "Kemerton pad",
-        time: "9:22",
-        sync: "synced",
-        thumb: docketThumb,
-      },
-      {
-        id: "site",
-        label: "Second pour",
-        meta: "Kemerton pad",
-        time: "12:05",
-        sync: "queued",
-        thumb: siteThumb,
-      },
-      {
-        id: "variation",
-        label: "Variation 02",
-        meta: "Signed on site",
-        time: "13:15",
-        sync: "queued",
-        glyph: "signature",
-      },
-      {
         id: "hours",
         label: "Crew hours",
         meta: "Four crew",
@@ -259,12 +242,36 @@ export const imsCopy = {
         sync: "synced",
         glyph: "hours",
       },
+      {
+        id: "variation",
+        label: "Variation 02",
+        meta: "Signed on site",
+        time: "11:00",
+        sync: "queued",
+        glyph: "signature",
+      },
+      {
+        id: "site",
+        label: "Second pour",
+        meta: "Kemerton pad",
+        time: "9:15",
+        sync: "queued",
+        thumb: siteThumb,
+      },
+      {
+        id: "docket",
+        label: "Supplier docket",
+        meta: "Kemerton pad",
+        time: "6:52",
+        sync: "synced",
+        thumb: docketThumb,
+      },
     ] satisfies ImsCaptureRow[],
     attentionHeading: "Needs a look",
     attention: [
       {
-        title: "Variation 02 unsigned",
-        meta: "Picton access, raised Tuesday",
+        title: "Variation 04 unsigned",
+        meta: "Picton access, raised Monday",
         severity: "hold",
       },
       {
@@ -281,7 +288,7 @@ export const imsCopy = {
     books: {
       heading: "Beside the books",
       lead: "4 drafts ready for Xero",
-      sync: "Last sync 7:02",
+      sync: "Last sync 17:02",
       stats: [
         { label: "Draft invoices", value: "4" },
         { label: "Payroll hours", value: "38.5" },

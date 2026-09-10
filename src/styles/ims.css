@@ -728,7 +728,9 @@
 }
 
 .ims-table td {
-  padding: 12px 18px;
+  /* Row height is load bearing: six jobs, the summary, and the captures strip
+     all have to fit inside the 810px board without a clipped last row. */
+  padding: 10px 18px;
   font-size: 15px;
   font-weight: 500;
   border-bottom: 1px solid var(--ims-hairline);
@@ -863,7 +865,7 @@
   display: grid;
   place-items: center;
   width: 46px;
-  height: 52px;
+  height: 46px;
   overflow: hidden;
   border-radius: var(--ims-r-sm);
   background: var(--ims-chip);
