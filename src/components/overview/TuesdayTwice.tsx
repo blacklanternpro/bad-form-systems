@@ -14,20 +14,22 @@ export function TuesdayTwice() {
         </h2>
         <p className="type-body mt-4 max-w-[52ch] text-brand-steel">{lead}</p>
 
-        <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-0">
+        {/* Subgrid so the two days line up row for row whatever the notes above
+            them wrap to. The comparison only works if 6:40 sits beside 6:48. */}
+        <div className="mt-10 grid gap-10 md:grid-cols-2 md:grid-rows-[auto_auto_auto] md:gap-0">
           {columns.map((column, index) => {
             const isSystem = index === 1;
             return (
               <div
                 key={column.title}
-                className={
+                className={`reveal md:row-span-3 md:grid md:grid-rows-subgrid ${
                   isSystem
-                    ? "reveal md:border-l md:border-brand-border-muted md:pl-8 lg:pl-12"
-                    : "reveal md:pr-8 lg:pr-12"
-                }
+                    ? "md:border-l md:border-brand-border-muted md:pl-8 lg:pl-12"
+                    : "md:pr-8 lg:pr-12"
+                }`}
               >
                 <h3
-                  className={`type-data inline-block pb-1 text-[0.8rem] text-brand-ink ${
+                  className={`type-data inline-block justify-self-start pb-1 text-[0.8rem] text-brand-ink ${
                     isSystem ? "border-b-2 border-brand-stamp" : "border-b-2 border-brand-ply"
                   }`}
                 >

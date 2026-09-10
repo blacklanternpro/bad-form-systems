@@ -100,6 +100,7 @@ function CaptureTile({ row }: { row: ImsCaptureRow }) {
   );
 }
 
+/** Headings are paragraphs for the same reason as in {@link PhoneIms}. */
 export function DeskIms({ paint }: DeskImsProps) {
   const desk = imsCopy.desk;
 
@@ -148,7 +149,7 @@ export function DeskIms({ paint }: DeskImsProps) {
 
       <main className="ims-desk-main">
         <div className="ims-desk-heading-row">
-          <h1 className="ims-desk-heading">{desk.heading}</h1>
+          <p className="ims-desk-heading">{desk.heading}</p>
           <div className="ims-desk-tools">
             <div className="ims-filters" aria-label="Job status">
               {desk.filters.map((filter) => (
@@ -198,7 +199,7 @@ export function DeskIms({ paint }: DeskImsProps) {
         </div>
 
         <section className="ims-strip">
-          <h2 className="ims-strip-heading">{desk.capturesHeading}</h2>
+          <p className="ims-strip-heading">{desk.capturesHeading}</p>
           <ul className="ims-strip-list">
             {desk.captures.map((row) => (
               <CaptureTile key={row.id} row={row} />
@@ -209,7 +210,7 @@ export function DeskIms({ paint }: DeskImsProps) {
 
       <aside className="ims-rail">
         <section className="ims-attention">
-          <h2 className="ims-rail-heading">{desk.attentionHeading}</h2>
+          <p className="ims-rail-heading">{desk.attentionHeading}</p>
           <ul className="ims-attention-list">
             {desk.attention.map((row) => (
               <li key={row.title} className="ims-attention-row" data-severity={row.severity}>
@@ -224,7 +225,7 @@ export function DeskIms({ paint }: DeskImsProps) {
         </section>
 
         <section className="ims-books">
-          <h2 className="ims-rail-heading">{desk.books.heading}</h2>
+          <p className="ims-rail-heading">{desk.books.heading}</p>
           <p className="ims-books-lead">{desk.books.lead}</p>
           <p className="ims-books-sync ims-num">{desk.books.sync}</p>
           <dl className="ims-books-stats">

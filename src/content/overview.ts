@@ -140,7 +140,9 @@ export const overview = {
         "Drafts for Xero. Your bookkeeper still presses send.",
       ],
     } satisfies ScreenCaption,
-    note: "Live screens running the same code as the photographs above. Demo data, not a customer system.",
+    /* Has to stay true on a phone, where the board is too dense to render and
+       only the field app runs live. */
+    note: "Demo data on a demo job. The screens above run the same code as the ones in the photographs.",
   },
 
   map: {

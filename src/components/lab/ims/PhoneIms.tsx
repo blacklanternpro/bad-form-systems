@@ -63,6 +63,11 @@ function CaptureRow({ row }: { row: ImsCaptureRow }) {
   );
 }
 
+/**
+ * Headings inside the shell are deliberately paragraphs. This screen is a
+ * product surface embedded in a marketing page, so it must not put an h1 into
+ * that page's heading outline. The section's aria-label names it as a demo.
+ */
 export function PhoneIms({ paint }: PhoneImsProps) {
   const field = imsCopy.field;
 
@@ -92,7 +97,7 @@ export function PhoneIms({ paint }: PhoneImsProps) {
 
       <div className="ims-phone-body">
         <div className="ims-job-head">
-          <h1 className="ims-job-title">{field.jobTitle}</h1>
+          <p className="ims-job-title">{field.jobTitle}</p>
           <p className="ims-job-meta">
             {field.jobMeta}
             <span className="ims-dot" aria-hidden="true" />
@@ -141,7 +146,7 @@ export function PhoneIms({ paint }: PhoneImsProps) {
 
         <div className="ims-feed">
           <div className="ims-feed-head">
-            <h2 className="ims-feed-heading">{field.feedHeading}</h2>
+            <p className="ims-feed-heading">{field.feedHeading}</p>
             <span className="ims-feed-note">{field.sync.offlineNote}</span>
           </div>
           <ul className="ims-capture-list">

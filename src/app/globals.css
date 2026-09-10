@@ -252,8 +252,17 @@ select {
     .reveal {
       animation: bf-rise linear both;
       animation-timeline: view();
-      animation-range: entry 4% entry 42%;
+      animation-range: entry 0% entry 45%;
     }
+  }
+}
+
+/* A view timeline never advances on paper, so a printed page would come out
+   blank. Nothing on this page is animated when it is being printed. */
+@media print {
+  .enter,
+  .reveal {
+    animation: none;
   }
 }
 

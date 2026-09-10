@@ -6,8 +6,10 @@ export function VisitOffer() {
 
   return (
     <section className="bg-brand-black py-12 md:py-16" aria-labelledby="visit-heading">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="reveal rounded-sm border border-brand-ink bg-brand-card">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        {/* Left aligned to the page margin like every other block, and narrower
+            than the column so it still reads as a sheet of paper laid on it. */}
+        <div className="reveal max-w-3xl rounded-sm border border-brand-ink bg-brand-card">
           <div className="border-b border-brand-ink bg-brand-header px-5 py-4 sm:px-8">
             <h2
               id="visit-heading"

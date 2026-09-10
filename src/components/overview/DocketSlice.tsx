@@ -180,7 +180,7 @@ export function DocketSlice() {
                       setError(null);
                       setDraft(null);
                     }}
-                    className={`rounded-sm border px-3 py-1.5 text-[0.8125rem] leading-5 transition-colors active:translate-y-px ${
+                    className={`min-h-11 rounded-sm border px-3.5 text-[0.8125rem] leading-5 transition-colors active:translate-y-px ${
                       active
                         ? "border-brand-ink bg-brand-stamp font-semibold text-brand-cobalt"
                         : "border-brand-border bg-brand-card text-brand-steel hover:text-brand-ink"

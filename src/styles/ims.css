@@ -18,7 +18,7 @@
   box-sizing: border-box;
 }
 
-.ims-shell :where(h1, h2, p, dl, dd, dt, ul, li, table) {
+.ims-shell :where(h1, h2, h3, p, dl, dd, dt, ul, li, table) {
   margin: 0;
   padding: 0;
 }
