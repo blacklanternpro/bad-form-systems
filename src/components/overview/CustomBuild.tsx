@@ -18,7 +18,7 @@ export function CustomBuild() {
           {beats.map((beat) => (
             <li
               key={beat.title}
-              className="border-b border-brand-ply py-6 pl-2 last:border-b-0 last:pb-0"
+              className="reveal border-b border-brand-ply py-6 pl-2 last:border-b-0 last:pb-0"
             >
               <h3 className="type-hero mb-3 text-[1.1rem] text-brand-ink md:text-[1.25rem]">
                 {beat.title}

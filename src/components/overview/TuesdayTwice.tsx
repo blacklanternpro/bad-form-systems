@@ -22,8 +22,8 @@ export function TuesdayTwice() {
                 key={column.title}
                 className={
                   isSystem
-                    ? "md:border-l md:border-brand-border-muted md:pl-8 lg:pl-12"
-                    : "md:pr-8 lg:pr-12"
+                    ? "reveal md:border-l md:border-brand-border-muted md:pl-8 lg:pl-12"
+                    : "reveal md:pr-8 lg:pr-12"
                 }
               >
                 <h3

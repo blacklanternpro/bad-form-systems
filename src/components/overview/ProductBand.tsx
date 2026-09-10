@@ -7,7 +7,7 @@ import "@/styles/screen-frame.css";
 
 function CaptionRail({ caption, className }: { caption: ScreenCaption; className?: string }) {
   return (
-    <div className={className}>
+    <div className={className ? `reveal ${className}` : "reveal"}>
       <h3 className="type-title text-xl text-brand-sheet md:text-2xl">{caption.title}</h3>
       <p className="type-docket mt-3 max-w-[38ch] text-[0.95rem] text-brand-sheet/75">
         {caption.body}

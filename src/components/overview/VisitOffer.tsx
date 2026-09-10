@@ -7,7 +7,7 @@ export function VisitOffer() {
   return (
     <section className="bg-brand-black py-12 md:py-16" aria-labelledby="visit-heading">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-sm border border-brand-ink bg-brand-card">
+        <div className="reveal rounded-sm border border-brand-ink bg-brand-card">
           <div className="border-b border-brand-ink bg-brand-header px-5 py-4 sm:px-8">
             <h2
               id="visit-heading"

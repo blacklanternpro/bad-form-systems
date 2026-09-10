@@ -17,7 +17,7 @@ export function SystemMap() {
 
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.05fr_1.05fr_0.9fr] lg:gap-12">
           {groups.map((group) => (
-            <div key={group.title} className="border-t border-brand-ink pt-4">
+            <div key={group.title} className="reveal border-t border-brand-ink pt-4">
               <h3 className="type-title text-lg text-brand-ink">{group.title}</h3>
               <ul className="mt-4 space-y-2.5">
                 {group.items.map((item) => (

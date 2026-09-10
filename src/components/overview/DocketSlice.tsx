@@ -120,6 +120,10 @@ export function DocketSlice() {
   const [preset, setPreset] = useState(presetKeys[0]);
   const [text, setText] = useState(docketPresets[presetKeys[0]].text);
   const [draft, setDraft] = useState<Draft | null>(null);
+  /* Bumped on every read so the result block remounts and the line items rise in
+     sequence again. Without it a second read swaps the numbers with no signal
+     that anything happened. */
+  const [run, setRun] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPayload, setShowPayload] = useState(false);
@@ -140,6 +144,7 @@ export function DocketSlice() {
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       setDraft(readDraft((await response.json()) as unknown));
+      setRun((value) => value + 1);
     } catch {
       setError(copy.error);
       setDraft(null);
@@ -269,11 +274,15 @@ export function DocketSlice() {
                   ) : null}
 
                   {draft.lines.length > 0 ? (
-                    <dl className="divide-y divide-brand-border-muted border-t border-brand-border-muted">
-                      {draft.lines.map((line) => (
+                    <dl
+                      key={run}
+                      className="divide-y divide-brand-border-muted border-t border-brand-border-muted"
+                    >
+                      {draft.lines.map((line, index) => (
                         <div
                           key={line.description}
-                          className="flex items-baseline justify-between gap-4 py-2.5"
+                          className="enter flex items-baseline justify-between gap-4 py-2.5"
+                          style={{ "--enter-delay": `${index * 70}ms` } as React.CSSProperties}
                         >
                           <dt className="max-w-[28ch] text-[0.9rem] leading-5 text-brand-ink">
                             {line.description}
@@ -298,7 +307,15 @@ export function DocketSlice() {
                   )}
 
                   {draft.subtotal !== null || draft.total !== null ? (
-                    <dl className="mt-3 border-t border-brand-ink pt-3">
+                    <dl
+                      key={`totals-${run}`}
+                      className="enter mt-3 border-t border-brand-ink pt-3"
+                      style={
+                        {
+                          "--enter-delay": `${draft.lines.length * 70 + 60}ms`,
+                        } as React.CSSProperties
+                      }
+                    >
                       {[
                         { label: "Subtotal, ex GST", value: draft.subtotal },
                         { label: "GST", value: draft.gst },
