@@ -65,17 +65,19 @@ Two rules that are easy to break:
 
 ## Stills
 
-The photographs are plates. The product UI in them is never drawn by an image model; it is the real HTML, warped onto the photographed screen.
+The photographs are plates. The product UI in them is never drawn by an image model.
+
+Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`.
+
+iPhone glass is not a rectangle. It is a rounded display with a notch, already filled with a different generated UI. Guessing that silhouette in SVG and warping a rectangle onto four corners stays a few pixels off, which is obvious. Phone stills are therefore composited the way a retoucher would: `scripts/composite-phone.py` takes the pixels that already make up the screen in the plate, uses them as the mask, and warps a screenshot of `PhoneIms` into that exact region.
 
 Pipeline:
 
-1. `src/content/stills.ts` holds each plate, its output name, the app size, the measured screen quad, and the glass grading.
-2. `npm run quad hand|desk` measures a plate's screen quad by walking scan lines for the dark screen edge and fitting lines to the result. The `cab` plate cannot be detected (its photographed screen was already near black against a black bezel); that quad was stepped out by hand and checked with `/lab/composite/cab?debug=1`.
-3. `/lab/composite/<slug>` renders the live `PhoneIms` or `DeskIms` inside a four-point projective `matrix3d` mapped onto that quad, with the glass layers over it.
-4. Phone plates get a local-space glass mask (`public/images/ims/phone-glass.svg`): a rounded display plus a notch hole, so the photographed camera and bezel show through. A dark underlay, warped slightly larger than the UI, covers the original generated screen so it cannot peek around the edges. Blur is applied inside the mask, never on the warped layer, or it halos onto the chassis.
-5. `npm run stills` (dev server must be running) screenshots each composite at 2x and encodes webp. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open.
+1. `src/content/stills.ts` holds each plate, its output name, and (for the desk) the measured screen quad and glass grading.
+2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 2x, runs the Python compositor for `hand` and `cab`, and CSS-warps the desk board. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV.
+3. Reshoot after any change to the app screens, or the photographs will disagree with the live ones sitting beside them on the page.
 
-Reshoot after any change to the app screens, or the photographs will disagree with the live ones sitting beside them on the page.
+If these plates are ever replaced, shoot the phone with a blank black (or chroma-green) screen and no UI in the glass. Keying a solid is trivial. Asking an image model to draw the product UI is not allowed and is what made the original plates hard to reuse.
 
 The board is exactly 1440x810 and must fit without a clipped row. Six job rows, the summary, and the captures strip are all load bearing on that budget; `.ims-table td` padding is the release valve.
 

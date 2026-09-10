@@ -15,7 +15,7 @@ export default function ImsLabIndexPage() {
     <PageFrame>
       <PageIntro compact title={imsCopy.labTitle} body={imsCopy.labBody} />
       <p className="type-docket mb-10 text-sm text-brand-steel">
-        Homepage stills stay on the rollback plates.{" "}
+        Homepage stills are the live app in the photographed glass.{" "}
         <Link href="/lab" className="btn-text text-sm">
           Docket lab
         </Link>

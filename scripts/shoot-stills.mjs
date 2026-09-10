@@ -2,13 +2,18 @@
 /**
  * Shoot the product stills.
  *
- * Each still is a photograph (the plate) with the real IMS components warped onto
- * the screen in the glass, so the product shots always show the product as it is
- * actually built. No image model draws the UI.
+ * Desk: photograph + live DeskIms, warped in CSS (the laptop glass is a
+ * rectangle, so a four-point warp is enough).
+ *
+ * Phones: screenshot PhoneIms, then scripts/composite-phone.py keys the
+ * photographed glass from the plate and warps the screenshot into that
+ * mask. CSS cannot do this: iPhone glass is a rounded rect with a notch.
  *
  * Usage:
- *   npm run dev            # in another terminal
- *   node scripts/shoot-stills.mjs [slug ...] [--scale 2] [--port 3000] [--keep-png]
+ *   npm run dev
+ *   npm run stills
+ *   npm run stills hand cab
+ *   npm run stills desk -- --scale 2
  */
 
 import { execFileSync } from "node:child_process";
@@ -19,6 +24,7 @@ import { join } from "node:path";
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const OUT_DIR = join(ROOT, "public", "images");
 const WORK_DIR = join(tmpdir(), "bad-form-stills");
+const PHONE = { width: 390, height: 844 };
 
 function parseArgs(argv) {
   const slugs = [];
@@ -46,9 +52,11 @@ function readPlates() {
     const block = table.slice(table.indexOf(`  ${slug}: {`));
     const read = (key) => block.match(new RegExp(`${key}: "([^"]+)"`))?.[1];
     const stage = block.match(/stage: \{ width: (\d+), height: (\d+) \}/);
+    const device = block.match(/device: "(phone|desk)"/)?.[1];
     if (!stage) continue;
     plates.push({
       slug,
+      device: device ?? "desk",
       output: read("output"),
       width: Number(stage[1]),
       height: Number(stage[2]),
@@ -76,14 +84,14 @@ function chromeBinary() {
   throw new Error("No Chrome found. Set CHROME_PATH.");
 }
 
-function capture({ chrome, url, file, width, height, scale }) {
+function capture({ chrome, url, file, width, height, scale, seconds = 40 }) {
   // Headless Chrome writes the file and then does not always exit, so it is
   // fenced with a timeout and judged on whether the file landed.
   try {
     execFileSync(
       "timeout",
       [
-        "40",
+        String(seconds),
         chrome,
         "--headless=new",
         "--no-sandbox",
@@ -125,6 +133,22 @@ function encode({ png, out, width, height, quality }) {
   );
 }
 
+function compositePhones(slugs, uiPng, writeOg) {
+  const script = join(ROOT, "scripts", "composite-phone.py");
+  const args = [script, "--ui", uiPng, ...slugs];
+  if (writeOg) args.push("--og");
+  try {
+    execFileSync("python3", args, { cwd: ROOT, stdio: "inherit" });
+  } catch (error) {
+    if (error.status === 1) {
+      throw new Error(
+        "Phone composite failed. Need python3 with pillow, numpy, and opencv-python-headless.",
+      );
+    }
+    throw error;
+  }
+}
+
 async function main() {
   const { slugs, opts } = parseArgs(process.argv.slice(2));
   const plates = readPlates().filter((plate) => slugs.length === 0 || slugs.includes(plate.slug));
@@ -137,7 +161,28 @@ async function main() {
   const chrome = chromeBinary();
   mkdirSync(WORK_DIR, { recursive: true });
 
-  for (const plate of plates) {
+  const phones = plates.filter((plate) => plate.device === "phone");
+  const desks = plates.filter((plate) => plate.device === "desk");
+
+  if (phones.length > 0) {
+    const uiPng = join(WORK_DIR, "phone-dusk.png");
+    capture({
+      chrome,
+      url: `${base}/lab/ims/phone-dusk?capture=1`,
+      file: uiPng,
+      width: PHONE.width,
+      height: PHONE.height,
+      scale: opts.scale,
+      seconds: 50,
+    });
+    compositePhones(
+      phones.map((plate) => plate.slug),
+      uiPng,
+      phones.some((plate) => plate.slug === "cab"),
+    );
+  }
+
+  for (const plate of desks) {
     const png = join(WORK_DIR, `${plate.slug}.png`);
     const out = join(OUT_DIR, plate.output);
     capture({

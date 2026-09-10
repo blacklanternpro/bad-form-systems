@@ -30,8 +30,9 @@ export type StillPlate = {
     spillOpacity: number;
     spillBlur: number;
     /**
-     * Grow the mapped quad past the bezel. Phones must stay at 0: the glass is
-     * rounded and notched, so expanding a rectangle puts UI on the chassis.
+     * Grow the mapped quad past the bezel. Desk only. Phone stills are
+     * composited by scripts/composite-phone.py from the photographed glass,
+     * not from this expand.
      */
     expand: number;
   };
@@ -62,7 +63,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       sheenOpacity: 0.1,
       spillOpacity: 0.16,
       spillBlur: 26,
-      expand: 3,
+      expand: 0,
     },
     alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to the demo field app, with a paper docket on the other thigh.",
     note: "Demo field app in the glass. Not a live customer job.",
@@ -89,7 +90,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       sheenOpacity: 0.13,
       spillOpacity: 0.1,
       spillBlur: 30,
-      expand: 4,
+      expand: 0,
     },
     alt: "A work-worn hand holding a phone open to the demo field app: one job, one capture button, and the day's captures underneath.",
     note: "Demo field app in the glass. Not a live customer job.",

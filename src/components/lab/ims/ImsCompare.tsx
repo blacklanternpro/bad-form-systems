@@ -92,8 +92,8 @@ export function ImsCompare() {
         <h2 className="type-title mb-3 text-2xl">HTML screens</h2>
         <p className="type-body mb-8 text-brand-steel">
           Review at device size on the linked routes. Capture frames are {IMS_PHONE.width} by{" "}
-          {IMS_PHONE.height} and {IMS_DESK.width} by {IMS_DESK.height}, which is what the composite
-          route warps onto the photographs.
+          {IMS_PHONE.height} and {IMS_DESK.width} by {IMS_DESK.height}. Phone stills key that
+          screenshot into the photographed glass; the desk still warps the board in CSS.
         </p>
         <div className="grid gap-8 lg:grid-cols-2">
           {htmlScreens.map((screen) => (
@@ -119,11 +119,11 @@ export function ImsCompare() {
       <section>
         <h2 className="type-title mb-3 text-2xl">Composited stills</h2>
         <p className="type-body mb-8 text-brand-steel">
-          The live homepage stills. Each one is this app rendered into the screen of a photograph by{" "}
-          <code className="type-data text-[0.85rem]">/lab/composite</code>, shot at 2x by{" "}
-          <code className="type-data text-[0.85rem]">npm run stills</code>. Open a plate to check the
-          mapping, and add <code className="type-data text-[0.85rem]">?debug=1</code> to see the
-          measured screen corners.
+          The live homepage stills. Phone stills are the real field app keyed into
+          the photographed glass by{" "}
+          <code className="type-data text-[0.85rem]">npm run stills</code>. The
+          desk still is the board warped in CSS. Open a plate to inspect the
+          file that ships.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           {stillSlugs.map((slug) => {

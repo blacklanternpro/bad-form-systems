@@ -50,6 +50,6 @@ next-env.d.ts
 public/hero-preview.html
 public/hero-shot.png
 
-# duplicate hero plates (live asset is field-hand-bleed.webp)
-public/images/field-hand-ims.png
-public/images/field-hand-blended.png
+# python stills compositor
+scripts/__pycache__/
+*.pyc

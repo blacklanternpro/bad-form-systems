@@ -37,8 +37,9 @@ export default async function CompositePage({
   const capture = readFlag(query.capture);
   const debug = readFlag(query.debug);
   const still = stillPlates[plate];
+  const phoneFile = still.device === "phone";
 
-  if (capture) {
+  if (capture && !phoneFile) {
     return (
       <div data-still-capture-page="" className="still-capture-page">
         <StillComposite still={still} debug={debug} />
@@ -51,6 +52,9 @@ export default async function CompositePage({
       <div className="mx-auto max-w-6xl px-4">
         <p className="type-docket text-sm text-brand-steel">
           Lab only. {still.stage.width} by {still.stage.height}, writes {still.output}
+          {phoneFile
+            ? ". Phone stills are keyed from the plate by scripts/composite-phone.py."
+            : ""}
         </p>
         <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
           {stillSlugs.map((slug) => (
@@ -58,16 +62,30 @@ export default async function CompositePage({
               {slug}
             </Link>
           ))}
-          <Link href={`/lab/composite/${plate}?debug=1`} className="btn-text text-sm">
-            Debug quad
-          </Link>
-          <Link href={`/lab/composite/${plate}?capture=1`} className="btn-text text-sm">
-            Capture frame
-          </Link>
+          {phoneFile ? null : (
+            <>
+              <Link href={`/lab/composite/${plate}?debug=1`} className="btn-text text-sm">
+                Debug quad
+              </Link>
+              <Link href={`/lab/composite/${plate}?capture=1`} className="btn-text text-sm">
+                Capture frame
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <div className="composite-lab-stage">
-        <StillComposite still={still} debug={debug} />
+        {phoneFile ? (
+          // eslint-disable-next-line @next/next/no-img-element -- homepage still; do not re-encode
+          <img
+            src={`/images/${still.output}`}
+            alt={still.alt}
+            width={still.stage.width}
+            height={still.stage.height}
+          />
+        ) : (
+          <StillComposite still={still} debug={debug} />
+        )}
       </div>
     </section>
   );
