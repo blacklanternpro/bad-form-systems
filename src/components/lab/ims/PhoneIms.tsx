@@ -1,36 +1,70 @@
 import {
-  Briefcase,
+  BatteryMedium,
   Camera,
-  CaretRight,
-  Certificate,
+  CellSignalLow,
+  CheckCircle,
+  ClipboardText,
   Clock,
-  FolderOpen,
+  CloudSlash,
+  DotsThree,
   ListChecks,
-  Path,
+  PencilSimpleLine,
+  Signature,
+  Users,
 } from "@phosphor-icons/react/ssr";
-import { imsCopy, type ImsPaintId } from "@/content/ims";
+import { imsCopy, type ImsCaptureRow, type ImsPaintId } from "@/content/ims";
 
 interface PhoneImsProps {
   paint: ImsPaintId;
 }
 
-const listIcons = {
+const tabIcons = {
+  job: ClipboardText,
   capture: Camera,
   hours: Clock,
-  prestart: ListChecks,
-  jobs: Briefcase,
-  variations: Path,
-  certificates: Certificate,
+  more: DotsThree,
 } as const;
 
-const tabIcons = {
-  jobs: FolderOpen,
-  capture: Camera,
-  hours: Clock,
+const glyphIcons = {
+  prestart: ListChecks,
+  signature: Signature,
+  hours: Users,
 } as const;
+
+function CaptureRow({ row }: { row: ImsCaptureRow }) {
+  const Glyph = row.glyph ? glyphIcons[row.glyph] : null;
+
+  return (
+    <li className="ims-capture-row">
+      <span className="ims-capture-thumb">
+        {row.thumb ? (
+          /* eslint-disable-next-line @next/next/no-img-element -- fixed-size demo asset inside a capture frame */
+          <img src={row.thumb.src} alt={row.thumb.alt} width={240} height={240} />
+        ) : Glyph ? (
+          <Glyph size={20} weight="regular" aria-hidden />
+        ) : null}
+      </span>
+      <span className="ims-capture-copy">
+        <span className="ims-capture-label">{row.label}</span>
+        <span className="ims-capture-meta">{row.meta}</span>
+      </span>
+      <span className="ims-capture-right">
+        <span className="ims-num ims-capture-time">{row.time}</span>
+        {row.sync === "synced" ? (
+          <span className="ims-tick" title="Sent">
+            <CheckCircle size={15} weight="fill" aria-hidden />
+            Sent
+          </span>
+        ) : (
+          <span className="ims-queued">Queued</span>
+        )}
+      </span>
+    </li>
+  );
+}
 
 export function PhoneIms({ paint }: PhoneImsProps) {
-  const list = [...imsCopy.primary, ...imsCopy.secondary];
+  const field = imsCopy.field;
 
   return (
     <section
@@ -40,69 +74,96 @@ export function PhoneIms({ paint }: PhoneImsProps) {
       className="ims-shell ims-phone"
       aria-label={imsCopy.demoNote}
     >
-      <div className="ims-phone-chrome">
-        <div className="ims-status" aria-hidden="true">
-          <span>9:41</span>
-          <span className="ims-status-glyphs">
-            <span className="ims-glyph-signal" />
-            <span className="ims-glyph-bar" />
+      <div className="ims-phone-status" aria-hidden="true">
+        <span className="ims-num">{field.statusTime}</span>
+        <span className="ims-status-glyphs">
+          <CellSignalLow size={16} weight="bold" />
+          <BatteryMedium size={20} weight="regular" />
+        </span>
+      </div>
+
+      <header className="ims-phone-bar">
+        <span className="ims-phone-bar-job ims-num">{field.jobNo}</span>
+        <span className="ims-sync">
+          <CloudSlash size={15} weight="bold" aria-hidden />
+          {field.sync.queuedLabel}
+        </span>
+      </header>
+
+      <div className="ims-phone-body">
+        <div className="ims-job-head">
+          <h1 className="ims-job-title">{field.jobTitle}</h1>
+          <p className="ims-job-meta">
+            {field.jobMeta}
+            <span className="ims-dot" aria-hidden="true" />
+            {field.jobScope}
+          </p>
+          <p className="ims-job-state">
+            <span className="ims-state">{field.stateLabel}</span>
+            <span className="ims-job-state-meta">{field.stateMeta}</span>
+          </p>
+        </div>
+
+        <div className="ims-action-primary">
+          <span className="ims-action-icon" aria-hidden="true">
+            <Camera size={30} weight="fill" />
+          </span>
+          <span className="ims-action-copy">
+            <span className="ims-action-label">{field.primaryAction.label}</span>
+            <span className="ims-action-hint">{field.primaryAction.hint}</span>
           </span>
         </div>
 
-        <header className="ims-phone-banner">
-          <div className="ims-phone-head-row">
-            <h1 className="ims-phone-job">{imsCopy.jobTitle}</h1>
-            <span className="ims-demo ims-demo-on-accent">{imsCopy.demo}</span>
-          </div>
-          <p className="ims-kicker">{imsCopy.openJob}</p>
-        </header>
-      </div>
-
-      <div className="ims-phone-body">
-        <div className="ims-tiles">
-          {imsCopy.tiles.map((tile) => (
-            <div key={tile.label} className="ims-tile">
-              <span className="ims-tile-label">{tile.label}</span>
-              <span className="ims-tile-value">{tile.value}</span>
-            </div>
+        <div className="ims-action-row">
+          {field.secondaryActions.map((action) => (
+            <span key={action.id} className="ims-action-secondary">
+              {action.id === "hours" ? (
+                <Clock size={18} weight="bold" aria-hidden />
+              ) : (
+                <PencilSimpleLine size={18} weight="bold" aria-hidden />
+              )}
+              {action.label}
+            </span>
           ))}
         </div>
 
-        <div className="ims-list">
-          {list.map((item, index) => {
-            const Icon = listIcons[item.id as keyof typeof listIcons];
-            const hint = "hint" in item && typeof item.hint === "string" ? item.hint : undefined;
-            return (
-              <div
-                key={item.id}
-                className={index === 0 ? "ims-list-row ims-list-row-primary" : "ims-list-row"}
-              >
-                <span className="ims-list-icon" aria-hidden="true">
-                  <Icon size={22} weight="regular" />
-                </span>
-                <span className="ims-list-copy">
-                  <span className="ims-list-label">{item.label}</span>
-                  {hint ? <span className="ims-list-hint">{hint}</span> : null}
-                </span>
-                <CaretRight size={16} weight="bold" className="ims-list-caret" aria-hidden />
-              </div>
-            );
-          })}
+        <dl className="ims-metrics">
+          {field.metrics.map((metric) => (
+            <div key={metric.label} className="ims-metric">
+              <dt className="ims-metric-label">{metric.label}</dt>
+              <dd className="ims-metric-value ims-num">
+                {metric.value}
+                {metric.unit ? <span className="ims-metric-unit">{metric.unit}</span> : null}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="ims-feed">
+          <div className="ims-feed-head">
+            <h2 className="ims-feed-heading">{field.feedHeading}</h2>
+            <span className="ims-feed-note">{field.sync.offlineNote}</span>
+          </div>
+          <ul className="ims-capture-list">
+            {field.feed.map((row) => (
+              <CaptureRow key={row.id} row={row} />
+            ))}
+          </ul>
         </div>
       </div>
 
       <div className="ims-phone-foot">
         <nav className="ims-tabs" aria-label="Field app">
-          {imsCopy.tabs.map((tab) => {
+          {field.tabs.map((tab) => {
             const Icon = tabIcons[tab.id as keyof typeof tabIcons];
-            const active = tab.id === imsCopy.selectedTab;
+            const active = tab.id === field.selectedTab;
             return (
               <span
                 key={tab.id}
                 className={active ? "ims-tab ims-tab-active" : "ims-tab"}
                 aria-current={active ? "page" : undefined}
               >
-                <Icon size={22} weight={active ? "bold" : "regular"} aria-hidden />
+                <Icon size={21} weight={active ? "fill" : "regular"} aria-hidden />
                 {tab.label}
               </span>
             );
