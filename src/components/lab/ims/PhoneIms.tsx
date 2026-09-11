@@ -20,6 +20,7 @@ import {
   type ImsBuildId,
   type ImsCaptureRow,
   type ImsFieldActionId,
+  type ImsFieldTabId,
   type ImsPaintId,
 } from "@/content/ims";
 
@@ -27,6 +28,8 @@ interface PhoneImsProps {
   paint: ImsPaintId;
   /** Which yard's build to render. There is no default: picking is the point. */
   build: ImsBuildId;
+  /** Override the build's selected tab. Capture is a viewfinder, not the job. */
+  tab?: ImsFieldTabId;
 }
 
 const tabIcons = {
@@ -86,8 +89,10 @@ function CaptureRow({ row }: { row: ImsCaptureRow }) {
  * product surface embedded in a marketing page, so it must not put an h1 into
  * that page's heading outline. The section's aria-label names it as a demo.
  */
-export function PhoneIms({ paint, build }: PhoneImsProps) {
+export function PhoneIms({ paint, build, tab }: PhoneImsProps) {
   const field = imsFieldBuilds[build];
+  const selectedTab = tab ?? field.selectedTab;
+  const isCapture = selectedTab === "capture";
 
   return (
     <section
@@ -95,6 +100,7 @@ export function PhoneIms({ paint, build }: PhoneImsProps) {
       data-ims-paint={paint}
       data-ims-device="phone"
       data-ims-build={build}
+      data-ims-tab={selectedTab}
       className="ims-shell ims-phone"
       aria-label={`${field.trade} field app. ${imsCopy.demoNote}`}
     >
@@ -107,7 +113,7 @@ export function PhoneIms({ paint, build }: PhoneImsProps) {
       </div>
 
       <header className="ims-phone-bar">
-        <span className="ims-phone-bar-job ims-num">{field.jobNo}</span>
+        <span className="ims-phone-bar-job ims-num">{isCapture ? "Capture" : field.jobNo}</span>
         <span className="ims-sync">
           <CloudSlash size={15} weight="bold" aria-hidden />
           {field.sync.queuedLabel}
@@ -115,79 +121,97 @@ export function PhoneIms({ paint, build }: PhoneImsProps) {
       </header>
 
       <div className="ims-phone-body">
-        <div className="ims-job-head">
-          <p className="ims-job-title">{field.jobTitle}</p>
-          <p className="ims-job-meta">
-            {field.jobMeta}
-            <span className="ims-dot" aria-hidden="true" />
-            {field.jobScope}
-          </p>
-          <p className="ims-job-state">
-            <span className="ims-state">{field.stateLabel}</span>
-            <span className="ims-job-state-meta">{field.stateMeta}</span>
-          </p>
-        </div>
-
-        <div className="ims-action-primary">
-          <span className="ims-action-icon" aria-hidden="true">
-            <Camera size={30} weight="fill" />
-          </span>
-          <span className="ims-action-copy">
-            <span className="ims-action-label">{field.primaryAction.label}</span>
-            <span className="ims-action-hint">{field.primaryAction.hint}</span>
-          </span>
-        </div>
-
-        <div className="ims-action-row">
-          {field.secondaryActions.map((action) => {
-            const Icon = actionIcons[action.id];
-            return (
-              <span key={action.id} className="ims-action-secondary">
-                <Icon size={18} weight="bold" aria-hidden />
-                {action.label}
-              </span>
-            );
-          })}
-        </div>
-
-        <dl className="ims-metrics">
-          {field.metrics.map((metric) => (
-            <div key={metric.label} className="ims-metric">
-              <dt className="ims-metric-label">{metric.label}</dt>
-              <dd className="ims-metric-value ims-num">
-                {metric.value}
-                {metric.unit ? <span className="ims-metric-unit">{metric.unit}</span> : null}
-              </dd>
+        {isCapture ? (
+          <div className="ims-finder">
+            <div className="ims-finder-glass">
+              <div className="ims-finder-live" aria-hidden="true" />
+              <div className="ims-finder-frame" aria-hidden="true" />
+              <span className="ims-finder-mode">Document</span>
+              <span className="ims-finder-hint">Hold over the paper</span>
             </div>
-          ))}
-        </dl>
-
-        <div className="ims-feed">
-          <div className="ims-feed-head">
-            <p className="ims-feed-heading">{field.feedHeading}</p>
-            <span className="ims-feed-note">{field.sync.offlineNote}</span>
+            <div className="ims-finder-shutter" aria-hidden="true">
+              <span className="ims-finder-shutter-ring">
+                <span className="ims-finder-shutter-dot" />
+              </span>
+            </div>
           </div>
-          <ul className="ims-capture-list">
-            {field.feed.map((row) => (
-              <CaptureRow key={row.id} row={row} />
-            ))}
-          </ul>
-        </div>
+        ) : (
+          <>
+            <div className="ims-job-head">
+              <p className="ims-job-title">{field.jobTitle}</p>
+              <p className="ims-job-meta">
+                {field.jobMeta}
+                <span className="ims-dot" aria-hidden="true" />
+                {field.jobScope}
+              </p>
+              <p className="ims-job-state">
+                <span className="ims-state">{field.stateLabel}</span>
+                <span className="ims-job-state-meta">{field.stateMeta}</span>
+              </p>
+            </div>
+
+            <div className="ims-action-primary">
+              <span className="ims-action-icon" aria-hidden="true">
+                <Camera size={30} weight="fill" />
+              </span>
+              <span className="ims-action-copy">
+                <span className="ims-action-label">{field.primaryAction.label}</span>
+                <span className="ims-action-hint">{field.primaryAction.hint}</span>
+              </span>
+            </div>
+
+            <div className="ims-action-row">
+              {field.secondaryActions.map((action) => {
+                const Icon = actionIcons[action.id];
+                return (
+                  <span key={action.id} className="ims-action-secondary">
+                    <Icon size={18} weight="bold" aria-hidden />
+                    {action.label}
+                  </span>
+                );
+              })}
+            </div>
+
+            <dl className="ims-metrics">
+              {field.metrics.map((metric) => (
+                <div key={metric.label} className="ims-metric">
+                  <dt className="ims-metric-label">{metric.label}</dt>
+                  <dd className="ims-metric-value ims-num">
+                    {metric.value}
+                    {metric.unit ? <span className="ims-metric-unit">{metric.unit}</span> : null}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="ims-feed">
+              <div className="ims-feed-head">
+                <p className="ims-feed-heading">{field.feedHeading}</p>
+                <span className="ims-feed-note">{field.sync.offlineNote}</span>
+              </div>
+              <ul className="ims-capture-list">
+                {field.feed.map((row) => (
+                  <CaptureRow key={row.id} row={row} />
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="ims-phone-foot">
         <nav className="ims-tabs" aria-label="Field app">
-          {field.tabs.map((tab) => {
-            const Icon = tabIcons[tab.id];
-            const active = tab.id === field.selectedTab;
+          {field.tabs.map((tabItem) => {
+            const Icon = tabIcons[tabItem.id];
+            const active = tabItem.id === selectedTab;
             return (
               <span
-                key={tab.id}
+                key={tabItem.id}
                 className={active ? "ims-tab ims-tab-active" : "ims-tab"}
                 aria-current={active ? "page" : undefined}
               >
                 <Icon size={21} weight={active ? "fill" : "regular"} aria-hidden />
-                {tab.label}
+                {tabItem.label}
               </span>
             );
           })}

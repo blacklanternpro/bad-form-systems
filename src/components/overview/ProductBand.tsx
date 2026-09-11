@@ -37,10 +37,8 @@ export function ProductBand() {
       <StillFrame still={cabStill} />
 
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-        {/* Reversed at lg so the live phone sits under the photographed phone
-            above it while the heading still reads first on a narrow screen. Both
-            are the haulage build, so the pairing is a close-up, not a second
-            claim. */}
+        {/* Live phone is the generic system, day paint, not the concreter
+            dusk app in the hero. The cab photograph above is atmosphere. */}
         <div className="flex flex-col gap-10 lg:flex-row-reverse lg:items-center lg:gap-16">
           <div className="lg:flex-1">
             <h2
@@ -57,8 +55,8 @@ export function ProductBand() {
           </div>
           <LiveScreen
             device="phone"
-            paint="dusk"
-            build="cartage"
+            paint="day"
+            build="generic"
             className="shrink-0 ring-1 ring-brand-sheet/15"
           />
         </div>

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ImsRoute, captureFromSearchParams } from "@/components/lab/ims/ImsRoute";
+import { ImsRoute } from "@/components/lab/ims/ImsRoute";
 import {
   imsBuildIds,
   imsCopy,
   imsFieldBuilds,
   type ImsBuildId,
+  type ImsFieldTabId,
   type ImsPaintId,
 } from "@/content/ims";
 
 const paintIds = ["day", "dusk"] as const;
+const tabIds = ["job", "capture", "hours", "more"] as const;
 
 export function generateStaticParams() {
   return imsBuildIds.flatMap((build) => paintIds.map((paint) => ({ build, paint })));
@@ -23,6 +25,10 @@ function isPaint(value: string): value is ImsPaintId {
   return (paintIds as readonly string[]).includes(value);
 }
 
+function isTab(value: string | undefined): value is ImsFieldTabId {
+  return Boolean(value && (tabIds as readonly string[]).includes(value));
+}
+
 type PhoneParams = { params: Promise<{ build: string; paint: string }> };
 
 export async function generateMetadata({ params }: PhoneParams): Promise<Metadata> {
@@ -32,7 +38,7 @@ export async function generateMetadata({ params }: PhoneParams): Promise<Metadat
   const trade = imsFieldBuilds[build].trade;
   return {
     title: `IMS phone · ${build} · ${paint}`,
-    description: `Theoretical field IMS for a ${trade.toLowerCase()} yard, ${imsCopy.paints[paint].label.toLowerCase()}. Lab only.`,
+    description: `Theoretical field IMS, ${trade.toLowerCase()}, ${imsCopy.paints[paint].label.toLowerCase()}. Lab only.`,
     robots: { index: false, follow: false },
   };
 }
@@ -40,10 +46,16 @@ export async function generateMetadata({ params }: PhoneParams): Promise<Metadat
 export default async function PhoneBuildPage({
   params,
   searchParams,
-}: PhoneParams & { searchParams: Promise<{ capture?: string | string[] }> }) {
+}: PhoneParams & {
+  searchParams: Promise<{ capture?: string | string[]; view?: string | string[] }>;
+}) {
   const { build, paint } = await params;
   if (!isBuild(build) || !isPaint(paint)) notFound();
 
-  const capture = await captureFromSearchParams(searchParams);
-  return <ImsRoute device="phone" build={build} paint={paint} capture={capture} />;
+  const query = await searchParams;
+  const capture = (Array.isArray(query.capture) ? query.capture[0] : query.capture) === "1";
+  const viewRaw = Array.isArray(query.view) ? query.view[0] : query.view;
+  const tab = isTab(viewRaw) ? viewRaw : undefined;
+
+  return <ImsRoute device="phone" build={build} paint={paint} capture={capture} tab={tab} />;
 }

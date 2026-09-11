@@ -4,20 +4,28 @@ import { PhoneIms } from "@/components/lab/ims/PhoneIms";
 import {
   IMS_DESK,
   IMS_PHONE,
+  imsBuildIds,
   imsCopy,
   imsFieldBuilds,
   imsHref,
   type ImsBuildId,
+  type ImsFieldTabId,
   type ImsPaintId,
 } from "@/content/ims";
 
-/** Same split as LiveScreen: the board has one build, the phone has two. */
+/** Same split as LiveScreen: the board is the generic system. */
 type ImsRouteProps =
-  | { device: "phone"; paint: ImsPaintId; build: ImsBuildId; capture: boolean }
+  | {
+      device: "phone";
+      paint: ImsPaintId;
+      build: ImsBuildId;
+      capture: boolean;
+      tab?: ImsFieldTabId;
+    }
   | { device: "desk"; paint: ImsPaintId; capture: boolean };
 
-/** The board belongs to the concrete yard, so its phone link goes there. */
-const BOARD_BUILD: ImsBuildId = "pour";
+/** The board and the live phone are the unattributed system. */
+const BOARD_BUILD: ImsBuildId = "generic";
 
 type LabLink = { href: string; label: string };
 
@@ -29,7 +37,7 @@ export function ImsRoute(props: ImsRouteProps) {
 
   const screen =
     props.device === "phone" ? (
-      <PhoneIms paint={paint} build={props.build} />
+      <PhoneIms paint={paint} build={props.build} tab={props.tab} />
     ) : (
       <DeskIms paint={paint} />
     );
@@ -46,7 +54,7 @@ export function ImsRoute(props: ImsRouteProps) {
   const links: LabLink[] = [{ href: "/lab/ims", label: "All IMS screens" }];
 
   if (props.device === "phone") {
-    const otherBuild: ImsBuildId = props.build === "pour" ? "cartage" : "pour";
+    const otherBuild = imsBuildIds[(imsBuildIds.indexOf(props.build) + 1) % imsBuildIds.length];
     links.push(
       { href: imsHref.desk(paint), label: `Board ${paintLabel.toLowerCase()}` },
       { href: imsHref.phone(props.build, otherPaint), label: `Phone ${otherPaintLabel}` },

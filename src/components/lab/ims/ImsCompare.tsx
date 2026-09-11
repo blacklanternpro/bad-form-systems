@@ -89,9 +89,9 @@ export function ImsCompare() {
         <h2 className="type-title mb-3 text-2xl">HTML screens</h2>
         <p className="type-body mb-8 text-brand-steel">
           Review at device size on the linked routes. Capture frames are {IMS_PHONE.width} by{" "}
-          {IMS_PHONE.height} and {IMS_DESK.width} by {IMS_DESK.height}. Each phone plate keys its
-          own build into the photographed glass, so the two stills are two yards; the desk still
-          warps the board in CSS.
+          {IMS_PHONE.height} and {IMS_DESK.width} by {IMS_DESK.height}. The hero hand still keys
+          the concreter field app into photographed glass. The cab still is a capture screen,
+          not that job. The desk still warps the generic board in CSS.
         </p>
         <div className="grid gap-8 lg:grid-cols-2">
           {htmlScreens.map((screen) => (
@@ -117,11 +117,10 @@ export function ImsCompare() {
       <section>
         <h2 className="type-title mb-3 text-2xl">Composited stills</h2>
         <p className="type-body mb-8 text-brand-steel">
-          The live homepage stills. Phone stills are the real field app keyed into
-          the photographed glass by{" "}
-          <code className="type-data text-[0.85rem]">npm run stills</code>. The
-          desk still is the board warped in CSS. Open a plate to inspect the
-          file that ships.
+          The live homepage stills. The hand still is keyed by{" "}
+          <code className="type-data text-[0.85rem]">npm run stills</code>. The cab still is
+          authored with a capture screen already in the glass. The desk still is the board
+          warped in CSS. Open a plate to inspect the file that ships.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           {stillSlugs.map((slug) => {

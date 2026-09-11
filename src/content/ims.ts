@@ -44,17 +44,18 @@ export type ImsFieldActionId = "hours" | "variation" | "load";
 
 export type ImsFieldTabId = "job" | "capture" | "hours" | "more";
 
-export type ImsBuildId = "pour" | "cartage";
+export type ImsBuildId = "pour" | "cartage" | "generic";
 
-export const imsBuildIds = ["pour", "cartage"] as const;
+export const imsBuildIds = ["pour", "cartage", "generic"] as const;
 
 /**
- * One yard's field app. Two builds ship so that no screen on the homepage
- * repeats: same code and same craft, different buttons and vocabulary. A build
- * is data only, which is the argument the page is making.
+ * A field-app vocabulary. `pour` is the hero still and Tuesday. `cartage`
+ * stays in the lab. `generic` is the live breakout and the office board: no
+ * place names, no trade, day paint. Naming a trade here would sell that trade
+ * as the product.
  */
 export type ImsFieldBuild = {
-  /** The trade this build was written for. Names a trade, never a client. */
+  /** A short label for the lab, never a customer. Generic stays "Field". */
   trade: string;
   statusTime: string;
   jobNo: string;
@@ -261,12 +262,85 @@ export const imsFieldBuilds: Record<ImsBuildId, ImsFieldBuild> = {
     ],
     selectedTab: "job",
   },
+
+  /* Homepage live phone and, via the Capture tab, the cab still if we have
+     to composite. No South West place, no trade, no job the reader can file
+     as the product. Day paint on the breakout. Capture tab is a viewfinder. */
+  generic: {
+    trade: "Field",
+    statusTime: "09:41",
+    jobNo: "10482",
+    jobTitle: "Job 01",
+    jobMeta: "Site A",
+    jobScope: "Open",
+    stateLabel: "Active",
+    stateMeta: "Clocked on 07:10",
+    sync: {
+      queuedLabel: "Queued",
+      offlineNote: "Sends when you hit range.",
+    },
+    primaryAction: {
+      label: "Capture",
+      hint: "Paper, site, or a meter",
+    },
+    secondaryActions: [
+      { id: "hours", label: "Log hours" },
+      { id: "variation", label: "Add note" },
+    ],
+    metrics: [
+      { label: "Today", value: "8.0", unit: "hrs" },
+      { label: "This job", value: "32.0", unit: "hrs" },
+      { label: "Open", value: "6" },
+    ],
+    feedHeading: "Today",
+    feed: [
+      {
+        id: "hours",
+        label: "Hours, four on site",
+        meta: "Against this job",
+        time: "09:12",
+        sync: "synced",
+        glyph: "hours",
+      },
+      {
+        id: "note",
+        label: "Note signed",
+        meta: "On site",
+        time: "08:40",
+        sync: "queued",
+        glyph: "signature",
+      },
+      {
+        id: "docket",
+        label: "Supplier docket",
+        meta: "Counter",
+        time: "07:22",
+        sync: "synced",
+        thumb: docketThumb,
+      },
+      {
+        id: "prestart",
+        label: "Pre-start",
+        meta: "All clear",
+        time: "07:05",
+        sync: "synced",
+        glyph: "prestart",
+      },
+    ],
+    tabs: [
+      { id: "job", label: "Job" },
+      { id: "capture", label: "Capture" },
+      { id: "hours", label: "Hours" },
+      { id: "more", label: "More" },
+    ],
+    selectedTab: "job",
+  },
 };
 
 export const imsCopy = {
   labTitle: "IMS screens",
   labBody:
-    "Lab only. The field apps and the office board that sit in the homepage stills. Two yards' builds, two paints, demo data, not a shipped product.",
+    "Lab only. Field apps and the office board used on the homepage. Demo data, not a shipped product.",
   demo: "DEMO",
   demoNote: "Demo system. Not a live customer job.",
   brandMark: "BAD FORM",
@@ -289,11 +363,11 @@ export const imsCopy = {
     tableColumns: ["Job", "Plant", "Hours", "Quoted against committed", "Status"] as const,
     jobs: [
       {
-        job: "Kemerton pad",
-        jobNo: "BF-2025-0325",
-        site: "Kemerton",
-        plant: "EX20",
-        hours: "41.5",
+        job: "Job 01",
+        jobNo: "10482",
+        site: "Site A",
+        plant: "Unit 2",
+        hours: "32.0",
         quoted: "$18,400",
         committed: "$12,180",
         burn: 0.66,
@@ -301,10 +375,10 @@ export const imsCopy = {
         state: "onsite",
       },
       {
-        job: "Picton access",
-        jobNo: "BF-2025-0318",
-        site: "Picton",
-        plant: "PC55",
+        job: "Job 02",
+        jobNo: "10471",
+        site: "North plant",
+        plant: "Unit 5",
         hours: "26.0",
         quoted: "$9,600",
         committed: "$8,940",
@@ -313,10 +387,10 @@ export const imsCopy = {
         state: "watch",
       },
       {
-        job: "Treendale fitout",
-        jobNo: "BF-2025-0307",
-        site: "Treendale",
-        plant: "Ute 4",
+        job: "Job 03",
+        jobNo: "10458",
+        site: "Run 12",
+        plant: "Bay 2",
         hours: "63.0",
         quoted: "$24,800",
         committed: "$23,910",
@@ -325,10 +399,10 @@ export const imsCopy = {
         state: "ready",
       },
       {
-        job: "Collie pump pad",
-        jobNo: "BF-2025-0311",
-        site: "Collie",
-        plant: "EX20, WT12",
+        job: "Job 04",
+        jobNo: "10444",
+        site: "Store",
+        plant: "Unit 2",
         hours: "12.5",
         quoted: "$6,200",
         committed: "$1,480",
@@ -337,10 +411,10 @@ export const imsCopy = {
         state: "prestart",
       },
       {
-        job: "Halifax bracket run",
-        jobNo: "BF-2025-0296",
-        site: "Halifax",
-        plant: "Bay 2",
+        job: "Job 05",
+        jobNo: "10421",
+        site: "Plant",
+        plant: "Bay 1",
         hours: "9.0",
         quoted: "$3,150",
         committed: "$1,020",
@@ -349,10 +423,10 @@ export const imsCopy = {
         state: "quoted",
       },
       {
-        job: "Australind service run",
-        jobNo: "BF-2025-0288",
-        site: "Australind",
-        plant: "Ute 2",
+        job: "Job 06",
+        jobNo: "10408",
+        site: "Site B",
+        plant: "Unit 4",
         hours: "18.5",
         quoted: "$7,400",
         committed: "$4,260",
@@ -365,33 +439,33 @@ export const imsCopy = {
     captures: [
       {
         id: "hours",
-        label: "Crew hours",
-        meta: "Four crew",
-        time: "16:40",
+        label: "Hours",
+        meta: "Four on site",
+        time: "09:12",
         sync: "synced",
         glyph: "hours",
       },
       {
-        id: "variation",
-        label: "Variation 02",
-        meta: "Signed on site",
-        time: "11:00",
+        id: "note",
+        label: "Note",
+        meta: "Signed",
+        time: "08:40",
         sync: "queued",
         glyph: "signature",
       },
       {
-        id: "site",
-        label: "Second pour",
-        meta: "Kemerton pad",
-        time: "9:15",
-        sync: "queued",
-        thumb: siteThumb,
+        id: "check",
+        label: "Pre-start",
+        meta: "All clear",
+        time: "07:05",
+        sync: "synced",
+        glyph: "prestart",
       },
       {
         id: "docket",
         label: "Supplier docket",
-        meta: "Kemerton pad",
-        time: "6:52",
+        meta: "Job 01",
+        time: "07:22",
         sync: "synced",
         thumb: docketThumb,
       },
@@ -399,18 +473,18 @@ export const imsCopy = {
     attentionHeading: "Needs a look",
     attention: [
       {
-        title: "Variation 04 unsigned",
-        meta: "Picton access, raised Monday",
+        title: "Variation unsigned",
+        meta: "Job 02, raised Monday",
         severity: "hold",
       },
       {
-        title: "EX20 service due in 15.4 hrs",
+        title: "Service due in 15.4 hrs",
         meta: "On the meter, not on a calendar",
         severity: "watch",
       },
       {
-        title: "Electrical cert not filed",
-        meta: "Treendale fitout, invoice ready",
+        title: "Certificate not filed",
+        meta: "Job 03, invoice ready",
         severity: "watch",
       },
     ] satisfies ImsAttentionRow[],
