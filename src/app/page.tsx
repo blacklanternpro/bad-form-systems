@@ -1,5 +1,5 @@
 import { CustomBuild } from "@/components/overview/CustomBuild";
-import { DocketSlice } from "@/components/overview/DocketSlice";
+import { GhostTaxSlice } from "@/components/overview/GhostTaxSlice";
 import { HeroOpen } from "@/components/overview/HeroOpen";
 import { ProductBand } from "@/components/overview/ProductBand";
 import { SystemMap } from "@/components/overview/SystemMap";
@@ -15,7 +15,7 @@ export default function HomePage() {
       <ProductBand />
       <SystemMap />
       <CustomBuild />
-      <DocketSlice />
+      <GhostTaxSlice />
       <VisitOffer />
       <VisitClose />
     </>

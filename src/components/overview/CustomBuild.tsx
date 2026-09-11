@@ -1,4 +1,3 @@
-import { BuildSheet } from "@/components/overview/BuildSheet";
 import { overview } from "@/content/overview";
 
 export function CustomBuild() {
@@ -30,10 +29,6 @@ export function CustomBuild() {
             </li>
           ))}
         </ol>
-
-        {/* The second beat claims the crew will open these screens. This is that
-            claim shown rather than asserted, and it is a draft on purpose. */}
-        <BuildSheet />
       </div>
     </section>
   );
