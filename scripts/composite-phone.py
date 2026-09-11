@@ -41,11 +41,11 @@ PLATES = {
         "kind": "cab",
         # Screen corners, not the chassis. TL, TR, BL, BR.
         "quad": [(486.4, 209.9), (742.7, 197.1), (522.5, 787.1), (780.1, 772.3)],
-        # Round the trapezoid to the photographed glass. Do not hull or
-        # dilate: that painted the UI onto the bezel and the cab still read as
-        # a screenshot held in a hand.
-        "round": 31,
-        "erode": 2,
+        # Round the trapezoid to the photographed glass. Do not hull, dilate,
+        # or intersect a smaller iPhone rect: that last step mapped the UI
+        # too small inside the glass. Never grow onto the bezel.
+        "round": 21,
+        "erode": 0,
         "feather": 0.5,
         # Chassis pixels that must stay photograph, not UI.
         "bezel_samples": [(475, 480), (798, 470), (478, 230), (800, 785)],
@@ -136,52 +136,18 @@ def fill_quad(shape: tuple[int, int], quad: list) -> np.ndarray:
     return cover
 
 
-def iphone_screen_mask(width: int, height: int) -> np.ndarray:
-    """Rounded rect matching PhoneIms / iPhone 11 glass, in UI pixel space."""
-    radius = max(24, int(min(width, height) * 0.12))
-    mask = np.zeros((height, width), np.uint8)
-    cv2.rectangle(mask, (radius, 0), (width - radius, height), 255, -1)
-    cv2.rectangle(mask, (0, radius), (width, height - radius), 255, -1)
-    for cx, cy in (
-        (radius, radius),
-        (width - radius - 1, radius),
-        (radius, height - radius - 1),
-        (width - radius - 1, height - radius - 1),
-    ):
-        cv2.circle(mask, (cx, cy), radius, 255, -1)
-    return mask
-
-
-def warp_gray(gray: np.ndarray, plate_shape: tuple[int, int], quad: np.ndarray) -> np.ndarray:
-    height, width = gray.shape[:2]
-    src = np.array(
-        [[0, 0], [width - 1, 0], [0, height - 1], [width - 1, height - 1]],
-        np.float32,
-    )
-    matrix = cv2.getPerspectiveTransform(src, quad.astype(np.float32))
-    return cv2.warpPerspective(
-        gray,
-        matrix,
-        (plate_shape[1], plate_shape[0]),
-        flags=cv2.INTER_LINEAR,
-        borderMode=cv2.BORDER_CONSTANT,
-        borderValue=0,
-    )
-
-
 def mask_cab(
     plate: np.ndarray,
     quad: list,
     round_px: int,
     erode: int,
-    ui_shape: tuple[int, ...],
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Keep the UI on the photographed glass, inside the bezel.
 
     The measured quad is the screen, not the chassis. Opening it rounds the
-    trapezoid to the iPhone glass. Intersect with a warped iPhone rounded-rect
-    so the corners follow the phone instead of reading as a rectangular
-    screenshot. Never hull or dilate onto the bezel.
+    trapezoid to the iPhone glass. The original gold UI already fills that
+    glass; do not also clip to a smaller rounded rect or the app sits in a
+    gutter. Never hull or dilate onto the bezel.
     """
     cover = fill_quad(plate.shape, quad)
     glass = cover
@@ -193,8 +159,6 @@ def mask_cab(
             glass,
             cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (erode * 2 + 1, erode * 2 + 1)),
         )
-    screen = warp_gray(iphone_screen_mask(ui_shape[1], ui_shape[0]), plate.shape, np.array(quad, np.float32))
-    glass = cv2.bitwise_and(glass, screen)
     camera = photographed_camera(plate, cover)
     glass[camera > 0] = 0
     return glass, cover, camera
@@ -355,7 +319,6 @@ def process(
             cfg["quad"],
             round_px=cfg["round"],
             erode=cfg["erode"],
-            ui_shape=ui.shape,
         )
         quad = np.array(cfg["quad"], np.float32)
         dusk = np.array([20, 22, 26], np.uint8)

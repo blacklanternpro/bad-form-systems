@@ -74,7 +74,7 @@ iPhone glass is not a rectangle. It is a rounded display with a notch, already f
 The two phones are not the same problem:
 
 - Hand: the original UI is bright blue on white. Chroma-key that, and the mask is the real glass and notch.
-- Cab: the original UI is dark gold on a black bezel. GrabCut plus a convex hull grew onto the chassis, so the still read as a screenshot held in a hand. Stay inside the measured glass quad, round it to the iPhone, and keep the photographed bezel. Never dilate onto the frame.
+- Cab: the original UI is dark gold on a black bezel. GrabCut plus a convex hull grew onto the chassis, so the still read as a screenshot held in a hand. Stay inside the measured glass quad, round it to the iPhone, and keep the photographed bezel. Do not clip a smaller rounded rect inside that glass or the app sits in a gutter. Never dilate onto the frame.
 
 Pipeline:
 
