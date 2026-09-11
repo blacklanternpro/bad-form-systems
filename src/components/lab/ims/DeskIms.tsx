@@ -9,6 +9,7 @@ import {
   Plus,
   Signature,
   Table,
+  Truck,
   Users,
 } from "@phosphor-icons/react/ssr";
 import { imsCopy, type ImsCaptureRow, type ImsJobRow, type ImsPaintId } from "@/content/ims";
@@ -31,6 +32,7 @@ const glyphIcons = {
   prestart: Certificate,
   signature: Signature,
   hours: Users,
+  load: Truck,
 } as const;
 
 function burnTone(burn: number): "accent" | "warn" | "hold" {

@@ -10,12 +10,23 @@ import {
   ListChecks,
   PencilSimpleLine,
   Signature,
+  Stack,
+  Truck,
   Users,
 } from "@phosphor-icons/react/ssr";
-import { imsCopy, type ImsCaptureRow, type ImsPaintId } from "@/content/ims";
+import {
+  imsCopy,
+  imsFieldBuilds,
+  type ImsBuildId,
+  type ImsCaptureRow,
+  type ImsFieldActionId,
+  type ImsPaintId,
+} from "@/content/ims";
 
 interface PhoneImsProps {
   paint: ImsPaintId;
+  /** Which yard's build to render. There is no default: picking is the point. */
+  build: ImsBuildId;
 }
 
 const tabIcons = {
@@ -25,10 +36,17 @@ const tabIcons = {
   more: DotsThree,
 } as const;
 
+const actionIcons: Record<ImsFieldActionId, typeof Clock> = {
+  hours: Clock,
+  variation: PencilSimpleLine,
+  load: Stack,
+};
+
 const glyphIcons = {
   prestart: ListChecks,
   signature: Signature,
   hours: Users,
+  load: Truck,
 } as const;
 
 function CaptureRow({ row }: { row: ImsCaptureRow }) {
@@ -68,16 +86,17 @@ function CaptureRow({ row }: { row: ImsCaptureRow }) {
  * product surface embedded in a marketing page, so it must not put an h1 into
  * that page's heading outline. The section's aria-label names it as a demo.
  */
-export function PhoneIms({ paint }: PhoneImsProps) {
-  const field = imsCopy.field;
+export function PhoneIms({ paint, build }: PhoneImsProps) {
+  const field = imsFieldBuilds[build];
 
   return (
     <section
       data-ims-capture=""
       data-ims-paint={paint}
       data-ims-device="phone"
+      data-ims-build={build}
       className="ims-shell ims-phone"
-      aria-label={imsCopy.demoNote}
+      aria-label={`${field.trade} field app. ${imsCopy.demoNote}`}
     >
       <div className="ims-phone-status" aria-hidden="true">
         <span className="ims-num">{field.statusTime}</span>
@@ -120,16 +139,15 @@ export function PhoneIms({ paint }: PhoneImsProps) {
         </div>
 
         <div className="ims-action-row">
-          {field.secondaryActions.map((action) => (
-            <span key={action.id} className="ims-action-secondary">
-              {action.id === "hours" ? (
-                <Clock size={18} weight="bold" aria-hidden />
-              ) : (
-                <PencilSimpleLine size={18} weight="bold" aria-hidden />
-              )}
-              {action.label}
-            </span>
-          ))}
+          {field.secondaryActions.map((action) => {
+            const Icon = actionIcons[action.id];
+            return (
+              <span key={action.id} className="ims-action-secondary">
+                <Icon size={18} weight="bold" aria-hidden />
+                {action.label}
+              </span>
+            );
+          })}
         </div>
 
         <dl className="ims-metrics">
@@ -160,7 +178,7 @@ export function PhoneIms({ paint }: PhoneImsProps) {
       <div className="ims-phone-foot">
         <nav className="ims-tabs" aria-label="Field app">
           {field.tabs.map((tab) => {
-            const Icon = tabIcons[tab.id as keyof typeof tabIcons];
+            const Icon = tabIcons[tab.id];
             const active = tab.id === field.selectedTab;
             return (
               <span

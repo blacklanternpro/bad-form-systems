@@ -94,7 +94,11 @@ export function StillComposite({ still, debug = false }: StillCompositeProps) {
               filter: `brightness(${glass.brightness}) blur(${(glass.blur / scale).toFixed(2)}px)`,
             }}
           >
-            {isPhone ? <PhoneIms paint={still.paint} /> : <DeskIms paint={still.paint} />}
+            {still.device === "phone" ? (
+              <PhoneIms paint={still.paint} build={still.fieldBuild} />
+            ) : (
+              <DeskIms paint={still.paint} />
+            )}
 
             <div
               className="still-grade"

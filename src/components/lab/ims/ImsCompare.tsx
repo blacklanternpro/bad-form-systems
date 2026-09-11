@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IMS_DESK, IMS_PHONE, imsCopy } from "@/content/ims";
+import { IMS_DESK, IMS_PHONE, imsBuildIds, imsCopy, imsFieldBuilds, imsHref } from "@/content/ims";
 import { stillPlates, stillSlugs } from "@/content/stills";
 
 interface ImsIframeProps {
@@ -55,31 +55,28 @@ function CropStill({ src, alt, label }: CropStillProps) {
 }
 
 export function ImsCompare() {
+  const phoneScreens = imsBuildIds.flatMap((build) =>
+    (["day", "dusk"] as const).map((paint) => ({
+      title: `${imsFieldBuilds[build].trade}, ${imsCopy.paints[paint].label.toLowerCase()}`,
+      href: imsHref.phone(build, paint),
+      width: IMS_PHONE.width,
+      height: IMS_PHONE.height,
+      scale: 0.52,
+    })),
+  );
+
   const htmlScreens = [
-    {
-      title: "Phone, office light",
-      href: imsCopy.paints.day.href.phone,
-      width: IMS_PHONE.width,
-      height: IMS_PHONE.height,
-      scale: 0.52,
-    },
-    {
-      title: "Phone, cab dark",
-      href: imsCopy.paints.dusk.href.phone,
-      width: IMS_PHONE.width,
-      height: IMS_PHONE.height,
-      scale: 0.52,
-    },
+    ...phoneScreens,
     {
       title: "Board, office light",
-      href: imsCopy.paints.day.href.desk,
+      href: imsHref.desk("day"),
       width: IMS_DESK.width,
       height: IMS_DESK.height,
       scale: 0.28,
     },
     {
       title: "Board, cab dark",
-      href: imsCopy.paints.dusk.href.desk,
+      href: imsHref.desk("dusk"),
       width: IMS_DESK.width,
       height: IMS_DESK.height,
       scale: 0.28,
@@ -92,8 +89,9 @@ export function ImsCompare() {
         <h2 className="type-title mb-3 text-2xl">HTML screens</h2>
         <p className="type-body mb-8 text-brand-steel">
           Review at device size on the linked routes. Capture frames are {IMS_PHONE.width} by{" "}
-          {IMS_PHONE.height} and {IMS_DESK.width} by {IMS_DESK.height}. Phone stills key that
-          screenshot into the photographed glass; the desk still warps the board in CSS.
+          {IMS_PHONE.height} and {IMS_DESK.width} by {IMS_DESK.height}. Each phone plate keys its
+          own build into the photographed glass, so the two stills are two yards; the desk still
+          warps the board in CSS.
         </p>
         <div className="grid gap-8 lg:grid-cols-2">
           {htmlScreens.map((screen) => (

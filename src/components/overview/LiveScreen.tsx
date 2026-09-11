@@ -1,20 +1,15 @@
 import { DeskIms } from "@/components/lab/ims/DeskIms";
 import { PhoneIms } from "@/components/lab/ims/PhoneIms";
-import { IMS_DESK, IMS_PHONE, type ImsPaintId } from "@/content/ims";
+import { IMS_DESK, IMS_PHONE, type ImsBuildId, type ImsPaintId } from "@/content/ims";
 
-type LiveScreenProps = {
-  device: "phone" | "desk";
-  paint: ImsPaintId;
-  className?: string;
-};
+/** Only the phone has more than one build, so only the phone asks for one. */
+type LiveScreenProps =
+  | { device: "phone"; paint: ImsPaintId; build: ImsBuildId; className?: string }
+  | { device: "desk"; paint: ImsPaintId; className?: string };
 
-const sizes = {
-  phone: IMS_PHONE,
-  desk: IMS_DESK,
-} as const;
-
-export function LiveScreen({ device, paint, className }: LiveScreenProps) {
-  const size = sizes[device];
+export function LiveScreen(props: LiveScreenProps) {
+  const { device, paint, className } = props;
+  const size = device === "phone" ? IMS_PHONE : IMS_DESK;
 
   return (
     <div
@@ -28,7 +23,11 @@ export function LiveScreen({ device, paint, className }: LiveScreenProps) {
       }
     >
       <div className="screen-frame-inner">
-        {device === "phone" ? <PhoneIms paint={paint} /> : <DeskIms paint={paint} />}
+        {props.device === "phone" ? (
+          <PhoneIms paint={paint} build={props.build} />
+        ) : (
+          <DeskIms paint={paint} />
+        )}
       </div>
     </div>
   );

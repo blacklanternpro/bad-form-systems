@@ -11,7 +11,7 @@ export type ImsCaptureRow = {
   time: string;
   sync: ImsSyncState;
   thumb?: { src: string; alt: string };
-  glyph?: "prestart" | "signature" | "hours";
+  glyph?: "prestart" | "signature" | "hours" | "load";
 };
 
 export type ImsMetric = {
@@ -40,6 +40,39 @@ export type ImsAttentionRow = {
   severity: ImsSeverity;
 };
 
+export type ImsFieldActionId = "hours" | "variation" | "load";
+
+export type ImsFieldTabId = "job" | "capture" | "hours" | "more";
+
+export type ImsBuildId = "pour" | "cartage";
+
+export const imsBuildIds = ["pour", "cartage"] as const;
+
+/**
+ * One yard's field app. Two builds ship so that no screen on the homepage
+ * repeats: same code and same craft, different buttons and vocabulary. A build
+ * is data only, which is the argument the page is making.
+ */
+export type ImsFieldBuild = {
+  /** The trade this build was written for. Names a trade, never a client. */
+  trade: string;
+  statusTime: string;
+  jobNo: string;
+  jobTitle: string;
+  jobMeta: string;
+  jobScope: string;
+  stateLabel: string;
+  stateMeta: string;
+  sync: { queuedLabel: string; offlineNote: string };
+  primaryAction: { label: string; hint: string };
+  secondaryActions: { id: ImsFieldActionId; label: string }[];
+  metrics: ImsMetric[];
+  feedHeading: string;
+  feed: ImsCaptureRow[];
+  tabs: { id: ImsFieldTabId; label: string }[];
+  selectedTab: ImsFieldTabId;
+};
+
 const docketThumb = {
   src: "/images/ims/capture-docket.webp",
   alt: "Photographed supplier docket, demo capture.",
@@ -50,19 +83,21 @@ const siteThumb = {
   alt: "Photographed ground at the pour edge, demo capture.",
 };
 
-export const imsCopy = {
-  labTitle: "IMS screens",
-  labBody:
-    "Lab only. The field app and the office board that sit in the homepage stills. Demo data, two paints, not a shipped product.",
-  demo: "DEMO",
-  demoNote: "Demo system. Not a live customer job.",
-  brandMark: "BAD FORM",
-  brandArm: "Systems",
+/* The cartage yard photographs a weighbridge ticket, so it reuses the docket
+   frame with its own alt. It never borrows the pour build's site photo: that
+   alt describes concrete, and alt text does not get to be approximately true. */
+const ticketThumb = {
+  src: "/images/ims/capture-docket.webp",
+  alt: "Photographed weighbridge ticket, demo capture.",
+};
 
-  field: {
-    /* Both screens show the same demo day, late afternoon: the phone still
-       clocked on, the board already synced. Times have to agree across the two
-       or the pair stops reading as one system. */
+export const imsFieldBuilds: Record<ImsBuildId, ImsFieldBuild> = {
+  /* The concrete yard. This build owns the hero still and the office board, so
+     its day has to agree with the Tuesday timeline on the homepage and with the
+     board's own job list. Late afternoon: the phone still clocked on, the board
+     already synced. */
+  pour: {
+    trade: "Concrete formwork",
     statusTime: "17:04",
     jobNo: "BF-2025-0325",
     jobTitle: "Kemerton pad",
@@ -86,7 +121,7 @@ export const imsCopy = {
       { label: "Today", value: "9.5", unit: "hrs" },
       { label: "Job to date", value: "41.5", unit: "hrs" },
       { label: "EX20 meter", value: "1,284.6", unit: "hrs" },
-    ] satisfies ImsMetric[],
+    ],
     feedHeading: "Captured today",
     /* Newest first, and the times match the Tuesday timeline on the homepage,
        because the copy sends the reader from one to the other. Four rows fit the
@@ -133,7 +168,7 @@ export const imsCopy = {
         sync: "synced",
         glyph: "prestart",
       },
-    ] satisfies ImsCaptureRow[],
+    ],
     tabs: [
       { id: "job", label: "Job" },
       { id: "capture", label: "Capture" },
@@ -142,6 +177,100 @@ export const imsCopy = {
     ],
     selectedTab: "job",
   },
+
+  /* A different yard, hauling sand. Same components, and almost nothing the
+     driver touches is the same: the button that matters photographs a
+     weighbridge ticket, the day is counted in loads and tonnes rather than
+     hours on a pad, and the first tab is a run, not a job. This build owns the
+     cab still and the one live screen under it, so the two agree by
+     construction. It does not have to agree with the pour yard's board. */
+  cartage: {
+    trade: "Tipper haulage",
+    statusTime: "15:12",
+    jobNo: "BF-2025-0341",
+    jobTitle: "Capel sand cartage",
+    jobMeta: "Capel pit",
+    jobScope: "Tipper haulage",
+    stateLabel: "On the road",
+    stateMeta: "Clocked on 5:20",
+    sync: {
+      queuedLabel: "3 queued",
+      offlineNote: "No signal on the haul road. Sends when you hit range.",
+    },
+    primaryAction: {
+      label: "Weighbridge ticket",
+      hint: "Tonnes, pit, and this run",
+    },
+    secondaryActions: [
+      { id: "hours", label: "Log hours" },
+      { id: "load", label: "Add load" },
+    ],
+    metrics: [
+      { label: "Loads today", value: "7" },
+      { label: "Tonnes today", value: "148.2", unit: "t" },
+      { label: "Truck 12", value: "9.8", unit: "hrs" },
+    ],
+    feedHeading: "Captured today",
+    feed: [
+      {
+        id: "load-07",
+        label: "Load 7, Capel to Kemerton",
+        meta: "28.4 t on the ticket",
+        time: "14:58",
+        sync: "queued",
+        glyph: "load",
+      },
+      {
+        id: "ticket",
+        label: "Weighbridge ticket",
+        meta: "Capel pit",
+        time: "14:44",
+        sync: "queued",
+        thumb: ticketThumb,
+      },
+      {
+        id: "hours",
+        label: "Driver hours, Truck 12",
+        meta: "Second shift on the run",
+        time: "13:05",
+        sync: "synced",
+        glyph: "hours",
+      },
+      {
+        id: "load-06",
+        label: "Load 6, Capel to Kemerton",
+        meta: "27.9 t on the ticket",
+        time: "12:20",
+        sync: "synced",
+        glyph: "load",
+      },
+      {
+        id: "prestart",
+        label: "Pre-start, Truck 12",
+        meta: "Twelve checks, all clear",
+        time: "5:15",
+        sync: "synced",
+        glyph: "prestart",
+      },
+    ],
+    tabs: [
+      { id: "job", label: "Run" },
+      { id: "capture", label: "Capture" },
+      { id: "hours", label: "Hours" },
+      { id: "more", label: "More" },
+    ],
+    selectedTab: "job",
+  },
+};
+
+export const imsCopy = {
+  labTitle: "IMS screens",
+  labBody:
+    "Lab only. The field apps and the office board that sit in the homepage stills. Two yards' builds, two paints, demo data, not a shipped product.",
+  demo: "DEMO",
+  demoNote: "Demo system. Not a live customer job.",
+  brandMark: "BAD FORM",
+  brandArm: "Systems",
 
   desk: {
     breadcrumb: "Jobs",
@@ -309,17 +438,19 @@ export const imsCopy = {
   },
 
   paints: {
-    day: {
-      id: "day" as const,
-      label: "Office light",
-      href: { phone: "/lab/ims/phone-day", desk: "/lab/ims/desk-day" },
-    },
-    dusk: {
-      id: "dusk" as const,
-      label: "Cab dark",
-      href: { phone: "/lab/ims/phone-dusk", desk: "/lab/ims/desk-dusk" },
-    },
+    day: { id: "day" as const, label: "Office light" },
+    dusk: { id: "dusk" as const, label: "Cab dark" },
   },
+};
+
+/**
+ * Lab routes. The phone carries a build because two yards ship; the board has
+ * one build and only appears in a photograph, so it carries a paint alone.
+ * scripts/shoot-stills.mjs builds the same URLs by hand, so keep them in step.
+ */
+export const imsHref = {
+  phone: (build: ImsBuildId, paint: ImsPaintId) => `/lab/ims/phone/${build}/${paint}`,
+  desk: (paint: ImsPaintId) => `/lab/ims/desk/${paint}`,
 };
 
 export const IMS_PHONE = { width: 390, height: 844 } as const;
