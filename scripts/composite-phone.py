@@ -6,9 +6,14 @@ is a rounded rect with a notch, so this keys the photographed screen and
 warps a PhoneIms screenshot into it. Work happens at 2x so the UI stays
 legible when the homepage crops in, matching the desk still pipeline.
 
+Each plate gets its own screenshot, because the two phone stills are two
+different yards' builds. One screen on every surface is what makes a page read
+as a product tour.
+
 Usage:
-  python3 scripts/composite-phone.py --ui /tmp/phone-dusk.png
-  python3 scripts/composite-phone.py --ui /tmp/phone-dusk.png hand cab --og
+  python3 scripts/composite-phone.py --ui hand=/tmp/phone-hand.png
+  python3 scripts/composite-phone.py --ui hand=/tmp/a.png --ui cab=/tmp/b.png hand cab --og
+  python3 scripts/composite-phone.py --ui /tmp/one.png hand cab   # same screen in both
 """
 
 from __future__ import annotations
@@ -386,9 +391,46 @@ def process(
             raise SystemExit(f"{slug}: original gold chrome is still showing ({gold} px).")
 
 
+def load_uis(specs: list[str], slugs: list[str]) -> dict[str, np.ndarray]:
+    """Resolve --ui values to one screenshot per plate.
+
+    A bare path is the fallback for every plate. `slug=path` overrides a single
+    plate, which is how the two phone stills carry two different yards' builds.
+    """
+    fallback: Path | None = None
+    per_slug: dict[str, Path] = {}
+    for spec in specs:
+        slug, sep, path = spec.partition("=")
+        if sep:
+            if slug not in PLATES:
+                raise SystemExit(f"Unknown plate {slug} in --ui. Choose from: {', '.join(PLATES)}")
+            per_slug[slug] = Path(path)
+        else:
+            fallback = Path(spec)
+
+    loaded: dict[Path, np.ndarray] = {}
+    uis: dict[str, np.ndarray] = {}
+    for slug in slugs:
+        path = per_slug.get(slug, fallback)
+        if path is None:
+            raise SystemExit(f"No --ui screenshot given for {slug}.")
+        if not path.exists():
+            raise SystemExit(f"UI screenshot not found: {path}")
+        if path not in loaded:
+            loaded[path] = load_rgb(path)
+        uis[slug] = loaded[path]
+    return uis
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Composite PhoneIms into the photographed glass.")
-    parser.add_argument("--ui", required=True, help="PNG screenshot of PhoneIms, dusk paint.")
+    parser.add_argument(
+        "--ui",
+        required=True,
+        action="append",
+        metavar="[SLUG=]PATH",
+        help="PNG screenshot of PhoneIms. Prefix with a plate slug to give that plate its own screen.",
+    )
     parser.add_argument("slugs", nargs="*", default=["hand", "cab"])
     parser.add_argument("--debug-dir", default="")
     parser.add_argument("--og", action="store_true", help="Also write public/images/og.jpg from the cab still.")
@@ -399,18 +441,15 @@ def main() -> None:
     if shutil.which("ffmpeg") is None:
         raise SystemExit("ffmpeg is required to encode webp.")
 
-    ui_path = Path(args.ui)
-    if not ui_path.exists():
-        raise SystemExit(f"UI screenshot not found: {ui_path}")
-    ui = load_rgb(ui_path)
-
     slugs = args.slugs or ["hand", "cab"]
+    uis = load_uis(args.ui, slugs)
+
     for slug in slugs:
         if slug not in PLATES:
             raise SystemExit(f"Unknown plate {slug}. Choose from: {', '.join(PLATES)}")
         process(
             slug,
-            ui,
+            uis[slug],
             Path(args.debug_dir) if args.debug_dir else None,
             skip_checks=args.skip_checks,
             no_write=args.no_write,

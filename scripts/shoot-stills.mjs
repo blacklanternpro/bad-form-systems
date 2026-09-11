@@ -5,8 +5,10 @@
  * Desk: photograph + live DeskIms, warped in CSS (the laptop glass is a
  * rectangle, so a four-point warp is enough).
  *
- * Phones: screenshot PhoneIms at 3x, then scripts/composite-phone.py keys
- * the photographed glass and warps the screenshot into that mask at 2x.
+ * Phones: screenshot PhoneIms at 3x once per plate, because each plate names
+ * its own yard's build in src/content/stills.ts and the two stills must not
+ * show the same screen. scripts/composite-phone.py then keys the photographed
+ * glass and warps each screenshot into its own mask at 2x.
  * Cab stays inside the glass; growing onto the bezel reads as a screenshot
  * in a hand, not a phone. CSS cannot do this: iPhone glass is a rounded
  * rect with a notch.
@@ -60,6 +62,10 @@ function readPlates() {
       slug,
       device: device ?? "desk",
       output: read("output"),
+      // Phone plates name the yard whose field app goes in that glass. Two
+      // plates, two builds, so neither still repeats the other's screen.
+      fieldBuild: read("fieldBuild"),
+      paint: read("paint") ?? "dusk",
       width: Number(stage[1]),
       height: Number(stage[2]),
     });
@@ -135,9 +141,13 @@ function encode({ png, out, width, height, quality }) {
   );
 }
 
-function compositePhones(slugs, uiPng, writeOg) {
+/** `uiPngs` maps plate slug to the screenshot that belongs in that glass. */
+function compositePhones(uiPngs, writeOg) {
   const script = join(ROOT, "scripts", "composite-phone.py");
-  const args = [script, "--ui", uiPng, ...slugs];
+  const slugs = Object.keys(uiPngs);
+  const args = [script];
+  for (const slug of slugs) args.push("--ui", `${slug}=${uiPngs[slug]}`);
+  args.push(...slugs);
   if (writeOg) args.push("--og");
   try {
     execFileSync("python3", args, { cwd: ROOT, stdio: "inherit" });
@@ -167,21 +177,27 @@ async function main() {
   const desks = plates.filter((plate) => plate.device === "desk");
 
   if (phones.length > 0) {
-    const uiPng = join(WORK_DIR, "phone-dusk.png");
-    capture({
-      chrome,
-      url: `${base}/lab/ims/phone-dusk?capture=1`,
-      file: uiPng,
-      width: PHONE.width,
-      height: PHONE.height,
-      // Phone glass is a small part of the plate. Capture the UI denser than
-      // the desk still so the warp still has samples after the homepage crops in.
-      scale: Math.max(opts.scale, opts.phoneScale),
-      seconds: 50,
-    });
+    const uiPngs = {};
+    for (const plate of phones) {
+      if (!plate.fieldBuild) {
+        throw new Error(`${plate.slug}: phone plates need a fieldBuild in src/content/stills.ts`);
+      }
+      const uiPng = join(WORK_DIR, `phone-${plate.slug}.png`);
+      capture({
+        chrome,
+        url: `${base}/lab/ims/phone/${plate.fieldBuild}/${plate.paint}?capture=1`,
+        file: uiPng,
+        width: PHONE.width,
+        height: PHONE.height,
+        // Phone glass is a small part of the plate. Capture the UI denser than
+        // the desk still so the warp still has samples after the homepage crops in.
+        scale: Math.max(opts.scale, opts.phoneScale),
+        seconds: 50,
+      });
+      uiPngs[plate.slug] = uiPng;
+    }
     compositePhones(
-      phones.map((plate) => plate.slug),
-      uiPng,
+      uiPngs,
       phones.some((plate) => plate.slug === "cab"),
     );
   }

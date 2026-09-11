@@ -1,18 +1,17 @@
-import type { ImsPaintId } from "@/content/ims";
+import type { ImsBuildId, ImsPaintId } from "@/content/ims";
 import type { Quad } from "@/lib/homography";
 
 export const stillSlugs = ["cab", "hand", "desk"] as const;
 
 export type StillSlug = (typeof stillSlugs)[number];
 
-export type StillPlate = {
+type StillPlateBase = {
   slug: StillSlug;
   /** Photograph the screen is composited into. */
   plate: string;
   /** File written to public/images by scripts/shoot-stills.mjs. */
   output: string;
   stage: { width: number; height: number };
-  device: "phone" | "desk";
   paint: ImsPaintId;
   screen: { width: number; height: number };
   /** Screen corners in stage pixels: top-left, top-right, bottom-left, bottom-right. */
@@ -40,6 +39,15 @@ export type StillPlate = {
   note: string;
 };
 
+/**
+ * Only the phones carry a field build. Two of them ship, and they are different
+ * yards on purpose: one screen repeated across every surface is what makes a
+ * page read as a product tour. The board has one build and appears once.
+ */
+export type StillPlate =
+  | (StillPlateBase & { device: "phone"; fieldBuild: ImsBuildId })
+  | (StillPlateBase & { device: "desk" });
+
 export const stillPlates: Record<StillSlug, StillPlate> = {
   cab: {
     slug: "cab",
@@ -47,6 +55,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
     output: "hero-cab.webp",
     stage: { width: 1536, height: 1024 },
     device: "phone",
+    fieldBuild: "cartage",
     paint: "dusk",
     screen: { width: 390, height: 844 },
     quad: [
@@ -65,8 +74,8 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       spillBlur: 26,
       expand: 0,
     },
-    alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to the demo field app, with a paper docket on the other thigh.",
-    note: "Demo field app in the glass, inside the photographed bezel. Not a live customer job.",
+    alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to the demo field app built for a haulage yard, with a paper docket on the other thigh.",
+    note: "Haulage yard's demo build, in the glass and inside the photographed bezel. Not a live customer job.",
   },
   hand: {
     slug: "hand",
@@ -74,6 +83,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
     output: "field-hand.webp",
     stage: { width: 1536, height: 1024 },
     device: "phone",
+    fieldBuild: "pour",
     paint: "dusk",
     screen: { width: 390, height: 844 },
     quad: [
@@ -92,8 +102,8 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       spillBlur: 30,
       expand: 0,
     },
-    alt: "A work-worn hand holding a phone open to the demo field app: one job, one capture button, and the day's captures underneath.",
-    note: "Demo field app in the glass. Not a live customer job.",
+    alt: "A work-worn hand holding a phone open to the demo field app built for a concrete yard: one job, one capture button, and the day's captures underneath.",
+    note: "Concrete yard's demo build, in the glass. Not a live customer job.",
   },
   desk: {
     slug: "desk",
