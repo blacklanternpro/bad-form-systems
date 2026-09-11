@@ -30,7 +30,8 @@ function SheetRowItem({ row, index, customTag, blankLabel }: SheetRowItemProps) 
                 className="h-4 w-full border-b-2 border-dotted border-brand-ink/70"
                 aria-hidden="true"
               />
-              <span className="type-docket text-[0.7rem] leading-tight text-brand-ink/70">
+              {/* Full ink, not a tint: this is small type on stamp yellow. */}
+              <span className="type-docket text-[0.7rem] leading-tight text-brand-ink">
                 {blankLabel}
               </span>
             </>
