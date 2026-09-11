@@ -5,10 +5,9 @@
  * Desk: photograph + live DeskIms, warped in CSS (the laptop glass is a
  * rectangle, so a four-point warp is enough).
  *
- * Phones: screenshot PhoneIms at 3x once per plate, because each plate names
- * its own yard's build in src/content/stills.ts and the two stills must not
- * show the same screen. scripts/composite-phone.py then keys the photographed
- * glass and warps each screenshot into its own mask at 2x.
+ * Phones that are not baked: screenshot PhoneIms at 3x once per plate, then
+ * scripts/composite-phone.py keys the photographed glass. The cab still is
+ * baked (capture UI already in the glass) and is skipped.
  * Cab stays inside the glass; growing onto the bezel reads as a screenshot
  * in a hand, not a phone. CSS cannot do this: iPhone glass is a rounded
  * rect with a notch.
@@ -62,10 +61,11 @@ function readPlates() {
       slug,
       device: device ?? "desk",
       output: read("output"),
-      // Phone plates name the yard whose field app goes in that glass. Two
-      // plates, two builds, so neither still repeats the other's screen.
+      // Phone plates name a fieldBuild. The cab still is baked (capture UI
+      // already in the glass) and must not be composited over.
       fieldBuild: read("fieldBuild"),
       paint: read("paint") ?? "dusk",
+      baked: /\bbaked:\s*true\b/.test(block.slice(0, 1200)),
       width: Number(stage[1]),
       height: Number(stage[2]),
     });
@@ -173,8 +173,13 @@ async function main() {
   const chrome = chromeBinary();
   mkdirSync(WORK_DIR, { recursive: true });
 
-  const phones = plates.filter((plate) => plate.device === "phone");
+  const phones = plates.filter((plate) => plate.device === "phone" && !plate.baked);
+  const baked = plates.filter((plate) => plate.baked);
   const desks = plates.filter((plate) => plate.device === "desk");
+
+  for (const plate of baked) {
+    console.log(`${plate.slug} -> public/images/${plate.output} (baked, not composited)`);
+  }
 
   if (phones.length > 0) {
     const uiPngs = {};
@@ -183,9 +188,10 @@ async function main() {
         throw new Error(`${plate.slug}: phone plates need a fieldBuild in src/content/stills.ts`);
       }
       const uiPng = join(WORK_DIR, `phone-${plate.slug}.png`);
+      const view = plate.fieldBuild === "generic" ? "&view=capture" : "";
       capture({
         chrome,
-        url: `${base}/lab/ims/phone/${plate.fieldBuild}/${plate.paint}?capture=1`,
+        url: `${base}/lab/ims/phone/${plate.fieldBuild}/${plate.paint}?capture=1${view}`,
         file: uiPng,
         width: PHONE.width,
         height: PHONE.height,

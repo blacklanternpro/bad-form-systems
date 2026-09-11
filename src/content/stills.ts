@@ -37,12 +37,17 @@ type StillPlateBase = {
   };
   alt: string;
   note: string;
+  /**
+   * When true, `output` is the photograph (capture UI already in the glass).
+   * `npm run stills` must not composite over it.
+   */
+  baked?: boolean;
 };
 
 /**
- * Only the phones carry a field build. Two of them ship, and they are different
- * yards on purpose: one screen repeated across every surface is what makes a
- * page read as a product tour. The board has one build and appears once.
+ * Only the phones carry a field build. The hero hand is `pour` (Tuesday).
+ * The cab is a capture still and is not that job. The board is the generic
+ * system and has no fieldBuild.
  */
 export type StillPlate =
   | (StillPlateBase & { device: "phone"; fieldBuild: ImsBuildId })
@@ -55,8 +60,9 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
     output: "hero-cab.webp",
     stage: { width: 1536, height: 1024 },
     device: "phone",
-    fieldBuild: "cartage",
+    fieldBuild: "generic",
     paint: "dusk",
+    baked: true,
     screen: { width: 390, height: 844 },
     quad: [
       [486.4, 209.9],
@@ -74,8 +80,8 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       spillBlur: 26,
       expand: 0,
     },
-    alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to the demo field app built for a haulage yard, with a paper docket on the other thigh.",
-    note: "Haulage yard's demo build, in the glass and inside the photographed bezel. Not a live customer job.",
+    alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a capture screen, with a paper docket on the other thigh.",
+    note: "Demo capture screen in the glass. Not a live customer job, and not the hero's Kemerton day.",
   },
   hand: {
     slug: "hand",
@@ -129,7 +135,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       spillBlur: 34,
       expand: 1,
     },
-    alt: "Site-office laptop open on the demo jobs board, with hi-vis, a two-way radio, and paper dockets in a South West yard office.",
-    note: "Demo jobs board in the glass. Not a live customer system.",
+    alt: "Site-office laptop open on a demo jobs board, with hi-vis, a two-way radio, and paper dockets in a South West office.",
+    note: "Demo jobs board. Not a live customer system, and not a named yard.",
   },
 };
