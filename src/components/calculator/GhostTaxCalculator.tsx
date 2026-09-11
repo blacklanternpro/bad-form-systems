@@ -20,7 +20,7 @@ export function GhostTaxCalculator() {
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
       <div className="space-y-7">
-        <h2 className="type-title text-xl text-brand-ink">{calculatorCopy.controlsHeading}</h2>
+          <p className="type-title text-xl text-brand-ink">{calculatorCopy.controlsHeading}</p>
         <SliderRow
           label="Hours retyping and chasing dockets, per week"
           valueLabel={`${hours} hrs`}

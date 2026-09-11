@@ -68,7 +68,7 @@ const officeStill = {
   height: 1024,
   alt: "Site-office laptop open on a demo jobs board, with hi-vis, a two-way radio, and paper dockets in a South West office.",
   demoNote: "Demo jobs board. Not a live customer system, and not a named yard.",
-  objectPositionClass: "object-[72%_30%] xl:object-[68%_26%]",
+  objectPositionClass: "object-[70%_50%] xl:object-[68%_46%]",
 } satisfies OverviewStill;
 
 export const overview = {
@@ -126,7 +126,7 @@ export const overview = {
     officeStill,
     field: {
       title: "On the phone",
-      body: "The crew get the buttons they will actually press. Six fields, not sixty. No signal at the pit is fine. It queues, then sends when you hit range.",
+      body: "The crew get the buttons they will actually press. Six fields, not sixty. No signal on site is fine. It queues, then sends when you hit range.",
       points: [
         "Capture dockets, hours, photos, and signatures where the work happens.",
         "The audit is the brief. If a screen will not be opened, it does not ship.",
@@ -195,7 +195,7 @@ export const overview = {
       },
       {
         title: "You get the screens your crew will open",
-        body: "Six fields the operator will fill, not sixty they will skip. If it does not survive a gloved thumb at the pit, it does not ship.",
+      body: "Six fields the operator will fill, not sixty they will skip. If it does not survive a gloved thumb on site, it does not ship.",
       },
       {
         title: "Built here, and we come back",

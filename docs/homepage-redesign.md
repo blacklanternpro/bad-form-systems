@@ -79,7 +79,7 @@ Two rules that are easy to break:
 
 The photographs are plates. The product UI in them is never drawn by an image model, with one waived case: the cab still.
 
-Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`. Those stills stay sharp because the board fills the frame. The board on that still is the generic, unattributed system.
+Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`. Those stills stay sharp because the board fills the frame. The board on that still is the generic, unattributed system. The photograph's wall notes must not name the hero's Kemerton job.
 
 iPhone glass is not a rectangle. The hero hand still is still composited the way a retoucher would: `scripts/composite-phone.py` keys the photographed glass (bright blue on white) and warps a screenshot of `PhoneIms` `pour` into that region, at 2x, with no blur on the UI.
 

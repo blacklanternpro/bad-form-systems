@@ -93,10 +93,10 @@ const ticketThumb = {
 };
 
 export const imsFieldBuilds: Record<ImsBuildId, ImsFieldBuild> = {
-  /* The concrete yard. This build owns the hero still and the office board, so
-     its day has to agree with the Tuesday timeline on the homepage and with the
-     board's own job list. Late afternoon: the phone still clocked on, the board
-     already synced. */
+  /* The concrete yard. This build owns the hero still only. Its day has to
+     agree with the Tuesday timeline, because the copy sends the reader from
+     one to the other. Late afternoon: the phone still clocked on. The office
+     board is the generic system and must not reuse these job names. */
   pour: {
     trade: "Concrete formwork",
     statusTime: "17:04",
@@ -179,12 +179,11 @@ export const imsFieldBuilds: Record<ImsBuildId, ImsFieldBuild> = {
     selectedTab: "job",
   },
 
-  /* A different yard, hauling sand. Same components, and almost nothing the
-     driver touches is the same: the button that matters photographs a
-     weighbridge ticket, the day is counted in loads and tonnes rather than
-     hours on a pad, and the first tab is a run, not a job. This build owns the
-     cab still and the one live screen under it, so the two agree by
-     construction. It does not have to agree with the pour yard's board. */
+  /* A different yard, hauling sand. Lab only. Same components, and almost
+     nothing the driver touches is the same: the button that matters
+     photographs a weighbridge ticket, the day is counted in loads and tonnes
+     rather than hours on a pad, and the first tab is a run, not a job. It
+     does not appear on `/`. */
   cartage: {
     trade: "Tipper haulage",
     statusTime: "15:12",
@@ -518,9 +517,10 @@ export const imsCopy = {
 };
 
 /**
- * Lab routes. The phone carries a build because two yards ship; the board has
- * one build and only appears in a photograph, so it carries a paint alone.
- * scripts/shoot-stills.mjs builds the same URLs by hand, so keep them in step.
+ * Lab routes. The phone carries a build because pour, cartage, and generic
+ * all ship in the lab; the board is the generic system and carries a paint
+ * alone. scripts/shoot-stills.mjs builds the same URLs by hand, so keep them
+ * in step.
  */
 export const imsHref = {
   phone: (build: ImsBuildId, paint: ImsPaintId) => `/lab/ims/phone/${build}/${paint}`,
