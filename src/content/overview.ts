@@ -142,7 +142,7 @@ export const overview = {
         "Drafts for Xero or MYOB. Your bookkeeper still presses send.",
       ],
     } satisfies ScreenCaption,
-    note: "Demo system. Not a customer, and not a product you buy off this page. The phone is the field half of the board below it.",
+    note: "Demo system. Not a customer, and not a product you buy off this page. The phone is the field half of this board.",
   },
 
   map: {

@@ -62,7 +62,7 @@ All copy lives in `src/content/overview.ts`. That file is the spine; components 
 Two rules that are easy to break:
 
 - The Tuesday timeline and the hero still's capture times must match. The copy tells the reader that the phone above is the same job, so 6:52 in the timeline has to be 6:52 in `imsFieldBuilds.pour.feed`. The live breakout, the cab still, and the office board are not that job and do not have to agree with it.
-- The product band's closing note has to stay true at every width. The live phone is the field half of the board below it. Neither is a customer system, and neither is a concreter product.
+- The product band's closing note has to stay true at every width. The live phone is the field half of this board. Neither is a customer system, and neither is a concreter product.
 
 ## What sits where
 
