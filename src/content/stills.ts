@@ -66,7 +66,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       expand: 0,
     },
     alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to the demo field app, with a paper docket on the other thigh.",
-    note: "Demo field app in the glass. Not a live customer job.",
+    note: "Demo field app in the glass, inside the photographed bezel. Not a live customer job.",
   },
   hand: {
     slug: "hand",

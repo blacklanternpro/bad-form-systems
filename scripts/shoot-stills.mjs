@@ -5,9 +5,11 @@
  * Desk: photograph + live DeskIms, warped in CSS (the laptop glass is a
  * rectangle, so a four-point warp is enough).
  *
- * Phones: screenshot PhoneIms, then scripts/composite-phone.py keys the
- * photographed glass from the plate and warps the screenshot into that
- * mask. CSS cannot do this: iPhone glass is a rounded rect with a notch.
+ * Phones: screenshot PhoneIms at 3x, then scripts/composite-phone.py keys
+ * the photographed glass and warps the screenshot into that mask at 2x.
+ * Cab stays inside the glass; growing onto the bezel reads as a screenshot
+ * in a hand, not a phone. CSS cannot do this: iPhone glass is a rounded
+ * rect with a notch.
  *
  * Usage:
  *   npm run dev
@@ -28,7 +30,7 @@ const PHONE = { width: 390, height: 844 };
 
 function parseArgs(argv) {
   const slugs = [];
-  const opts = { scale: 2, port: 3000, keepPng: false, quality: 88 };
+  const opts = { scale: 2, port: 3000, keepPng: false, quality: 88, phoneScale: 3 };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "--scale") opts.scale = Number(argv[(i += 1)]);
@@ -172,7 +174,9 @@ async function main() {
       file: uiPng,
       width: PHONE.width,
       height: PHONE.height,
-      scale: opts.scale,
+      // Phone glass is a small part of the plate. Capture the UI denser than
+      // the desk still so the warp still has samples after the homepage crops in.
+      scale: Math.max(opts.scale, opts.phoneScale),
       seconds: 50,
     });
     compositePhones(

@@ -67,14 +67,19 @@ Two rules that are easy to break:
 
 The photographs are plates. The product UI in them is never drawn by an image model.
 
-Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`.
+Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`. Those stills stay sharp because the board fills the frame.
 
-iPhone glass is not a rectangle. It is a rounded display with a notch, already filled with a different generated UI. Guessing that silhouette in SVG and warping a rectangle onto four corners stays a few pixels off, which is obvious. Phone stills are therefore composited the way a retoucher would: `scripts/composite-phone.py` takes the pixels that already make up the screen in the plate, uses them as the mask, and warps a screenshot of `PhoneIms` into that exact region.
+iPhone glass is not a rectangle. It is a rounded display with a notch, already filled with a different generated UI. Guessing that silhouette in SVG and warping a rectangle onto four corners stays a few pixels off, which is obvious. Phone stills are therefore composited the way a retoucher would: `scripts/composite-phone.py` takes the photographed glass as the mask and warps a screenshot of `PhoneIms` into that region, at 2x, with no blur on the UI.
+
+The two phones are not the same problem:
+
+- Hand: the original UI is bright blue on white. Chroma-key that, and the mask is the real glass and notch.
+- Cab: the original UI is dark gold on a black bezel. GrabCut plus a convex hull grew onto the chassis, so the still read as a screenshot held in a hand. Stay inside the measured glass quad, round it to the iPhone, and keep the photographed bezel. Never dilate onto the frame.
 
 Pipeline:
 
 1. `src/content/stills.ts` holds each plate, its output name, and (for the desk) the measured screen quad and glass grading.
-2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 2x, runs the Python compositor for `hand` and `cab`, and CSS-warps the desk board. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV.
+2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x, runs the Python compositor for `hand` and `cab` (output 3072x2048 so the homepage crop stays legible), and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV.
 3. Reshoot after any change to the app screens, or the photographs will disagree with the live ones sitting beside them on the page.
 
 If these plates are ever replaced, shoot the phone with a blank black (or chroma-green) screen and no UI in the glass. Keying a solid is trivial. Asking an image model to draw the product UI is not allowed and is what made the original plates hard to reuse.

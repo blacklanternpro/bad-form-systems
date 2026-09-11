@@ -44,8 +44,8 @@ export type OverviewBeat = {
 
 const cabStill = {
   src: "/images/hero-cab.webp",
-  width: 1536,
-  height: 1024,
+  width: 3072,
+  height: 2048,
   alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to the demo field app, with a paper docket on the other thigh.",
   demoNote: "Demo field app on the screen. Not a live customer job.",
   objectPositionClass: "object-[38%_30%] xl:object-[40%_26%]",
@@ -53,8 +53,8 @@ const cabStill = {
 
 const handStill = {
   src: "/images/field-hand.webp",
-  width: 1536,
-  height: 1024,
+  width: 3072,
+  height: 2048,
   alt: "A work-worn hand holding a phone open to the demo field app: one job, one capture button, and the day's captures underneath.",
   demoNote: "Demo field app on the screen. Not a live customer job.",
   objectPositionClass: "object-[62%_38%] lg:object-[58%_40%]",
