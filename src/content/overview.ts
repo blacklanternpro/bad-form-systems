@@ -195,7 +195,7 @@ export const overview = {
       },
       {
         title: "You get the screens your crew will open",
-      body: "Six fields the operator will fill, not sixty they will skip. If it does not survive a gloved thumb on site, it does not ship.",
+        body: "Six fields the operator will fill, not sixty they will skip. If it does not survive a gloved thumb on site, it does not ship.",
       },
       {
         title: "Built here, and we come back",
@@ -207,14 +207,7 @@ export const overview = {
   demo: {
     heading: "What the paper is costing you.",
     lead: "Put in your own hours, rate, invoice lag, and leakage. The total is an illustration, not a claim about South West businesses as a group, and not a quote.",
-    sourceLabel: "Docket text",
-    actionLabel: "Read this docket",
-    resultLabel: "What the system files",
-    idle: "Pick a docket above, then read it.",
-    loading: "Reading line items",
-    error: "That did not go through. Try it again.",
-    fallbackNote: "Running the local sample. No model key is configured on this deployment.",
-    note: "Illustration only. Nothing is stored, and no customer job is used.",
+    note: "Illustration only. The number is yours. Nothing is stored.",
     link: { href: "/ghost-tax", label: "Open the ghost tax calculator" } satisfies OverviewLink,
   },
 

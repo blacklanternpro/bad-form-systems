@@ -6,14 +6,15 @@ is a rounded rect with a notch, so this keys the photographed screen and
 warps a PhoneIms screenshot into it. Work happens at 2x so the UI stays
 legible when the homepage crops in, matching the desk still pipeline.
 
-Each plate gets its own screenshot, because the two phone stills are two
-different yards' builds. One screen on every surface is what makes a page read
-as a product tour.
+Each plate gets its own screenshot. The cab still is baked: capture UI
+already lives in that photograph, and compositing over it is how the last
+cut put a job screen back in the glass. Default to the hand plate. Refuse
+cab unless --force-cab.
 
 Usage:
   python3 scripts/composite-phone.py --ui hand=/tmp/phone-hand.png
-  python3 scripts/composite-phone.py --ui hand=/tmp/a.png --ui cab=/tmp/b.png hand cab --og
-  python3 scripts/composite-phone.py --ui /tmp/one.png hand cab   # same screen in both
+  python3 scripts/composite-phone.py --ui hand=/tmp/phone-hand.png hand
+  python3 scripts/composite-phone.py --ui cab=/tmp/b.png cab --force-cab --og
 """
 
 from __future__ import annotations
@@ -431,9 +432,14 @@ def main() -> None:
         metavar="[SLUG=]PATH",
         help="PNG screenshot of PhoneIms. Prefix with a plate slug to give that plate its own screen.",
     )
-    parser.add_argument("slugs", nargs="*", default=["hand", "cab"])
+    parser.add_argument("slugs", nargs="*", default=["hand"])
     parser.add_argument("--debug-dir", default="")
     parser.add_argument("--og", action="store_true", help="Also write public/images/og.jpg from the cab still.")
+    parser.add_argument(
+        "--force-cab",
+        action="store_true",
+        help="Allow compositing the cab plate. The homepage cab is baked; do not use this to fix it.",
+    )
     parser.add_argument("--skip-checks", action="store_true")
     parser.add_argument("--no-write", action="store_true")
     args = parser.parse_args()
@@ -441,7 +447,12 @@ def main() -> None:
     if shutil.which("ffmpeg") is None:
         raise SystemExit("ffmpeg is required to encode webp.")
 
-    slugs = args.slugs or ["hand", "cab"]
+    slugs = args.slugs or ["hand"]
+    if "cab" in slugs and not args.force_cab:
+        raise SystemExit(
+            "The cab still is baked (capture UI already in the glass). "
+            "Do not composite over it. Pass --force-cab only if you are replacing the plate."
+        )
     uis = load_uis(args.ui, slugs)
 
     for slug in slugs:

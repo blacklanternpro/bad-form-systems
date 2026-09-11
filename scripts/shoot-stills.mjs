@@ -15,10 +15,10 @@
  * Usage:
  *   npm run dev
  *   npm run stills
- *   npm run stills hand cab
+ *   npm run stills hand
  *   npm run stills desk -- --scale 2
+ * Cab is baked and skipped. Do not pass it to composite-phone.py.
  */
-
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";

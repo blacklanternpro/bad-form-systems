@@ -45,7 +45,7 @@ export const metadata: Metadata = {
         url: "/images/og.jpg",
         width: 1200,
         height: 630,
-        alt: "A work-worn hand holding a phone open to the demo field app, with a paper docket on the other thigh.",
+        alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a capture screen, with a paper docket on the other thigh.",
       },
     ],
   },

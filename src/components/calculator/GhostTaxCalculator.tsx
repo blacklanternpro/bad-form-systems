@@ -20,7 +20,7 @@ export function GhostTaxCalculator() {
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
       <div className="space-y-7">
-          <p className="type-title text-xl text-brand-ink">{calculatorCopy.controlsHeading}</p>
+        <p className="type-title text-xl text-brand-ink">{calculatorCopy.controlsHeading}</p>
         <SliderRow
           label="Hours retyping and chasing dockets, per week"
           valueLabel={`${hours} hrs`}
@@ -125,7 +125,7 @@ function SliderRow({
         step={step}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
-        className="w-full"
+        className="h-11 w-full"
         aria-label={label}
       />
       {help ? <p className="type-meta mt-1.5">{help}</p> : null}

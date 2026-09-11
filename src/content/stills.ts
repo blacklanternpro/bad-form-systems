@@ -56,6 +56,8 @@ export type StillPlate =
 export const stillPlates: Record<StillSlug, StillPlate> = {
   cab: {
     slug: "cab",
+    /* The old Kemerton photograph. The shipped still is baked; compositing
+       this plate over output is how the last cut put a job back in the glass. */
     plate: "/images/plates/cab.webp",
     output: "hero-cab.webp",
     stage: { width: 1536, height: 1024 },
