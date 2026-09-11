@@ -118,9 +118,9 @@ export function ImsCompare() {
         <h2 className="type-title mb-3 text-2xl">Composited stills</h2>
         <p className="type-body mb-8 text-brand-steel">
           The live homepage stills. The hand still is keyed by{" "}
-          <code className="type-data text-[0.85rem]">npm run stills</code>. The cab still is
-          authored with a capture screen already in the glass. The desk still is the board
-          warped in CSS. Open a plate to inspect the file that ships.
+          <code className="type-data text-[0.85rem]">npm run stills</code>. The cab still
+          composites generic Capture into the original photograph. The desk still is
+          the board warped in CSS. Open a plate to inspect the file that ships.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           {stillSlugs.map((slug) => {

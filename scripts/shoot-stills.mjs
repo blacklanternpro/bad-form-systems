@@ -5,19 +5,19 @@
  * Desk: photograph + live DeskIms, warped in CSS (the laptop glass is a
  * rectangle, so a four-point warp is enough).
  *
- * Phones that are not baked: screenshot PhoneIms at 3x once per plate, then
- * scripts/composite-phone.py keys the photographed glass. The cab still is
- * baked (capture UI already in the glass) and is skipped.
+ * Phones: screenshot PhoneIms at 3x once per plate, then
+ * scripts/composite-phone.py keys the photographed glass.
  * Cab stays inside the glass; growing onto the bezel reads as a screenshot
  * in a hand, not a phone. CSS cannot do this: iPhone glass is a rounded
- * rect with a notch.
+ * rect with a notch. Cab uses the original photograph and the generic
+ * Capture tab, never a generated plate.
  *
  * Usage:
  *   npm run dev
  *   npm run stills
+ *   npm run stills cab
  *   npm run stills hand
  *   npm run stills desk -- --scale 2
- * Cab is baked and skipped. Do not pass it to composite-phone.py.
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync } from "node:fs";
@@ -61,8 +61,7 @@ function readPlates() {
       slug,
       device: device ?? "desk",
       output: read("output"),
-      // Phone plates name a fieldBuild. The cab still is baked (capture UI
-      // already in the glass) and must not be composited over.
+      // Phone plates name a fieldBuild. Cab is generic Capture on the original plate.
       fieldBuild: read("fieldBuild"),
       paint: read("paint") ?? "dusk",
       baked: /\bbaked:\s*true\b/.test(block.slice(0, 1200)),

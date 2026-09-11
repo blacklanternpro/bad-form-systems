@@ -26,7 +26,7 @@ Working arm of BAD FORM for South West WA trade, civil, fabrication, and fleet o
 
 ## Imagery
 
-- Cab still: `/images/hero-cab.webp` — baked capture screen (document viewfinder) in a dusty ute. Atmosphere, not PhoneIms chrome. Synthetic demo, not a client.
+- Cab still: `/images/hero-cab.webp` — original cab photograph with generic Capture composited into the glass. Synthetic demo, not a client.
 - Office still: `/images/office-ims.webp` — laptop jobs dashboard in a yard office. Synthetic demo.
 - Phone and laptop IMS must stay readable. Do not CSS-mirror photos. Do not invent clients, testimonials, or metrics.
 

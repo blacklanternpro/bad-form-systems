@@ -15,8 +15,9 @@ export default function ImsLabIndexPage() {
     <PageFrame>
       <PageIntro compact title={imsCopy.labTitle} body={imsCopy.labBody} />
       <p className="type-docket mb-10 text-sm text-brand-steel">
-        Homepage stills: the hero hand is a keyed field app; the cab is a baked
-        capture photograph; the office board is the generic system.{" "}
+        Homepage stills: the hero hand is a keyed field app; the cab is the
+        original photograph with generic Capture in the glass; the office
+        board is the generic system.{" "}
         <Link href="/lab" className="btn-text text-sm">
           Docket lab
         </Link>

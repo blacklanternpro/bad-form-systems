@@ -46,11 +46,11 @@ export type OverviewBeat = {
    job. The office board is the generic system sitting beside the live phone. */
 const cabStill = {
   src: "/images/hero-cab.webp",
-  width: 2304,
-  height: 1728,
+  width: 3072,
+  height: 2048,
   alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a capture screen, with a paper docket on the other thigh.",
   demoNote: "Demo capture screen. Not a live customer job, and not the hero's Kemerton day.",
-  objectPositionClass: "object-[42%_38%] xl:object-[44%_36%]",
+  objectPositionClass: "object-[38%_30%] xl:object-[40%_26%]",
 } satisfies OverviewStill;
 
 const handStill = {

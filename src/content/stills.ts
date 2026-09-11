@@ -56,15 +56,14 @@ export type StillPlate =
 export const stillPlates: Record<StillSlug, StillPlate> = {
   cab: {
     slug: "cab",
-    /* The old Kemerton photograph. The shipped still is baked; compositing
-       this plate over output is how the last cut put a job back in the glass. */
+    /* Original cab photograph. The glass gets PhoneIms generic Capture, not
+       a generated photo and not the Kemerton job. */
     plate: "/images/plates/cab.webp",
     output: "hero-cab.webp",
     stage: { width: 1536, height: 1024 },
     device: "phone",
     fieldBuild: "generic",
     paint: "dusk",
-    baked: true,
     screen: { width: 390, height: 844 },
     quad: [
       [486.4, 209.9],

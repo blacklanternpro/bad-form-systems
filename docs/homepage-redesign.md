@@ -31,7 +31,7 @@ The page has to answer three things the previous cut only asserted:
 - Zero em-dashes. No en-dash used as a separator anywhere visible.
 - Prices are draft only and live on `/pricing` behind their disclaimer. Not on this page.
 - No pills, labels, or type overlaid on photographs. No scroll cues. No section-number eyebrows.
-- Never let an image model draw the product UI, except the cab still as specified under Stills. The cab is atmosphere with a generic capture screen, not `PhoneIms` chrome.
+- Never let an image model draw the product UI. The cab still is the original photograph with `PhoneIms` Capture composited into the glass, not a generated plate.
 - Exactly one finished product screen renders live on this page: the generic day-painted field app. A second one turns the product band into a feature tour.
 - One conversion label: `Book a site visit`. Nav labels and contact form field names do not change.
 - Light only. No `dark:` variants.
@@ -69,7 +69,7 @@ Two rules that are easy to break:
 | Surface | What it is |
 | --- | --- |
 | Hero hand still | `pour`, Kemerton, dusk. Tuesday points at it. |
-| Cab still | Baked photograph. Capture screen in the glass. Not Kemerton. |
+| Cab still | Original cab photograph. Generic Capture tab in the glass. Not Kemerton. |
 | Live phone in the product band | `generic`, day paint. Unattributed. |
 | Office laptop still | The same generic board, `DeskIms` day. |
 
@@ -77,19 +77,19 @@ Two rules that are easy to break:
 
 ## Stills
 
-The photographs are plates. The product UI in them is never drawn by an image model, with one waived case: the cab still.
+The photographs are plates. The product UI in them is never drawn by an image model.
 
 Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`. Those stills stay sharp because the board fills the frame. The board on that still is the generic, unattributed system. The photograph's wall notes must not name the hero's Kemerton job.
 
 iPhone glass is not a rectangle. The hero hand still is still composited the way a retoucher would: `scripts/composite-phone.py` keys the photographed glass (bright blue on white) and warps a screenshot of `PhoneIms` `pour` into that region, at 2x, with no blur on the UI.
 
-The cab still is not composited. `baked: true` on that plate. The photograph already has a generic capture screen in the glass (camera / document, no job name, not `PhoneIms` chrome). `npm run stills` skips it. Do not retune `mask_cab` on the old gold-on-black plate as a homepage fix.
+The cab still uses the original overhead photograph, not a generated plate. `npm run stills cab` warps `PhoneIms` generic Capture (`dusk`, `?view=capture`) into the measured glass quad. Do not replace that plate with an image-model photograph.
 
 Pipeline:
 
-1. `src/content/stills.ts` holds each plate, its output name, `fieldBuild` (phones that are composited), and `baked` when the output is authored.
-2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x for unbaked phone plates (`hand`), runs the Python compositor, and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV.
-3. Reshoot `hand` after a change to the concreter field app. Reshoot `desk` after a change to the generic board. Do not reshoot `cab` through the compositor.
+1. `src/content/stills.ts` holds each plate, its output name, and `fieldBuild` (phones).
+2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x for phone plates, runs the Python compositor, and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV. Cab uses the Capture tab. Hand uses the job tab.
+3. Reshoot `hand` after a change to the concreter field app. Reshoot `cab` after a change to the generic Capture tab. Reshoot `desk` after a change to the generic board.
 
 If the hand plate is ever replaced, shoot the phone with a blank black (or chroma-green) screen and no UI in the glass.
 
