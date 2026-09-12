@@ -74,10 +74,10 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
     screen: { width: 418, height: 872 },
     /* Device corners used by the compositor. Glass is not composited. */
     quad: [
-      [469.3, 192.8],
-      [757.5, 178.3],
-      [507.7, 805.9],
-      [797.2, 789.4],
+      [460.5, 181.2],
+      [764.8, 165.9],
+      [499.9, 810.3],
+      [805.5, 793.0],
     ],
     glass: {
       brightness: 1.02,

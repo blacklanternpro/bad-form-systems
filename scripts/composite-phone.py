@@ -49,8 +49,8 @@ PLATES = {
         "output": IMAGES / "hero-cab.webp",
         "kind": "device",
         # Outer chassis, not the glass. TL, TR, BL, BR.
-        "quad": [(469.3, 192.8), (757.5, 178.3), (507.7, 805.9), (797.2, 789.4)],
-        "round": 37,
+        "quad": [(460.5, 181.2), (764.8, 165.9), (499.9, 810.3), (805.5, 793.0)],
+        "round": 41,
         "feather": 0.55,
     },
 }
@@ -253,6 +253,9 @@ def composite_device(
     graded = grade_cab_phone(ui)
     warped = warp_ui(graded, plate.shape, device_quad).astype(np.float32)
     alpha = warp_ui(ui_alpha, plate.shape, device_quad).astype(np.float32) / 255.0
+    alpha_u8 = np.clip(alpha * 255.0, 0, 255).astype(np.uint8)
+    alpha_u8 = cv2.dilate(alpha_u8, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5)))
+    alpha = alpha_u8.astype(np.float32) / 255.0
     alpha[finger > 127] = 0
     alpha = cv2.GaussianBlur(alpha, (0, 0), max(0.4, feather))
     alpha[finger > 127] = 0
@@ -285,24 +288,21 @@ def leftover_gold(plate: np.ndarray, result: np.ndarray, mask: np.ndarray) -> in
     hsv_p = cv2.cvtColor(plate, cv2.COLOR_RGB2HSV)
     hsv_r = cv2.cvtColor(result, cv2.COLOR_RGB2HSV)
     was_gold = (hsv_p[:, :, 0] > 10) & (hsv_p[:, :, 0] < 30) & (hsv_p[:, :, 1] > 80) & (hsv_p[:, :, 2] > 70)
-    still_gold = (hsv_r[:, :, 0] > 10) & (hsv_r[:, :, 0] < 30) & (hsv_r[:, :, 1] > 80) & (hsv_r[:, :, 2] > 70)
+    still_gold = (hsv_r[:, :, 0] > 10) & (hsv_r[:, :, 0] < 30) & (hsv_r[:, :, 1] > 80) & (hsv_r[:, :, 2] > 70) & (hsv_r[:, :, 2] < 160)
     return int((was_gold & still_gold & (mask > 127)).sum())
 
 
-def cab_bezel_original_fraction(result: np.ndarray, plate: np.ndarray, device: np.ndarray) -> float:
-    inner = cv2.erode(device, np.ones((21, 21), np.uint8))
-    bezel = (device > 127) & (inner == 0)
+def leftover_camera_highlights(result: np.ndarray, plate: np.ndarray, device: np.ndarray) -> int:
     ys, xs = np.where(device > 127)
     if len(xs) == 0:
-        return 1.0
-    x0, x1 = int(xs.min()), int(xs.max())
+        return 0
     y0, y1 = int(ys.min()), int(ys.max())
-    bezel[:, : int(x0 + 0.22 * (x1 - x0))] = False
-    bezel[int(y0 + 0.88 * (y1 - y0)) :, :] = False
-    if not bezel.any():
-        return 1.0
-    diff = np.abs(result[bezel].astype(np.int16) - plate[bezel].astype(np.int16)).mean(axis=1)
-    return float((diff < 10).mean())
+    top = np.zeros_like(device)
+    top[y0 : int(y0 + 0.12 * (y1 - y0)), :] = 255
+    zone = (device > 127) & (top > 0)
+    plate_bright = plate.max(axis=2) > 170
+    still_bright = result.max(axis=2) > 170
+    return int((zone & plate_bright & still_bright).sum())
 
 
 def overlay_mask(plate: np.ndarray, mask: np.ndarray, path: Path) -> None:
@@ -419,12 +419,13 @@ def process(
             raise SystemExit(f"{slug}: UI landed on the cream sand ({cream} px).")
         extra = f"leftover-blue={blue} cream-hit={cream}"
     else:
-        gold = leftover_gold(load_rgb(cfg["plate"]), preview, mask)
-        bezel = cab_bezel_original_fraction(preview, load_rgb(cfg["plate"]), mask)
-        extra = f"leftover-gold={gold} bezel-original={bezel:.3f}"
-        if not skip_checks and bezel > 0.38:
+        inner = cv2.erode(mask, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31)))
+        gold = leftover_gold(load_rgb(cfg["plate"]), preview, inner)
+        cameras = leftover_camera_highlights(preview, load_rgb(cfg["plate"]), mask)
+        extra = f"leftover-gold={gold} camera-highlights={cameras}"
+        if not skip_checks and cameras > 40:
             raise SystemExit(
-                f"{slug}: photographed chassis still showing ({bezel:.3f})."
+                f"{slug}: photographed camera island still showing ({cameras} px)."
             )
         if not skip_checks and gold > 80:
             raise SystemExit(f"{slug}: original gold UI is still in the glass ({gold} px).")

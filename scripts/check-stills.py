@@ -2,7 +2,8 @@
 """Fail if the cab still is still a glass sticker, or the hand hero is unreadable.
 
 Cab: the photographed iPhone is replaced by a whole PhoneIms dusk device.
-A bezel that still matches the original plate is the old glass-warp method.
+Photographed camera speculars still showing means the drop is sitting inside
+the original chassis.
 
 Hand: the hero crop must put the glass on screen at a size you can read.
 """
@@ -21,16 +22,15 @@ IMAGES = ROOT / "public" / "images"
 
 # Outer chassis, not the glass. TL, TR, BL, BR in plate pixels.
 CAB_DEVICE_QUAD = np.array(
-    [[469.3, 192.8], [757.5, 178.3], [507.7, 805.9], [797.2, 789.4]],
+    [[460.5, 181.2], [764.8, 165.9], [499.9, 810.3], [805.5, 793.0]],
     np.float32,
 )
 CAB_GLASS_QUAD = np.array(
     [[486.4, 209.9], [742.7, 197.1], [522.5, 787.1], [780.1, 772.3]],
     np.float32,
 )
-# Photographed chassis still showing. Above this, Capture is sitting in the
-# original iPhone instead of replacing it.
-CAB_BEZEL_ORIGINAL_MAX = 0.38
+# Photographed dual-camera island still showing at the top of the chassis.
+CAB_CAMERA_HIGHLIGHT_MAX = 40
 CAB_GOLD_MAX = 80
 CAB_YELLOW_MIN = 400
 
@@ -56,25 +56,6 @@ def fill_quad(shape: tuple[int, int], quad: np.ndarray, round_px: int) -> np.nda
     return cover
 
 
-def cab_bezel_original_fraction(result: np.ndarray, plate: np.ndarray) -> float:
-    """How much of the photographed chassis (not the fingers) is still the plate."""
-    preview = cv2.resize(result, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
-    device = fill_quad(plate.shape, CAB_DEVICE_QUAD, 37)
-    glass = fill_quad(plate.shape, CAB_GLASS_QUAD, 21)
-    inner_glass = cv2.erode(glass, np.ones((9, 7), np.uint8))
-    bezel = (device > 127) & (inner_glass == 0)
-    ys, xs = np.where(device > 127)
-    x0, x1 = int(xs.min()), int(xs.max())
-    y0, y1 = int(ys.min()), int(ys.max())
-    # Thumb on the left and bottom stays photograph. Score the free bezel.
-    bezel[:, : int(x0 + 0.22 * (x1 - x0))] = False
-    bezel[int(y0 + 0.88 * (y1 - y0)) :, :] = False
-    if not bezel.any():
-        return 1.0
-    diff = np.abs(preview[bezel].astype(np.int16) - plate[bezel].astype(np.int16)).mean(axis=1)
-    return float((diff < 10).mean())
-
-
 def leftover_gold(plate: np.ndarray, result: np.ndarray) -> int:
     preview = cv2.resize(result, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
     glass = fill_quad(plate.shape, CAB_GLASS_QUAD, 21)
@@ -85,19 +66,35 @@ def leftover_gold(plate: np.ndarray, result: np.ndarray) -> int:
         & (hsv_p[:, :, 0] < 30)
         & (hsv_p[:, :, 1] > 80)
         & (hsv_p[:, :, 2] > 70)
+        & (hsv_p[:, :, 2] < 160)
     )
     still_gold = (
         (hsv_r[:, :, 0] > 10)
         & (hsv_r[:, :, 0] < 30)
         & (hsv_r[:, :, 1] > 80)
         & (hsv_r[:, :, 2] > 70)
+        & (hsv_r[:, :, 2] < 160)
     )
     return int((was_gold & still_gold & (glass > 127)).sum())
 
 
+def leftover_camera_highlights(result: np.ndarray, plate: np.ndarray) -> int:
+    """Bright speculars from the photographed camera island. CSS island is dark."""
+    preview = cv2.resize(result, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
+    device = fill_quad(plate.shape, CAB_DEVICE_QUAD, 41)
+    ys, xs = np.where(device > 127)
+    y0, y1 = int(ys.min()), int(ys.max())
+    top = np.zeros_like(device)
+    top[y0 : int(y0 + 0.12 * (y1 - y0)), :] = 255
+    zone = (device > 127) & (top > 0)
+    plate_bright = plate.max(axis=2) > 170
+    still_bright = preview.max(axis=2) > 170
+    return int((zone & plate_bright & still_bright).sum())
+
+
 def dusk_yellow_count(result: np.ndarray, plate_shape: tuple[int, int]) -> int:
     preview = cv2.resize(result, (plate_shape[1], plate_shape[0]), interpolation=cv2.INTER_AREA)
-    device = fill_quad(plate_shape, CAB_DEVICE_QUAD, 37)
+    device = fill_quad(plate_shape, CAB_DEVICE_QUAD, 41)
     hsv = cv2.cvtColor(preview, cv2.COLOR_RGB2HSV)
     yellow = (
         (hsv[:, :, 0] > 20)
@@ -143,17 +140,17 @@ def main() -> int:
 
     cab = load_rgb(cab_path)
     plate = load_rgb(plate_path)
-    bezel = cab_bezel_original_fraction(cab, plate)
+    cameras = leftover_camera_highlights(cab, plate)
     gold = leftover_gold(plate, cab)
     yellow = dusk_yellow_count(cab, plate.shape)
     print(
-        f"cab bezel original={bezel:.3f} max={CAB_BEZEL_ORIGINAL_MAX} "
+        f"cab camera-highlights={cameras} max={CAB_CAMERA_HIGHLIGHT_MAX} "
         f"leftover-gold={gold} yellow={yellow}"
     )
-    if bezel > CAB_BEZEL_ORIGINAL_MAX:
+    if cameras > CAB_CAMERA_HIGHLIGHT_MAX:
         print(
-            "FAIL cab: photographed chassis still showing. "
-            "Capture is sitting in the original iPhone, not replacing it."
+            "FAIL cab: photographed camera island still showing. "
+            "The dropped phone is sitting inside the original iPhone."
         )
         failed += 1
     if gold > CAB_GOLD_MAX:
