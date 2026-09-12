@@ -36,7 +36,7 @@ export function HeroOpen() {
       </div>
 
       <figure
-        className="enter relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:aspect-auto lg:h-full lg:min-h-[34rem] xl:min-h-[38rem]"
+        className="enter relative aspect-[3/4] w-full overflow-hidden sm:aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[34rem] xl:min-h-[38rem]"
         style={{ "--enter-delay": "60ms" } as React.CSSProperties}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- composited still; next/image would re-encode the plate */}

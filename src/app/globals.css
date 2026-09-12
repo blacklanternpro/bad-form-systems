@@ -275,11 +275,11 @@ select {
  */
 @media (min-width: 1024px) {
   .still-dissolve {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 20%),
-      linear-gradient(to top, transparent, black 14%);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%),
+      linear-gradient(to top, transparent, black 8%);
     -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to right, transparent, black 20%),
-      linear-gradient(to top, transparent, black 14%);
+    mask-image: linear-gradient(to right, transparent, black 6%),
+      linear-gradient(to top, transparent, black 8%);
     mask-composite: intersect;
     mask-repeat: no-repeat;
   }

@@ -81,9 +81,9 @@ The photographs are plates. The product UI in them is never drawn by an image mo
 
 Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`. Those stills stay sharp because the board fills the frame. The board on that still is the generic, unattributed system. The photograph's wall notes must not name the hero's Kemerton job.
 
-iPhone glass is not a rectangle. The hero hand still is still composited the way a retoucher would: `scripts/composite-phone.py` keys the photographed glass (bright blue on white) and warps a screenshot of `PhoneIms` `pour` into that region, at 2x, with no blur on the UI.
+iPhone glass is not a rectangle. The hero hand still is still composited the way a retoucher would: `scripts/composite-phone.py` keys the photographed glass (bright blue on white) and warps a screenshot of `PhoneIms` `pour` into that region, at 2x, with no blur on the UI. The file written for the homepage is then cropped to that phone. The full 3072x2048 plate left the glass at ~300px on the hero, which reads as the old photographed screen.
 
-The cab still uses the original overhead photograph, not a generated plate. `npm run stills cab` warps `PhoneIms` generic Capture (`dusk`, `?view=capture`) into the measured glass quad. Do not replace that plate with an image-model photograph.
+The cab still uses the original overhead photograph, not a generated plate. `npm run stills cab` warps `PhoneIms` generic Capture (`dusk`, `?view=capture`) into the measured glass, grown to the photographed rim and punched around the camera island. A smaller mask left the original screen showing around Capture, which reads as a screenshot pasted inside the phone. Do not replace that plate with an image-model photograph. `python3 scripts/check-stills.py` fails both of those regressions.
 
 Pipeline:
 

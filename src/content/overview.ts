@@ -55,11 +55,11 @@ const cabStill = {
 
 const handStill = {
   src: "/images/field-hand.webp",
-  width: 3072,
-  height: 2048,
+  width: 1165,
+  height: 1803,
   alt: "A work-worn hand holding a phone open to a concrete yard's demo field app: one job, one capture button, and the day's captures underneath.",
   demoNote: "One concrete yard's demo build. Not a live customer job.",
-  objectPositionClass: "object-[62%_38%] lg:object-[58%_40%]",
+  objectPositionClass: "object-[50%_32%]",
 } satisfies OverviewStill;
 
 const officeStill = {

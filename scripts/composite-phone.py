@@ -38,6 +38,9 @@ PLATES = {
         "close": 11,
         "dilate": 2,
         "feather": 0.7,
+        # Homepage crop: the 2x plate leaves the glass at ~300px. Cut to the
+        # phone so the sharp composite is what the hero actually shows.
+        "hero_pad": 52,
     },
     "cab": {
         "plate": IMAGES / "plates" / "cab.webp",
@@ -45,12 +48,14 @@ PLATES = {
         "kind": "cab",
         # Screen corners, not the chassis. TL, TR, BL, BR.
         "quad": [(486.4, 209.9), (742.7, 197.1), (522.5, 787.1), (780.1, 772.3)],
-        # Round the trapezoid to the photographed glass. Do not hull, dilate,
-        # or intersect a smaller iPhone rect: that last step mapped the UI
-        # too small inside the glass. Never grow onto the bezel.
+        # Round the trapezoid to the iPhone glass, then grow to the photographed
+        # rim. A smaller mask left the original screen showing around Capture,
+        # which reads as a screenshot pasted inside the phone. Dilate 8 hits
+        # the bezel samples; 6 does not.
         "round": 21,
         "erode": 0,
-        "feather": 0.5,
+        "glass_dilate": 6,
+        "feather": 0.25,
         # Chassis pixels that must stay photograph, not UI.
         "bezel_samples": [(475, 480), (798, 470), (478, 230), (800, 785)],
     },
@@ -272,6 +277,22 @@ def leftover_gold(plate: np.ndarray, result: np.ndarray, mask: np.ndarray) -> in
     return int((was_gold & still_gold & (mask > 127) & band).sum())
 
 
+def cab_rim_original_fraction(result: np.ndarray, plate: np.ndarray, mask: np.ndarray) -> float:
+    inner = cv2.erode(mask, np.ones((7, 7), np.uint8))
+    band = (mask > 127) & (inner == 0)
+    ys, _ = np.where(mask > 127)
+    if len(ys) == 0:
+        return 1.0
+    y0, y1 = int(ys.min()), int(ys.max())
+    h = y1 - y0
+    band[: int(y0 + 0.12 * h)] = False
+    band[int(y0 + 0.88 * h) :] = False
+    if not band.any():
+        return 1.0
+    diff = np.abs(result[band].astype(np.int16) - plate[band].astype(np.int16)).mean(axis=1)
+    return float((diff < 8).mean())
+
+
 def overlay_mask(plate: np.ndarray, mask: np.ndarray, path: Path) -> None:
     vis = plate.copy()
     m = mask > 127
@@ -302,6 +323,29 @@ def upscale(image: np.ndarray, interpolation: int) -> np.ndarray:
     return cv2.resize(image, (width * SCALE, height * SCALE), interpolation=interpolation)
 
 
+def crop_to_glass(result: np.ndarray, mask: np.ndarray, pad: int) -> np.ndarray:
+    """Keep the composited glass the size of the homepage figure.
+
+    The 2x plate is sharp. object-cover on the full 3072x2048 still still
+    draws that glass at ~300px, which is the illegible-photo look.
+    """
+    mask_hi = cv2.resize(
+        mask,
+        (result.shape[1], result.shape[0]),
+        interpolation=cv2.INTER_NEAREST,
+    )
+    ys, xs = np.where(mask_hi > 127)
+    if len(xs) == 0:
+        raise RuntimeError("Glass mask was empty while cropping.")
+    scale = result.shape[0] / 1024
+    pad_px = int(pad * scale)
+    x0 = max(0, int(xs.min()) - pad_px)
+    y0 = max(0, int(ys.min()) - pad_px)
+    x1 = min(result.shape[1], int(xs.max()) + pad_px)
+    y1 = min(result.shape[0], int(ys.max()) + pad_px)
+    return result[y0:y1, x0:x1]
+
+
 def process(
     slug: str,
     ui: np.ndarray,
@@ -324,12 +368,27 @@ def process(
             round_px=cfg["round"],
             erode=cfg["erode"],
         )
+        grow = int(cfg.get("glass_dilate", 0))
+        if grow > 0:
+            mask = cv2.dilate(
+                mask,
+                cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (grow * 2 + 1, grow * 2 + 1)),
+            )
+        if camera is not None:
+            mask[camera > 0] = 0
+        # Expand the measured screen, not the min-area rect of the whole glass.
+        # Mapping onto that rect pulled the status bar over the camera island.
         quad = np.array(cfg["quad"], np.float32)
+        if grow > 0:
+            center = quad.mean(axis=0)
+            for i, point in enumerate(quad):
+                vec = point - center
+                norm = np.linalg.norm(vec)
+                if norm > 0:
+                    quad[i] = point + vec / norm * grow
         dusk = np.array([20, 22, 26], np.uint8)
         painted = plate.copy()
-        hide = cover.copy()
-        if camera is not None:
-            hide[camera > 0] = 0
+        hide = mask.copy()
         painted[hide > 127] = dusk
         plate = painted
         spilled = 0
@@ -353,18 +412,34 @@ def process(
     quad_hi = quad * SCALE
     feather = float(cfg["feather"]) * SCALE
     result = composite(plate_hi, ui, mask_hi, quad_hi, feather)
+    preview = cv2.resize(result, (1536, 1024), interpolation=cv2.INTER_AREA)
 
     if debug_dir:
         debug_dir.mkdir(parents=True, exist_ok=True)
         Image.fromarray(mask).save(debug_dir / f"{slug}-mask.png")
         overlay_mask(load_rgb(cfg["plate"]), mask, debug_dir / f"{slug}-mask-over.png")
-        preview = cv2.resize(
-            result,
-            (1536, 1024),
-            interpolation=cv2.INTER_AREA,
-        )
         Image.fromarray(preview).save(debug_dir / f"{slug}-result.png")
         crop_phone(preview, mask, debug_dir / f"{slug}-phone.png")
+
+    if slug == "hand":
+        blue = leftover_blue(preview, mask)
+        cream = overlay_on_cream(preview, load_rgb(cfg["plate"]))
+        if not skip_checks and blue > 80:
+            raise SystemExit(f"{slug}: original blue UI is still showing ({blue} px).")
+        if not skip_checks and cream > 40:
+            raise SystemExit(f"{slug}: UI landed on the cream sand ({cream} px).")
+        extra = f"leftover-blue={blue} cream-hit={cream}"
+    else:
+        gold = leftover_gold(load_rgb(cfg["plate"]), preview, mask)
+        rim = cab_rim_original_fraction(preview, load_rgb(cfg["plate"]), mask)
+        extra = f"leftover-gold={gold} rim-original={rim:.3f}"
+        if not skip_checks and rim > 0.28:
+            raise SystemExit(
+                f"{slug}: photographed glass still showing at the rim ({rim:.3f})."
+            )
+
+    if cfg["kind"] == "hand" and cfg.get("hero_pad"):
+        result = crop_to_glass(result, mask, int(cfg["hero_pad"]))
 
     if not no_write:
         write_webp(result, cfg["output"])
@@ -374,20 +449,7 @@ def process(
         kb = 0
         dest = "(not written)"
 
-    preview = cv2.resize(result, (1536, 1024), interpolation=cv2.INTER_AREA)
-    if slug == "hand":
-        blue = leftover_blue(preview, mask)
-        cream = overlay_on_cream(preview, load_rgb(cfg["plate"]))
-        print(f"{slug} -> {dest} ({kb} kB) leftover-blue={blue} cream-hit={cream} size={result.shape[1]}x{result.shape[0]}")
-        if not skip_checks and blue > 80:
-            raise SystemExit(f"{slug}: original blue UI is still showing ({blue} px).")
-        if not skip_checks and cream > 40:
-            raise SystemExit(f"{slug}: UI landed on the cream sand ({cream} px).")
-    else:
-        gold = leftover_gold(load_rgb(cfg["plate"]), preview, mask)
-        print(f"{slug} -> {dest} ({kb} kB) leftover-gold={gold} size={result.shape[1]}x{result.shape[0]}")
-        # Capture shutter is stamp yellow in the same lower-glass band as the
-        # original gold chrome. leftover-gold is a report, not a fail.
+    print(f"{slug} -> {dest} ({kb} kB) {extra} size={result.shape[1]}x{result.shape[0]}")
 
 
 def load_uis(specs: list[str], slugs: list[str]) -> dict[str, np.ndarray]:
