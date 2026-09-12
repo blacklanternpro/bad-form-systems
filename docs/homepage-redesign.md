@@ -31,7 +31,7 @@ The page has to answer three things the previous cut only asserted:
 - Zero em-dashes. No en-dash used as a separator anywhere visible.
 - Prices are draft only and live on `/pricing` behind their disclaimer. Not on this page.
 - No pills, labels, or type overlaid on photographs. No scroll cues. No section-number eyebrows.
-- Never let an image model draw the product UI. The cab still is the original photograph with a whole `PhoneIms` Capture phone dropped into the hand, not a generated plate.
+- Never let an image model draw the live phone or the desk board. The cab atmosphere still is an explicit exception: one generated photograph of the ute, with the dusk field app native in the glass, in the hero's language.
 - Exactly one finished product screen renders live on this page: the generic day-painted field app. A second one turns the product band into a feature tour.
 - One conversion label: `Book a site visit`. Nav labels and contact form field names do not change.
 - Light only. No `dark:` variants.
@@ -61,15 +61,15 @@ All copy lives in `src/content/overview.ts`. That file is the spine; components 
 
 Two rules that are easy to break:
 
-- The Tuesday timeline and the hero still's capture times must match. The copy tells the reader that the phone above is the same job, so 6:52 in the timeline has to be 6:52 in `imsFieldBuilds.pour.feed`. The live breakout, the cab still, and the office board are not that job and do not have to agree with it.
-- The product band's closing note has to stay true at every width. The live phone is the field half of this board. Neither is a customer system, and neither is a concreter product.
+- The Tuesday timeline and the hero still's capture times must match. The copy tells the reader that the phone above is the same job, so 6:52 in the timeline has to be 6:52 in `imsFieldBuilds.pour.feed`. The cab still is atmosphere in that same field-app language, not a second live job, and does not have to match those times. The live breakout and the office board are not that job.
+- The product band's closing note has to stay true at every width. The live phone is the unattributed system, and the field half of this board. The ute photograph is a demo field app in the glass, not a live customer job.
 
 ## What sits where
 
 | Surface | What it is |
 | --- | --- |
 | Hero hand still | `pour`, Kemerton, dusk. Tuesday points at it. |
-| Cab still | Original cab photograph. A whole generic Capture phone in the fingers. Not Kemerton. |
+| Cab still | Generated photograph of the ute. Dusk field app native in the glass, in the hero's language. Demo, not a live customer job. |
 | Live phone in the product band | `generic`, day paint. Unattributed. |
 | Office laptop still | The same generic board, `DeskIms` day. |
 
@@ -77,19 +77,19 @@ Two rules that are easy to break:
 
 ## Stills
 
-The photographs are plates. The product UI in them is never drawn by an image model.
+The photographs are plates. Image models must not draw the live phone or the desk board. The cab atmosphere still is the exception: the screen is native in a generated photograph of the ute, in the hero's dusk field-app language. It will not be pixel-perfect HTML. Keep the original overhead in `public/images/plates/cab.webp` as the composition lock. Do not fall back to `composite-phone.py` for cab.
 
 Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`. Those stills stay sharp because the board fills the frame. The board on that still is the generic, unattributed system. The photograph's wall notes must not name the hero's Kemerton job.
 
 iPhone glass is not a rectangle. The hero hand still is still composited the way a retoucher would: `scripts/composite-phone.py` keys the photographed glass (bright blue on white) and warps a screenshot of `PhoneIms` `pour` into that region, at 2x, with no blur on the UI. The file written for the homepage is then cropped to that phone. The full 3072x2048 plate left the glass at ~300px on the hero, which reads as the old photographed screen.
 
-The cab still uses the original overhead photograph, not a generated plate. `npm run stills cab` shoots a whole `PhoneIms` generic Capture device (`dusk`, `?view=capture&frame=device`) and drops it into the hand, keeping the wrapping fingers. Do not warp HTML into that photographed iPhone, and do not replace the plate with an image-model photograph. `python3 scripts/check-stills.py` fails both of those regressions.
+The cab still is baked (`baked: true` in `src/content/stills.ts`). `npm run stills cab` no-ops. Do not warp HTML into a photographed iPhone, and do not drop a CSS `PhoneIms` chassis into the hand. `python3 scripts/check-stills.py` fails if the file is missing, too small for the product-band crop, or still the original plate with a rectangular HTML phone sitting in it.
 
 Pipeline:
 
-1. `src/content/stills.ts` holds each plate, its output name, and `fieldBuild` (phones).
-2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x for phone plates, runs the Python compositor, and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV. Cab shoots the whole Capture phone. Hand uses the job tab.
-3. Reshoot `hand` after a change to the concreter field app. Reshoot `cab` after a change to the generic Capture tab. Reshoot `desk` after a change to the generic board.
+1. `src/content/stills.ts` holds each plate, its output name, and `fieldBuild` (phones). Cab is baked.
+2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x for unbaked phone plates, runs the Python compositor, and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV. Hand uses the job tab. Do not run a bare `npm run stills` unless you mean to reshoot the hero hand.
+3. Reshoot `hand` after a change to the concreter field app. Do not reshoot `cab` through the compositor. Reshoot `desk` after a change to the generic board.
 
 If the hand plate is ever replaced, shoot the phone with a blank black (or chroma-green) screen and no UI in the glass.
 
@@ -103,7 +103,7 @@ The homepage renders one of them: the generic field app, day paint, in the produ
 
 Headings inside the product screens are paragraphs, not `h1` / `h2`. They are product chrome embedded in a marketing page and must not enter its heading outline.
 
-`PhoneIms` with `tab="capture"` is a document camera (job chip, paper finder, last-captured strip), used in the lab (`?view=capture`) and in the cab still. The live breakout stays on the job tab.
+`PhoneIms` with `tab="capture"` is a document camera (job chip, paper finder, last-captured strip), used in the lab (`?view=capture`). The live breakout stays on the job tab. The cab still is not that Capture screen.
 
 ## Motion
 

@@ -29,30 +29,29 @@ type StillPlateBase = {
     spillOpacity: number;
     spillBlur: number;
     /**
-     * Grow the mapped quad past the bezel. Desk only. Phone stills are
-     * composited by scripts/composite-phone.py. Hand keys photographed
-     * glass. Cab drops a whole PhoneIms device into the hand.
+     * Grow the mapped quad past the bezel. Desk only. The hero hand is
+     * composited by scripts/composite-phone.py. Cab is a baked photograph.
      */
     expand: number;
   };
   alt: string;
   note: string;
   /**
-   * When true, `output` is the photograph (capture UI already in the glass).
-   * `npm run stills` must not composite over it.
+   * When true, `output` is a finished photograph. `npm run stills` must not
+   * composite over it. Cab is baked: the field app is native in the glass.
    */
   baked?: boolean;
   /**
-   * Cab stills shoot the PhoneIms chassis, not a glass rectangle.
-   * Omit for the hand, which still keys photographed glass.
+   * Unused on the homepage. Lab stills can still shoot a PhoneIms chassis.
+   * Omit for the hand, which keys photographed glass.
    */
   frame?: "device";
 };
 
 /**
  * Only the phones carry a field build. The hero hand is `pour` (Tuesday).
- * The cab is a capture still and is not that job. The board is the generic
- * system and has no fieldBuild.
+ * The cab still is atmosphere in that same field-app language. The board
+ * is the generic system and has no fieldBuild.
  */
 export type StillPlate =
   | (StillPlateBase & { device: "phone"; fieldBuild: ImsBuildId })
@@ -61,18 +60,19 @@ export type StillPlate =
 export const stillPlates: Record<StillSlug, StillPlate> = {
   cab: {
     slug: "cab",
-    /* Original cab photograph. The photographed iPhone is cut out and a
-       whole PhoneIms generic Capture device sits in the hand. Not a generated
-       photo and not the Kemerton job. */
+    /* Baked photograph of the ute. The field app is native in the glass, in
+       the hero's language. npm run stills must not composite over it. The
+       original overhead stays in plates/cab.webp as the composition lock. */
     plate: "/images/plates/cab.webp",
     output: "hero-cab.webp",
-    stage: { width: 1536, height: 1024 },
+    stage: { width: 3072, height: 2304 },
     device: "phone",
-    fieldBuild: "generic",
+    fieldBuild: "pour",
     paint: "dusk",
-    frame: "device",
-    screen: { width: 418, height: 872 },
-    /* Device corners used by the compositor. Glass is not composited. */
+    baked: true,
+    /* Unused. Cab is baked; the compositor does not write this file. */
+    screen: { width: 390, height: 844 },
+    /* Composition lock from the original plate. Glass is not composited. */
     quad: [
       [460.5, 181.2],
       [764.8, 165.9],
@@ -89,8 +89,8 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       spillBlur: 26,
       expand: 0,
     },
-    alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a capture screen, with a paper docket on the other thigh.",
-    note: "Demo Capture phone in the ute, not a live customer job, and not the hero's Kemerton day.",
+    alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a dusk field app, with a paper docket on the other thigh.",
+    note: "Demo field app in the ute, in the hero's language. Not a live customer job.",
   },
   hand: {
     slug: "hand",

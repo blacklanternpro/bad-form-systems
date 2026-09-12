@@ -262,10 +262,11 @@ export const imsFieldBuilds: Record<ImsBuildId, ImsFieldBuild> = {
     selectedTab: "job",
   },
 
-  /* Homepage live phone and, via the Capture tab, the cab still if we have
-     to composite. No South West place, no trade, no job the reader can file
-     as the product. Day paint on the breakout. Capture is a document camera
-     with the same dusk chrome as the job tab, not an empty finder. */
+  /* Homepage live phone. No South West place, no trade, no job the reader
+     can file as the product. Day paint on the breakout. Capture is a
+     document camera with the same dusk chrome as the job tab, not an empty
+     finder. The cab still is a baked photograph in the hero's language, not
+     this build. */
   generic: {
     trade: "Field",
     statusTime: "09:41",
@@ -529,6 +530,6 @@ export const imsHref = {
 };
 
 export const IMS_PHONE = { width: 390, height: 844 } as const;
-/** Chassis around IMS_PHONE. Cab stills shoot this, not a glass crop. */
+/** Chassis around IMS_PHONE. Lab device-frame captures still use this. */
 export const IMS_DEVICE = { width: 418, height: 872, radius: 54, bezel: 14 } as const;
 export const IMS_DESK = { width: 1440, height: 810 } as const;

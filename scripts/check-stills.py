@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Fail if the cab still is still a glass sticker, or the hand hero is unreadable.
+"""Fail if the cab still is a CSS phone drop, or the hand hero is unreadable.
 
-Cab: the photographed iPhone is replaced by a whole PhoneIms dusk device.
-Photographed camera speculars still showing means the drop is sitting inside
-the original chassis.
+Cab is a baked photograph. The field app is native in the glass. Fail if
+the file is missing, too small for the product-band crop, or still the
+original ute with a hard rectangular HTML phone sitting in the hand.
 
 Hand: the hero crop must put the glass on screen at a size you can read.
 """
@@ -20,19 +20,17 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 IMAGES = ROOT / "public" / "images"
 
-# Outer chassis, not the glass. TL, TR, BL, BR in plate pixels.
+CAB_MIN_WIDTH = 2000
+CAB_MIN_HEIGHT = 1500
+
+# Outer chassis on the original plate. A CSS PhoneIms drop keeps those
+# ute pixels. A native photograph does not.
 CAB_DEVICE_QUAD = np.array(
     [[460.5, 181.2], [764.8, 165.9], [499.9, 810.3], [805.5, 793.0]],
     np.float32,
 )
-CAB_GLASS_QUAD = np.array(
-    [[486.4, 209.9], [742.7, 197.1], [522.5, 787.1], [780.1, 772.3]],
-    np.float32,
-)
-# Photographed dual-camera island still showing at the top of the chassis.
-CAB_CAMERA_HIGHLIGHT_MAX = 40
-CAB_GOLD_MAX = 80
-CAB_YELLOW_MIN = 400
+# CSS drop onto the plate is ~0.4. A native photograph of the same ute is ~18.
+CAB_PLATE_MAD_MIN = 4.0
 
 # Desktop hero figure is half of 1440, min-height 34rem. The glass has to
 # fill that frame the way the sharp walkthrough crop did, not sit at ~300px
@@ -56,54 +54,18 @@ def fill_quad(shape: tuple[int, int], quad: np.ndarray, round_px: int) -> np.nda
     return cover
 
 
-def leftover_gold(plate: np.ndarray, result: np.ndarray) -> int:
-    preview = cv2.resize(result, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
-    glass = fill_quad(plate.shape, CAB_GLASS_QUAD, 21)
-    hsv_p = cv2.cvtColor(plate, cv2.COLOR_RGB2HSV)
-    hsv_r = cv2.cvtColor(preview, cv2.COLOR_RGB2HSV)
-    was_gold = (
-        (hsv_p[:, :, 0] > 10)
-        & (hsv_p[:, :, 0] < 30)
-        & (hsv_p[:, :, 1] > 80)
-        & (hsv_p[:, :, 2] > 70)
-        & (hsv_p[:, :, 2] < 160)
-    )
-    still_gold = (
-        (hsv_r[:, :, 0] > 10)
-        & (hsv_r[:, :, 0] < 30)
-        & (hsv_r[:, :, 1] > 80)
-        & (hsv_r[:, :, 2] > 70)
-        & (hsv_r[:, :, 2] < 160)
-    )
-    return int((was_gold & still_gold & (glass > 127)).sum())
+def html_drop_mad(cab: np.ndarray, plate: np.ndarray) -> float:
+    """Mean absolute difference outside the original device quad.
 
-
-def leftover_camera_highlights(result: np.ndarray, plate: np.ndarray) -> int:
-    """Bright speculars from the photographed camera island. CSS island is dark."""
-    preview = cv2.resize(result, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
+    A rectangular HTML drop keeps the original ute. A native photograph
+    re-renders the jeans, docket, and boots.
+    """
+    preview = cv2.resize(cab, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
     device = fill_quad(plate.shape, CAB_DEVICE_QUAD, 41)
-    ys, xs = np.where(device > 127)
-    y0, y1 = int(ys.min()), int(ys.max())
-    top = np.zeros_like(device)
-    top[y0 : int(y0 + 0.12 * (y1 - y0)), :] = 255
-    zone = (device > 127) & (top > 0)
-    plate_bright = plate.max(axis=2) > 170
-    still_bright = preview.max(axis=2) > 170
-    return int((zone & plate_bright & still_bright).sum())
-
-
-def dusk_yellow_count(result: np.ndarray, plate_shape: tuple[int, int]) -> int:
-    preview = cv2.resize(result, (plate_shape[1], plate_shape[0]), interpolation=cv2.INTER_AREA)
-    device = fill_quad(plate_shape, CAB_DEVICE_QUAD, 41)
-    hsv = cv2.cvtColor(preview, cv2.COLOR_RGB2HSV)
-    yellow = (
-        (hsv[:, :, 0] > 20)
-        & (hsv[:, :, 0] < 40)
-        & (hsv[:, :, 1] > 120)
-        & (hsv[:, :, 2] > 140)
-        & (device > 127)
-    )
-    return int(yellow.sum())
+    device = cv2.dilate(device, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31)))
+    outside = device == 0
+    diff = np.abs(preview.astype(np.int16) - plate.astype(np.int16)).mean(axis=2)
+    return float(diff[outside].mean())
 
 
 def cover_window(image: np.ndarray, viewport: tuple[int, int], pos: tuple[float, float]):
@@ -140,24 +102,19 @@ def main() -> int:
 
     cab = load_rgb(cab_path)
     plate = load_rgb(plate_path)
-    cameras = leftover_camera_highlights(cab, plate)
-    gold = leftover_gold(plate, cab)
-    yellow = dusk_yellow_count(cab, plate.shape)
-    print(
-        f"cab camera-highlights={cameras} max={CAB_CAMERA_HIGHLIGHT_MAX} "
-        f"leftover-gold={gold} yellow={yellow}"
-    )
-    if cameras > CAB_CAMERA_HIGHLIGHT_MAX:
+    ch, cw = cab.shape[0], cab.shape[1]
+    print(f"cab baked photograph {cw}x{ch} min={CAB_MIN_WIDTH}x{CAB_MIN_HEIGHT}")
+    if cw < CAB_MIN_WIDTH or ch < CAB_MIN_HEIGHT:
+        print("FAIL cab: baked still is too small for the product-band crop.")
+        failed += 1
+
+    mad = html_drop_mad(cab, plate)
+    print(f"cab plate-mad-outside-phone={mad:.2f} min={CAB_PLATE_MAD_MIN}")
+    if mad < CAB_PLATE_MAD_MIN:
         print(
-            "FAIL cab: photographed camera island still showing. "
-            "The dropped phone is sitting inside the original iPhone."
+            "FAIL cab: still is the original photograph with a rectangular HTML "
+            "phone dropped in. The cab still has to be a native photograph."
         )
-        failed += 1
-    if gold > CAB_GOLD_MAX:
-        print("FAIL cab: original gold UI is still in the glass.")
-        failed += 1
-    if yellow < CAB_YELLOW_MIN:
-        print("FAIL cab: dusk Capture chrome is missing from the dropped phone.")
         failed += 1
 
     hand = load_rgb(hand_path)

@@ -90,8 +90,9 @@ export function ImsCompare() {
         <p className="type-body mb-8 text-brand-steel">
           Review at device size on the linked routes. Capture frames are {IMS_PHONE.width} by{" "}
           {IMS_PHONE.height} and {IMS_DESK.width} by {IMS_DESK.height}. The hero hand still keys
-          the concreter field app into photographed glass. The cab still drops a whole Capture
-          phone into the ute photograph, not that job. The desk still warps the generic board in CSS.
+          the concreter field app into photographed glass. The cab still is a baked
+          photograph of the ute, in that field-app language, not a CSS phone drop.
+          The desk still warps the generic board in CSS.
         </p>
         <div className="grid gap-8 lg:grid-cols-2">
           {htmlScreens.map((screen) => (
@@ -119,8 +120,8 @@ export function ImsCompare() {
         <p className="type-body mb-8 text-brand-steel">
           The live homepage stills. The hand still is keyed by{" "}
           <code className="type-data text-[0.85rem]">npm run stills</code>. The cab still
-          drops a whole generic Capture phone into the original photograph. The desk still is
-          the board warped in CSS. Open a plate to inspect the file that ships.
+          is a baked photograph of the ute; the field app is native in the glass. The desk
+          still is the board warped in CSS. Open a plate to inspect the file that ships.
         </p>
         <div className="grid gap-6 md:grid-cols-2">
           {stillSlugs.map((slug) => {

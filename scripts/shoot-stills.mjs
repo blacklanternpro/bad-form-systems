@@ -5,11 +5,10 @@
  * Desk: photograph + live DeskIms, warped in CSS (the laptop glass is a
  * rectangle, so a four-point warp is enough).
  *
- * Phones: screenshot PhoneIms at 3x once per plate, then
- * scripts/composite-phone.py keys the photographed glass on the hand, and
- * drops a whole PhoneIms device into the cab photograph. CSS cannot do the
- * hand: iPhone glass is a rounded rect with a notch. Cab uses the original
- * photograph and a full generic Capture phone, never a generated plate.
+ * Phones: screenshot PhoneIms at 3x once per unbaked plate, then
+ * scripts/composite-phone.py keys the photographed glass on the hand.
+ * CSS cannot do the hand: iPhone glass is a rounded rect with a notch.
+ * Cab is baked (field app native in the glass). `npm run stills cab` no-ops.
  *
  * Usage:
  *   npm run dev
@@ -61,7 +60,7 @@ function readPlates() {
       slug,
       device: device ?? "desk",
       output: read("output"),
-      // Phone plates name a fieldBuild. Cab is generic Capture on the original plate.
+      // Phone plates name a fieldBuild. Baked cab is atmosphere in pour's language.
       fieldBuild: read("fieldBuild"),
       paint: read("paint") ?? "dusk",
       frame: read("frame"),

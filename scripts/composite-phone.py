@@ -3,9 +3,8 @@
 
 Laptop stills stay on the CSS warp: that glass is a rectangle. The hero hand
 keys photographed glass (bright blue on white) and warps PhoneIms into it.
-The cab plate is the original photograph. Cut the photographed iPhone out
-and drop a whole PhoneIms dusk Capture device into the hand. Do not warp HTML
-into that chassis, and do not replace the plate with a generated photo.
+Cab is a baked photograph; this script must not write hero-cab.webp.
+Device-drop code for cab is unused.
 
 Work happens at 2x so the UI stays legible when the homepage crops in.
 

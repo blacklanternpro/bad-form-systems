@@ -42,14 +42,15 @@ export type OverviewBeat = {
   body: string;
 };
 
-/* Hero hand is the Kemerton demo day. The cab is a capture screen, not that
-   job. The office board is the generic system sitting beside the live phone. */
+/* Hero hand is the Kemerton demo day. The cab is the same ute, with that
+   field app native in the glass. The office board is the generic system
+   sitting beside the live phone. */
 const cabStill = {
   src: "/images/hero-cab.webp",
   width: 3072,
-  height: 2048,
-  alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a capture screen, with a paper docket on the other thigh.",
-  demoNote: "Demo Capture phone in the ute. Not a live customer job, and not the hero's Kemerton day.",
+  height: 2304,
+  alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a dusk field app, with a paper docket on the other thigh.",
+  demoNote: "The ute, with a demo field app in the glass. Not a live customer job.",
   objectPositionClass: "object-[38%_30%] xl:object-[40%_26%]",
 } satisfies OverviewStill;
 
@@ -142,7 +143,7 @@ export const overview = {
         "Drafts for Xero or MYOB. Your bookkeeper still presses send.",
       ],
     } satisfies ScreenCaption,
-    note: "Demo system. Not a customer, and not a product you buy off this page. The phone is the field half of this board.",
+    note: "Demo. The ute is a field app in the glass, not a live customer job. The live phone is the unattributed system, and the field half of this board.",
   },
 
   map: {
