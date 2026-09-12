@@ -1,200 +1,147 @@
-# Homepage redesign spec
+# Homepage spec
 
-Approved structure and copy for the BAD FORM Systems homepage. Recut Next.js only after this file is the source of truth. Superdesign canvas drafts (paper-first, split-dock, docket-sheet) are unused.
+Source of truth for the BAD FORM Systems homepage. Change this file before recutting the page.
 
 ## Design read
 
-Reading this as: a B2B trade-owner landing for a South West WA yard owner, with an incumbent paper/docket language, leaning toward the existing BAD FORM token set (cream, ply pink, stamp yellow, cobalt) plus Barlow and Courier Prime.
+Reading this as: a B2B trade-owner landing for a South West WA yard owner, in an incumbent paper/docket language, on the existing BAD FORM token set (cream, ply pink, stamp yellow, cobalt) with Barlow and Courier Prime.
 
 Dials (overrides, not Taste Skill baselines):
 
-- `DESIGN_VARIANCE: 5` (asymmetric paper vs photographs, not artsy chaos)
-- `MOTION_INTENSITY: 2` (stamp hover only)
-- `VISUAL_DENSITY: 4`
-
-Mode: redesign overhaul of homepage body and copy. Preserve brand tokens, header, footer, IA, and conversion label.
+- `DESIGN_VARIANCE: 5` (asymmetric paper against photographs, not artsy chaos)
+- `MOTION_INTENSITY: 3` (one hero settle, one reveal family, one demo sequence, all CSS)
+- `VISUAL_DENSITY: 5` (the product screens are dense on purpose; the paper around them is not)
 
 ## Audience and one job
 
-Primary reader: owner of a South West WA trade, civil, fabrication, or fleet business. The general ledger is fine. Jobs, dockets, variations, and field hours still live on paper, spreadsheets, and utes.
+Primary reader: the owner of a South West WA trade, civil, fabrication, or fleet business. The general ledger is fine. Jobs, dockets, variations, and field hours still live on paper, in spreadsheets, and in utes.
 
 One job for this page: decide whether BAD FORM Systems is worth a yard visit. Not evaluate an agency portfolio. Not compare a SaaS feature grid.
 
-## Keep vs kill
+The page has to answer three things the previous cut only asserted:
 
-### Keep (product, not layout)
+1. What does digitising a workflow actually get me? Answered by comparing one real day twice.
+2. Is this a product I would buy off the page? Answered by one generic live field app beside an office board, not a concreter screenshot on every surface.
+3. Why not buy something off the shelf? Answered by naming the alternatives and the audit. Ghost tax on the page is the cost of leaving it on paper, as an illustration, not a claim.
 
-- Xero or MYOB stay the books. Custom IMS plus ute/cab capture sits beside them.
-- Evaluation is a local yard visit in the South West.
-- Both stills remain, IMS readable: `/images/hero-cab.webp` and `/images/office-ims.webp`. Synthetic demo, never a fake client.
-- Ply lockup (BAD FORM condensed + typewriter Systems).
-- Stamp yellow is the visit verb. Header CTA stays `Book a site visit`.
-- JOB NO. 10482 from `xl`.
-- Nav labels stay System / Process / Sectors / Contact.
-- Contact form field names stay.
-- No invented clients, testimonials, quotes, or metrics.
-- Existing type roles: Barlow for UI, Barlow Condensed for the lockup only, Courier Prime for docket lines.
+## Standing constraints
 
-### Kill
-
-- `SeamType`, type-on-still, and `.type-seam-burst`
-- Cream overlay plates on photographs
-- Barlow Condensed 800 posters on stills
-- Cream sibling title slabs under stills
-- CSS `scale-x: -1` on photos
-- Two-col plus three-col of similar docket cards
-- Four-col landscape table as a homepage dump
-- Overlay pills or labels on images
-- Scroll cues, section-number eyebrows, em-dashes
+- No invented clients, testimonials, quotes, or metrics. Ever.
+- Xero or MYOB stay the books. Never a rip and replace.
+- Zero em-dashes. No en-dash used as a separator anywhere visible.
+- Prices are draft only and live on `/pricing` behind their disclaimer. Not on this page.
+- No pills, labels, or type overlaid on photographs. No scroll cues. No section-number eyebrows.
+- Never let an image model draw the live phone or the desk board. The cab atmosphere still is an explicit exception: one generated photograph of the ute, with the dusk field app native in the glass, in the hero's language.
+- Exactly one finished product screen renders live on this page: the generic day-painted field app. A second one turns the product band into a feature tour.
+- One conversion label: `Book a site visit`. Nav labels and contact form field names do not change.
+- Light only. No `dark:` variants.
+- Radius is 2px everywhere.
+- Icons come from `@phosphor-icons/react` only. Never hand-rolled SVG.
 
 ## Section order
 
-Six sections. Each has one job. Layout family used once.
+Eight acts. One layout family each, used once.
 
 ```text
-1. Paper open     cream first viewport: headline, walk, stamp + text link
-2. Cab still      photograph only (IMS readable, no type on pixels)
-3. Two truths     ledger stays + evaluation is a yard visit
-                  (asymmetric: one lead + one supporting, not two equal cards)
-4. Office still   photograph only
-5. How we work    three beats as a numbered process list, not a 3-card grid
-6. Close          yard visit + stamp
+1. Hero open      split: copy on the page's left margin, field-app photograph bleeding right
+2. Tuesday twice  paired ledger timelines on a subgrid, on paper against on the system
+3. Product band   dark: cab photograph, live phone, board caption rail, office photograph
+4. System map     three grouped clusters, captured / held / sent
+5. Custom build   ordered process list
+6. Ghost tax      illustrative calculator, numbers come from the sliders
+7. Visit offer    paper offer sheet with a header strip
+8. Close          stacked line and the stamp
 ```
 
-Landscape comparison does not render on the homepage. The secondary CTA already sends that reader to `/coexistence`. Keep the landscape data in `src/content/overview.ts` for now; do not add a new inner-page section in this recut.
+The product band is the only dark section. It exists so that acts 1 and 2 (claims) are immediately followed by proof, and so the reader who scrolls no further has still seen the product.
 
-Header, footer, and inner pages stay. Homepage body only, plus deleting homepage-only components that become dead.
+## Copy
 
-## Full copy
+All copy lives in `src/content/overview.ts`. That file is the spine; components read from it and never inline strings.
 
-No em-dashes. No invented proof. Sentence case in source; `.type-hero` may uppercase headlines.
+Two rules that are easy to break:
 
-### Paper open
+- The Tuesday timeline and the hero still's capture times must match. The copy tells the reader that the phone above is the same job, so 6:52 in the timeline has to be 6:52 in `imsFieldBuilds.pour.feed`. The cab still is atmosphere in that same field-app language, not a second live job, and does not have to match those times. The live breakout and the office board are not that job.
+- The product band's closing note has to stay true at every width. The live phone is the unattributed system, and the field half of this board. The ute photograph is a demo field app in the glass, not a live customer job.
 
-**Headline** (max 2 lines desktop):
+## What sits where
 
-The job system sits beside the books.
-
-**Walk** (19 words; trimmed from the plan draft to meet the 20-word hero cap):
-
-Keep Xero or MYOB. We build the job system the crew will use. Next step is a yard visit.
-
-**Primary CTA:** Book a site visit → `/contact`  
-**Secondary CTA:** How we sit beside Xero → `/coexistence`
-
-No eyebrow. No tagline under the buttons. No JOB NO. in this block (header already has it from `xl`).
-
-### Cab still
-
-Photograph only. Alt stays descriptive. Demo note is screen-reader only, not a label on the image.
-
-Alt: Overhead in a dusty ute: a work-worn hand on a phone open to a theoretical field IMS, and a paper docket on the other thigh.
-
-Demo note: Demo layout. Not a live product shot.
-
-### Two truths
-
-**Lead**
-
-Title: The ledger stays  
-Body: You do not rip out accounting. Xero or MYOB remain the books. IMS is built beside them.
-
-**Support**
-
-Title: We come to the yard  
-Body: Evaluation is a walkthrough in the South West, not a demo call from another city.
-
-### Office still
-
-Photograph only.
-
-Alt: Site-office laptop open on a theoretical BAD FORM Systems jobs dashboard, with hi-vis and dockets in a South West yard office.
-
-Demo note: Theoretical office IMS. Demo layout, not a live customer system.
-
-### How we work
-
-No "Step 1 / Step 2 / Step 3" labels. The verb is the label. Render as an ordered list so sequence is in the markup, not as three equal cards.
-
-1. Title: Sit on the ute first  
-   Body: We sit in the office and on the ute before we write a line.
-
-2. Title: Custom IMS plus cab capture  
-   Body: Not another SaaS login. Screens this crew will actually open.
-
-3. Title: Built in the South West  
-   Body: Build happens here. You are not a remote ticket.
-
-### Close
-
-If the books stay and the crew will use it, we should be on the yard.
-
-CTA: Book a site visit → `/contact`
-
-Same label as the header and paper open. That is one conversion, not a second intent.
-
-## Layout and type rules
-
-- Light-only. `html { color-scheme: light; }` stays. No `dark:` theme.
-- Paper sections sit on `--color-brand-black` (`#efe6c8`).
-- Stills are full-bleed photographs on `--color-brand-ink`. No cream plate, no burst, no type in the figure.
-- First viewport is paper, not the cab still. The cab still is the next section so the service is still proven with a readable field phone.
-- Paper open: left-aligned, top padding at or under `pt-24` desktop. Do not force a full-viewport min-height; the cab still should follow the CTAs without a dead cream band. Headline, walk, and stamp stay in the first viewport. Headline uses existing `.type-hero`. Walk uses `.type-docket`, max-width about `36ch`.
-- Two truths: CSS Grid `1fr` on small screens, `2fr 1fr` from `md`. Lead is the large statement. Support is a docket note. One hairline for the group, not a card box around each fact.
-- How we work: stacked ordered list, full width, sparse divider between items (bottom border between items only, not border-t plus border-b). Not `md:grid-cols-3`.
-- Close: stacked headline then stamp. Not a split-header.
-- Buttons keep existing `.btn-primary` (stamp) and `.btn-text`. Radius stays 2px.
-- Mobile: every multi-column block collapses to a single column under `md` (`px-4`, stacked).
-- Do not introduce Motion, GSAP, marquees, or scroll hijack.
-- Do not restore overlay plates, condensed-800 still posters, sibling slabs, photo mirrors, or another seam/burst pass.
-
-## Component map
-
-| File | Action |
+| Surface | What it is |
 | --- | --- |
-| `src/app/page.tsx` | Rewrite section order to the six blocks above |
-| `src/content/overview.ts` | Lock the copy in this spec. Keep `overview.body` for lab mocks. Keep `landscape` data but do not render it on `/` |
-| `src/components/overview/PaperOpen.tsx` | New. Cream first viewport |
-| `src/components/overview/StillFrame.tsx` | New. Photograph only. Used twice |
-| `src/components/overview/TwoTruths.tsx` | New. Asymmetric lead + support |
-| `src/components/overview/HowWeWork.tsx` | New. Numbered process list |
-| `src/components/overview/VisitClose.tsx` | New or rewrite. Close line + stamp |
-| `src/components/overview/HomeHero.tsx` | Delete |
-| `src/components/overview/SubHero.tsx` | Delete |
-| `src/components/overview/SeamType.tsx` | Delete |
-| `src/components/overview/InfoBand.tsx` | Keep as cream wrapper if useful, or fold padding into the new blocks. Delete `FactList` / `VisitFacts` / `OfferFacts` if unused |
-| `src/components/overview/OverviewBlocks.tsx` | Delete once `LandscapeMatrix` and the old `VisitClose` are unused |
-| `src/app/globals.css` | Delete `.type-seam-burst` |
-| `src/components/chrome/SiteHeader.tsx` | Do not change labels or CTA copy |
-| `src/components/chrome/SiteMark.tsx` | Do not change |
-| `src/components/chrome/SiteFooter.tsx` | Do not change |
-| `src/components/lab/ParkingLotMocks.tsx` | Leave. It will pick up the new headline and walk line from `overview` |
+| Hero hand still | `pour`, Kemerton, dusk. Tuesday points at it. |
+| Cab still | Generated photograph of the ute. Dusk field app native in the glass, in the hero's language. Demo, not a live customer job. |
+| Live phone in the product band | `generic`, day paint. Unattributed. |
+| Office laptop still | The same generic board, `DeskIms` day. |
 
-Stills keep raw `<img>` (existing reason: do not re-encode the plates). Cab crop `object-[42%_28%]` / `xl:object-[44%_26%]`. Office crop `object-[78%_22%]` / `xl:object-[74%_20%]`.
+`cartage` stays in the lab. It does not appear on `/`.
 
-One banner landmark: do not nest `<header>` inside the homepage. Paper open is a `<section>`.
+## Stills
+
+The photographs are plates. Image models must not draw the live phone or the desk board. The cab atmosphere still is the exception: the screen is native in a generated photograph of the ute, in the hero's dusk field-app language. It will not be pixel-perfect HTML. Keep the original overhead in `public/images/plates/cab.webp` as the composition lock. Do not fall back to `composite-phone.py` for cab.
+
+Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/composite/desk`, shot by `npm run stills desk`. Those stills stay sharp because the board fills the frame. The board on that still is the generic, unattributed system. The photograph's wall notes must not name the hero's Kemerton job.
+
+iPhone glass is not a rectangle. The hero hand still is still composited the way a retoucher would: `scripts/composite-phone.py` keys the photographed glass (bright blue on white) and warps a screenshot of `PhoneIms` `pour` into that region, at 2x, with no blur on the UI. The file written for the homepage is then cropped to that phone. The full 3072x2048 plate left the glass at ~300px on the hero, which reads as the old photographed screen.
+
+The cab still is baked (`baked: true` in `src/content/stills.ts`). `npm run stills cab` no-ops. Do not warp HTML into a photographed iPhone, and do not drop a CSS `PhoneIms` chassis into the hand. `python3 scripts/check-stills.py` fails if the file is missing, too small for the product-band crop, or still the original plate with a rectangular HTML phone sitting in it.
+
+Pipeline:
+
+1. `src/content/stills.ts` holds each plate, its output name, and `fieldBuild` (phones). Cab is baked.
+2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x for unbaked phone plates, runs the Python compositor, and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV. Hand uses the job tab. Do not run a bare `npm run stills` unless you mean to reshoot the hero hand.
+3. Reshoot `hand` after a change to the concreter field app. Do not reshoot `cab` through the compositor. Reshoot `desk` after a change to the generic board.
+
+If the hand plate is ever replaced, shoot the phone with a blank black (or chroma-green) screen and no UI in the glass.
+
+The board is exactly 1440x810 and must fit without a clipped row. Six job rows, the summary, and the captures strip are all load bearing on that budget; `.ims-table td` padding is the release valve.
+
+## Live screens on the page
+
+`LiveScreen` renders the real `PhoneIms` / `DeskIms` at their device size and scales the whole block with fixed steps per breakpoint (`src/styles/screen-frame.css`). The app is not re-typeset for the page.
+
+The homepage renders one of them: the generic field app, day paint, in the product band. The board is a photograph of that same unnamed system. `LiveScreen` still supports `desk`, and `/lab/ims/desk/[paint]` is where to review it.
+
+Headings inside the product screens are paragraphs, not `h1` / `h2`. They are product chrome embedded in a marketing page and must not enter its heading outline.
+
+`PhoneIms` with `tab="capture"` is a document camera (job chip, paper finder, last-captured strip), used in the lab (`?view=capture`). The live breakout stays on the job tab. The cab still is not that Capture screen.
+
+## Motion
+
+CSS only. The page ships no animation JavaScript.
+
+- `.enter`: a time-based settle, used on the hero and on the demo's result rows. Stagger via `--enter-delay`.
+- `.reveal`: the same keyframe driven by `animation-timeline: view()`. No observer to leak, and where the browser has no support the content renders in place, which is the correct fallback rather than a hidden block waiting on a script.
+- Both are inside `@media (prefers-reduced-motion: no-preference)` and both are disabled in `@media print`, because a view timeline never advances on paper.
+
+Verify motion by scrolling a real viewport. A `captureBeyondViewport` full-page screenshot does not advance a view timeline, so reveals will look broken in one.
+
+## The demo
+
+`GhostTaxSlice` mounts the existing `GhostTaxCalculator`. The number on screen is always derived from the sliders. Copy in `calculatorCopy` already says the total is an illustration, not a claim, and not a quote. Do not invent industry percentages beside it.
+
+The docket engine stays on `/lab`. It is not a homepage toy.
 
 ## Accessibility
 
-- Single `h1` in paper open.
-- Cab still is a `<figure>` with `sr-only` figcaption for the demo note.
-- Office still is a `<figure>` with `sr-only` figcaption. If a visible heading is required for the section, put it in the following How we work block, not on the photo.
-- How we work heading is `h2`. Two truths lead title is `h2`. Close line is `h2`.
-- Focus rings stay the existing cobalt outline.
-- Stamp contrast stays ink border + cobalt label on stamp yellow.
+- One `h1`, in the hero.
+- Skip link to `#content` as the first focusable element.
+- Photographs are `<figure>` with an `sr-only` figcaption carrying the demo note. Never a visible label on the image.
+- Tap targets on the page are at least 44px (`min-h-11`). The product screens are excluded: they are pictures of an app, not controls.
+- Focus rings stay the cobalt outline. Stamp contrast stays ink border with a cobalt label.
+
+## Pre-flight
+
+Run against a production build (`npm run build && npx next start`), because the dev indicator sits in the corner otherwise.
+
+- `npm run lint` and `npm run build` clean.
+- At 1440 and 390: no horizontal overflow, exactly one `h1`, no em-dash or en-dash in the rendered text, no tap target under 44px outside the product screens.
+- With `prefers-reduced-motion: reduce`: nothing is animated and nothing is left at reduced opacity.
+- Scroll the page at both widths and confirm every `.reveal` block resolves.
+- Run the ghost tax sliders and confirm the total changes. Confirm `/ghost-tax` still works.
 
 ## Out of scope
 
 - Inner pages (`/coexistence`, `/sectors`, `/contact`, `/pricing`, `/lab`, `/ghost-tax`)
-- Header/footer chrome
-- Inventing a new visual world or palette
+- Header and footer chrome
+- A new visual world or palette
 - Dark mode
-- Superdesign implementation
-
-## Done when
-
-- First viewport is cream paper with headline, walk, stamp, and Xero link. Stamp visible without scroll at 1440 and 390. Cab still may peek under the paper block; type does not sit on the still.
-- No type, burst, or plate on either still. Phone and laptop IMS remain readable.
-- No 2-col/3-col docket dump. No landscape table on `/`.
-- CTAs hit `/contact` and `/coexistence`. Nav labels unchanged.
-- Copy matches this file. Zero em-dashes on the page.

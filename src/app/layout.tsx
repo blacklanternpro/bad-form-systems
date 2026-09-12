@@ -40,6 +40,20 @@ export const metadata: Metadata = {
     title: overview.metaTitle,
     description: overview.metaDescription,
     type: "website",
+    images: [
+      {
+        url: "/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a dusk field app, with a paper docket on the other thigh.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: overview.metaTitle,
+    description: overview.metaDescription,
+    images: ["/images/og.jpg"],
   },
   manifest: "/site.webmanifest",
 };
@@ -57,8 +71,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <HashRedirect />
+        <a href="#content" className="skip-link">
+          Skip to content
+        </a>
         <SiteHeader />
-        <main className="flex-grow">{children}</main>
+        <main id="content" className="flex-grow">
+          {children}
+        </main>
         <SiteFooter />
       </body>
     </html>

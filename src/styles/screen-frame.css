@@ -1,0 +1,59 @@
+/*
+ * A live product screen sitting in the page.
+ *
+ * The field app and the jobs board are built at fixed device sizes, the same
+ * sizes that get warped onto the photographed screens. Rather than re-typeset
+ * them for the page, the whole screen is scaled as one block, so what a reader
+ * sees here has the same proportions as what they saw in the photograph.
+ *
+ * Scale steps are fixed per breakpoint. The outer frame is sized from the step,
+ * so the block never overflows its column and never leaves a gap under itself.
+ */
+
+.screen-frame {
+  --screen-scale: 1;
+  width: calc(var(--screen-w) * var(--screen-scale));
+  height: calc(var(--screen-h) * var(--screen-scale));
+  overflow: hidden;
+}
+
+.screen-frame-inner {
+  width: var(--screen-w);
+  height: var(--screen-h);
+  transform: scale(var(--screen-scale));
+  transform-origin: top left;
+}
+
+.screen-frame[data-device="phone"] {
+  --screen-scale: 0.72;
+}
+
+/* Above a 400px viewport the phone can sit close to life size. */
+@media (min-width: 400px) {
+  .screen-frame[data-device="phone"] {
+    --screen-scale: 0.9;
+  }
+}
+
+@media (min-width: 640px) {
+  .screen-frame[data-device="phone"] {
+    --screen-scale: 1;
+  }
+}
+
+/* The board only renders from lg up, where there is width to read it. */
+.screen-frame[data-device="desk"] {
+  --screen-scale: 0.66;
+}
+
+@media (min-width: 1280px) {
+  .screen-frame[data-device="desk"] {
+    --screen-scale: 0.84;
+  }
+}
+
+@media (min-width: 1536px) {
+  .screen-frame[data-device="desk"] {
+    --screen-scale: 1;
+  }
+}

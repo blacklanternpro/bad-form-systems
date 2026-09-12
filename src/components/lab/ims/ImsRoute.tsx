@@ -1,53 +1,102 @@
 import Link from "next/link";
 import { DeskIms } from "@/components/lab/ims/DeskIms";
 import { PhoneIms } from "@/components/lab/ims/PhoneIms";
-import { imsCopy, type ImsPaintId } from "@/content/ims";
+import {
+  IMS_DESK,
+  IMS_PHONE,
+  imsBuildIds,
+  imsCopy,
+  imsFieldBuilds,
+  imsHref,
+  type ImsBuildId,
+  type ImsFieldTabId,
+  type ImsPaintId,
+} from "@/content/ims";
 
-interface ImsRouteProps {
-  paint: ImsPaintId;
-  device: "phone" | "desk";
-  capture: boolean;
-}
+/** Same split as LiveScreen: the board is the generic system. */
+type ImsRouteProps =
+  | {
+      device: "phone";
+      paint: ImsPaintId;
+      build: ImsBuildId;
+      capture: boolean;
+      tab?: ImsFieldTabId;
+      frame?: "device";
+    }
+  | { device: "desk"; paint: ImsPaintId; capture: boolean };
 
-export function ImsRoute({ paint, device, capture }: ImsRouteProps) {
-  const screen = device === "phone" ? <PhoneIms paint={paint} /> : <DeskIms paint={paint} />;
-  const paintLabel = imsCopy.paints[paint].label;
-  const peerHref =
-    device === "phone" ? imsCopy.paints[paint].href.desk : imsCopy.paints[paint].href.phone;
-  const peerLabel = device === "phone" ? "Desk" : "Phone";
+/** The board and the live phone are the unattributed system. */
+const BOARD_BUILD: ImsBuildId = "generic";
+
+type LabLink = { href: string; label: string };
+
+export function ImsRoute(props: ImsRouteProps) {
+  const { device, paint, capture } = props;
   const otherPaint: ImsPaintId = paint === "day" ? "dusk" : "day";
-  const otherHref =
-    device === "phone"
-      ? imsCopy.paints[otherPaint].href.phone
-      : imsCopy.paints[otherPaint].href.desk;
+  const paintLabel = imsCopy.paints[paint].label;
+  const otherPaintLabel = imsCopy.paints[otherPaint].label.toLowerCase();
+
+  const screen =
+    props.device === "phone" ? (
+      <PhoneIms paint={paint} build={props.build} tab={props.tab} />
+    ) : (
+      <DeskIms paint={paint} />
+    );
 
   if (capture) {
+    const deviceFrame = props.device === "phone" && props.frame === "device";
     return (
       <div data-ims-capture-page="" className="ims-capture-page">
-        {screen}
+        {deviceFrame ? (
+          <div className="ims-device" data-ims-device-frame="">
+            <div className="ims-device-side ims-device-side-l" aria-hidden="true" />
+            <div className="ims-device-side ims-device-side-r" aria-hidden="true" />
+            <div className="ims-device-island" aria-hidden="true" />
+            <div className="ims-device-glass">{screen}</div>
+          </div>
+        ) : (
+          screen
+        )}
       </div>
     );
   }
+
+  const size = device === "phone" ? IMS_PHONE : IMS_DESK;
+  const links: LabLink[] = [{ href: "/lab/ims", label: "All IMS screens" }];
+
+  if (props.device === "phone") {
+    const otherBuild = imsBuildIds[(imsBuildIds.indexOf(props.build) + 1) % imsBuildIds.length];
+    links.push(
+      { href: imsHref.desk(paint), label: `Board ${paintLabel.toLowerCase()}` },
+      { href: imsHref.phone(props.build, otherPaint), label: `Phone ${otherPaintLabel}` },
+      {
+        href: imsHref.phone(otherBuild, paint),
+        label: `${imsFieldBuilds[otherBuild].trade} build`,
+      },
+    );
+  } else {
+    links.push(
+      { href: imsHref.phone(BOARD_BUILD, paint), label: `Phone ${paintLabel.toLowerCase()}` },
+      { href: imsHref.desk(otherPaint), label: `Board ${otherPaintLabel}` },
+    );
+  }
+
+  links.push({ href: "?capture=1", label: "Capture frame" });
+
+  const trade = props.device === "phone" ? imsFieldBuilds[props.build].trade : "Office board";
 
   return (
     <section className="ims-lab-frame bg-brand-black">
       <div className="mx-auto max-w-6xl px-4">
         <p className="type-docket text-sm text-brand-steel">
-          Lab only · {paintLabel} · {device === "phone" ? "390×844" : "1440×900"}
+          Lab only · {trade} · {paintLabel} · {size.width}×{size.height}
         </p>
         <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-          <Link href="/lab/ims" className="btn-text text-sm">
-            All IMS screens
-          </Link>
-          <Link href={peerHref} className="btn-text text-sm">
-            {peerLabel} {paintLabel.toLowerCase()}
-          </Link>
-          <Link href={otherHref} className="btn-text text-sm">
-            {device} {imsCopy.paints[otherPaint].label.toLowerCase()}
-          </Link>
-          <Link href="?capture=1" className="btn-text text-sm">
-            Capture frame
-          </Link>
+          {links.map((link) => (
+            <Link key={link.label} href={link.href} className="btn-text text-sm">
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
       <div className="ims-lab-canvas">{screen}</div>
