@@ -30,8 +30,8 @@ type StillPlateBase = {
     spillBlur: number;
     /**
      * Grow the mapped quad past the bezel. Desk only. Phone stills are
-     * composited by scripts/composite-phone.py from the photographed glass,
-     * not from this expand.
+     * composited by scripts/composite-phone.py. Hand keys photographed
+     * glass. Cab drops a whole PhoneIms device into the hand.
      */
     expand: number;
   };
@@ -42,6 +42,11 @@ type StillPlateBase = {
    * `npm run stills` must not composite over it.
    */
   baked?: boolean;
+  /**
+   * Cab stills shoot the PhoneIms chassis, not a glass rectangle.
+   * Omit for the hand, which still keys photographed glass.
+   */
+  frame?: "device";
 };
 
 /**
@@ -56,20 +61,23 @@ export type StillPlate =
 export const stillPlates: Record<StillSlug, StillPlate> = {
   cab: {
     slug: "cab",
-    /* Original cab photograph. The glass gets PhoneIms generic Capture, not
-       a generated photo and not the Kemerton job. */
+    /* Original cab photograph. The photographed iPhone is cut out and a
+       whole PhoneIms generic Capture device sits in the hand. Not a generated
+       photo and not the Kemerton job. */
     plate: "/images/plates/cab.webp",
     output: "hero-cab.webp",
     stage: { width: 1536, height: 1024 },
     device: "phone",
     fieldBuild: "generic",
     paint: "dusk",
-    screen: { width: 390, height: 844 },
+    frame: "device",
+    screen: { width: 418, height: 872 },
+    /* Device corners used by the compositor. Glass is not composited. */
     quad: [
-      [486.4, 209.9],
-      [742.7, 197.1],
-      [522.5, 787.1],
-      [780.1, 772.3],
+      [469.3, 192.8],
+      [757.5, 178.3],
+      [507.7, 805.9],
+      [797.2, 789.4],
     ],
     glass: {
       brightness: 1.02,
@@ -82,7 +90,7 @@ export const stillPlates: Record<StillSlug, StillPlate> = {
       expand: 0,
     },
     alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a capture screen, with a paper docket on the other thigh.",
-    note: "Demo capture screen in the glass. Not a live customer job, and not the hero's Kemerton day.",
+    note: "Demo Capture phone in the ute, not a live customer job, and not the hero's Kemerton day.",
   },
   hand: {
     slug: "hand",

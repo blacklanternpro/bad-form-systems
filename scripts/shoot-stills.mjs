@@ -6,11 +6,10 @@
  * rectangle, so a four-point warp is enough).
  *
  * Phones: screenshot PhoneIms at 3x once per plate, then
- * scripts/composite-phone.py keys the photographed glass.
- * Cab stays inside the glass; growing onto the bezel reads as a screenshot
- * in a hand, not a phone. CSS cannot do this: iPhone glass is a rounded
- * rect with a notch. Cab uses the original photograph and the generic
- * Capture tab, never a generated plate.
+ * scripts/composite-phone.py keys the photographed glass on the hand, and
+ * drops a whole PhoneIms device into the cab photograph. CSS cannot do the
+ * hand: iPhone glass is a rounded rect with a notch. Cab uses the original
+ * photograph and a full generic Capture phone, never a generated plate.
  *
  * Usage:
  *   npm run dev
@@ -28,6 +27,7 @@ const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const OUT_DIR = join(ROOT, "public", "images");
 const WORK_DIR = join(tmpdir(), "bad-form-stills");
 const PHONE = { width: 390, height: 844 };
+const DEVICE = { width: 418, height: 872 };
 
 function parseArgs(argv) {
   const slugs = [];
@@ -64,6 +64,7 @@ function readPlates() {
       // Phone plates name a fieldBuild. Cab is generic Capture on the original plate.
       fieldBuild: read("fieldBuild"),
       paint: read("paint") ?? "dusk",
+      frame: read("frame"),
       baked: /\bbaked:\s*true\b/.test(block.slice(0, 1200)),
       width: Number(stage[1]),
       height: Number(stage[2]),
@@ -187,13 +188,16 @@ async function main() {
         throw new Error(`${plate.slug}: phone plates need a fieldBuild in src/content/stills.ts`);
       }
       const uiPng = join(WORK_DIR, `phone-${plate.slug}.png`);
+      const deviceFrame = plate.frame === "device";
+      const size = deviceFrame ? DEVICE : PHONE;
       const view = plate.fieldBuild === "generic" ? "&view=capture" : "";
+      const frame = deviceFrame ? "&frame=device" : "";
       capture({
         chrome,
-        url: `${base}/lab/ims/phone/${plate.fieldBuild}/${plate.paint}?capture=1${view}`,
+        url: `${base}/lab/ims/phone/${plate.fieldBuild}/${plate.paint}?capture=1${view}${frame}`,
         file: uiPng,
-        width: PHONE.width,
-        height: PHONE.height,
+        width: size.width,
+        height: size.height,
         // Phone glass is a small part of the plate. Capture the UI denser than
         // the desk still so the warp still has samples after the homepage crops in.
         scale: Math.max(opts.scale, opts.phoneScale),

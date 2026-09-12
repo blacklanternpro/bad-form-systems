@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Fail if the shipped phone stills are a sticker (cab) or an unreadably small hero (hand).
+"""Fail if the cab still is still a glass sticker, or the hand hero is unreadable.
 
-Cab: Capture must replace the photographed glass to the bezel. A rim that still
-matches the original plate is the pasted-screenshot look.
+Cab: the photographed iPhone is replaced by a whole PhoneIms dusk device.
+A bezel that still matches the original plate is the old glass-warp method.
 
-Hand: the hero crop must put the glass on screen at a size you can read. The
-2x composite is already sharp; a 90px phone on the page is not.
+Hand: the hero crop must put the glass on screen at a size you can read.
 """
 
 from __future__ import annotations
@@ -20,13 +19,20 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 IMAGES = ROOT / "public" / "images"
 
-CAB_QUAD = np.array(
+# Outer chassis, not the glass. TL, TR, BL, BR in plate pixels.
+CAB_DEVICE_QUAD = np.array(
+    [[469.3, 192.8], [757.5, 178.3], [507.7, 805.9], [797.2, 789.4]],
+    np.float32,
+)
+CAB_GLASS_QUAD = np.array(
     [[486.4, 209.9], [742.7, 197.1], [522.5, 787.1], [780.1, 772.3]],
     np.float32,
 )
-# Mid-height glass rim that still matches the original plate. Above this, the
-# new UI is sitting inside the photographed screen instead of replacing it.
-CAB_RIM_ORIGINAL_MAX = 0.28
+# Photographed chassis still showing. Above this, Capture is sitting in the
+# original iPhone instead of replacing it.
+CAB_BEZEL_ORIGINAL_MAX = 0.38
+CAB_GOLD_MAX = 80
+CAB_YELLOW_MIN = 400
 
 # Desktop hero figure is half of 1440, min-height 34rem. The glass has to
 # fill that frame the way the sharp walkthrough crop did, not sit at ~300px
@@ -40,32 +46,67 @@ def load_rgb(path: Path) -> np.ndarray:
     return np.array(Image.open(path).convert("RGB"))
 
 
-def cab_mask(h: int, w: int) -> np.ndarray:
-    cover = np.zeros((h, w), np.uint8)
-    pts = CAB_QUAD[[0, 1, 3, 2]].astype(np.int32)
+def fill_quad(shape: tuple[int, int], quad: np.ndarray, round_px: int) -> np.ndarray:
+    cover = np.zeros(shape[:2], np.uint8)
+    pts = quad[[0, 1, 3, 2]].astype(np.int32)
     cv2.fillConvexPoly(cover, pts, 255)
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (21, 21))
-    glass = cv2.morphologyEx(cover, cv2.MORPH_OPEN, kernel)
-    grow = 6
-    return cv2.dilate(
-        glass,
-        cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (grow * 2 + 1, grow * 2 + 1)),
-    )
+    if round_px > 0:
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (round_px, round_px))
+        cover = cv2.morphologyEx(cover, cv2.MORPH_OPEN, kernel)
+    return cover
 
 
-def cab_rim_original_fraction(result: np.ndarray, plate: np.ndarray, mask: np.ndarray) -> float:
+def cab_bezel_original_fraction(result: np.ndarray, plate: np.ndarray) -> float:
+    """How much of the photographed chassis (not the fingers) is still the plate."""
     preview = cv2.resize(result, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
-    inner = cv2.erode(mask, np.ones((7, 7), np.uint8))
-    band = (mask > 127) & (inner == 0)
-    ys, _ = np.where(mask > 127)
+    device = fill_quad(plate.shape, CAB_DEVICE_QUAD, 37)
+    glass = fill_quad(plate.shape, CAB_GLASS_QUAD, 21)
+    inner_glass = cv2.erode(glass, np.ones((9, 7), np.uint8))
+    bezel = (device > 127) & (inner_glass == 0)
+    ys, xs = np.where(device > 127)
+    x0, x1 = int(xs.min()), int(xs.max())
     y0, y1 = int(ys.min()), int(ys.max())
-    h = y1 - y0
-    band[: int(y0 + 0.12 * h)] = False
-    band[int(y0 + 0.88 * h) :] = False
-    if not band.any():
+    # Thumb on the left and bottom stays photograph. Score the free bezel.
+    bezel[:, : int(x0 + 0.22 * (x1 - x0))] = False
+    bezel[int(y0 + 0.88 * (y1 - y0)) :, :] = False
+    if not bezel.any():
         return 1.0
-    diff = np.abs(preview[band].astype(np.int16) - plate[band].astype(np.int16)).mean(axis=1)
-    return float((diff < 8).mean())
+    diff = np.abs(preview[bezel].astype(np.int16) - plate[bezel].astype(np.int16)).mean(axis=1)
+    return float((diff < 10).mean())
+
+
+def leftover_gold(plate: np.ndarray, result: np.ndarray) -> int:
+    preview = cv2.resize(result, (plate.shape[1], plate.shape[0]), interpolation=cv2.INTER_AREA)
+    glass = fill_quad(plate.shape, CAB_GLASS_QUAD, 21)
+    hsv_p = cv2.cvtColor(plate, cv2.COLOR_RGB2HSV)
+    hsv_r = cv2.cvtColor(preview, cv2.COLOR_RGB2HSV)
+    was_gold = (
+        (hsv_p[:, :, 0] > 10)
+        & (hsv_p[:, :, 0] < 30)
+        & (hsv_p[:, :, 1] > 80)
+        & (hsv_p[:, :, 2] > 70)
+    )
+    still_gold = (
+        (hsv_r[:, :, 0] > 10)
+        & (hsv_r[:, :, 0] < 30)
+        & (hsv_r[:, :, 1] > 80)
+        & (hsv_r[:, :, 2] > 70)
+    )
+    return int((was_gold & still_gold & (glass > 127)).sum())
+
+
+def dusk_yellow_count(result: np.ndarray, plate_shape: tuple[int, int]) -> int:
+    preview = cv2.resize(result, (plate_shape[1], plate_shape[0]), interpolation=cv2.INTER_AREA)
+    device = fill_quad(plate_shape, CAB_DEVICE_QUAD, 37)
+    hsv = cv2.cvtColor(preview, cv2.COLOR_RGB2HSV)
+    yellow = (
+        (hsv[:, :, 0] > 20)
+        & (hsv[:, :, 0] < 40)
+        & (hsv[:, :, 1] > 120)
+        & (hsv[:, :, 2] > 140)
+        & (device > 127)
+    )
+    return int(yellow.sum())
 
 
 def cover_window(image: np.ndarray, viewport: tuple[int, int], pos: tuple[float, float]):
@@ -102,14 +143,24 @@ def main() -> int:
 
     cab = load_rgb(cab_path)
     plate = load_rgb(plate_path)
-    mask = cab_mask(plate.shape[0], plate.shape[1])
-    rim = cab_rim_original_fraction(cab, plate, mask)
-    print(f"cab rim original={rim:.3f} max={CAB_RIM_ORIGINAL_MAX}")
-    if rim > CAB_RIM_ORIGINAL_MAX:
+    bezel = cab_bezel_original_fraction(cab, plate)
+    gold = leftover_gold(plate, cab)
+    yellow = dusk_yellow_count(cab, plate.shape)
+    print(
+        f"cab bezel original={bezel:.3f} max={CAB_BEZEL_ORIGINAL_MAX} "
+        f"leftover-gold={gold} yellow={yellow}"
+    )
+    if bezel > CAB_BEZEL_ORIGINAL_MAX:
         print(
-            "FAIL cab: photographed glass still showing at the rim. "
-            "Capture is sitting inside the screen, not replacing it."
+            "FAIL cab: photographed chassis still showing. "
+            "Capture is sitting in the original iPhone, not replacing it."
         )
+        failed += 1
+    if gold > CAB_GOLD_MAX:
+        print("FAIL cab: original gold UI is still in the glass.")
+        failed += 1
+    if yellow < CAB_YELLOW_MIN:
+        print("FAIL cab: dusk Capture chrome is missing from the dropped phone.")
         failed += 1
 
     hand = load_rgb(hand_path)

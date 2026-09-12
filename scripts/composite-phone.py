@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""Sit the real field app in the photographed iPhone glass.
+"""Sit the real field app in the photographed phones.
 
-Laptop stills stay on the CSS warp: that glass is a rectangle. Phone glass
-is a rounded rect with a notch, so this keys the photographed screen and
-warps a PhoneIms screenshot into it. Work happens at 2x so the UI stays
-legible when the homepage crops in, matching the desk still pipeline.
+Laptop stills stay on the CSS warp: that glass is a rectangle. The hero hand
+keys photographed glass (bright blue on white) and warps PhoneIms into it.
+The cab plate is the original photograph. Cut the photographed iPhone out
+and drop a whole PhoneIms dusk Capture device into the hand. Do not warp HTML
+into that chassis, and do not replace the plate with a generated photo.
 
-Each plate gets its own screenshot. The cab plate is the original
-photograph. Warp the generic Capture tab into that glass. Do not replace
-the plate with a generated photo.
+Work happens at 2x so the UI stays legible when the homepage crops in.
 
 Usage:
   python3 scripts/composite-phone.py --ui hand=/tmp/phone-hand.png
@@ -29,6 +28,9 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 IMAGES = ROOT / "public" / "images"
 SCALE = 2
+# Keep in step with IMS_DEVICE in src/content/ims.ts
+DEVICE_WIDTH = 418
+DEVICE_RADIUS = 54
 
 PLATES = {
     "hand": {
@@ -45,19 +47,11 @@ PLATES = {
     "cab": {
         "plate": IMAGES / "plates" / "cab.webp",
         "output": IMAGES / "hero-cab.webp",
-        "kind": "cab",
-        # Screen corners, not the chassis. TL, TR, BL, BR.
-        "quad": [(486.4, 209.9), (742.7, 197.1), (522.5, 787.1), (780.1, 772.3)],
-        # Round the trapezoid to the iPhone glass, then grow to the photographed
-        # rim. A smaller mask left the original screen showing around Capture,
-        # which reads as a screenshot pasted inside the phone. Dilate 8 hits
-        # the bezel samples; 6 does not.
-        "round": 21,
-        "erode": 0,
-        "glass_dilate": 6,
-        "feather": 0.25,
-        # Chassis pixels that must stay photograph, not UI.
-        "bezel_samples": [(475, 480), (798, 470), (478, 230), (800, 785)],
+        "kind": "device",
+        # Outer chassis, not the glass. TL, TR, BL, BR.
+        "quad": [(469.3, 192.8), (757.5, 178.3), (507.7, 805.9), (797.2, 789.4)],
+        "round": 37,
+        "feather": 0.55,
     },
 }
 
@@ -138,62 +132,55 @@ def mask_hand(plate: np.ndarray, close: int, dilate: int) -> np.ndarray:
     return mask
 
 
-def fill_quad(shape: tuple[int, int], quad: list) -> np.ndarray:
+def fill_quad(shape: tuple[int, ...], quad: list | np.ndarray) -> np.ndarray:
     cover = np.zeros(shape[:2], np.uint8)
     pts = np.array([quad[0], quad[1], quad[3], quad[2]], np.int32)
     cv2.fillConvexPoly(cover, pts, 255)
     return cover
 
 
-def mask_cab(
-    plate: np.ndarray,
-    quad: list,
-    round_px: int,
-    erode: int,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Keep the UI on the photographed glass, inside the bezel.
+def rounded_rect_mask(height: int, width: int, radius: int) -> np.ndarray:
+    mask = np.full((height, width), 255, np.uint8)
+    r = max(1, int(radius))
+    mask[:r, :r] = 0
+    mask[:r, width - r :] = 0
+    mask[height - r :, :r] = 0
+    mask[height - r :, width - r :] = 0
+    cv2.circle(mask, (r, r), r, 255, -1)
+    cv2.circle(mask, (width - 1 - r, r), r, 255, -1)
+    cv2.circle(mask, (r, height - 1 - r), r, 255, -1)
+    cv2.circle(mask, (width - 1 - r, height - 1 - r), r, 255, -1)
+    return mask
 
-    The measured quad is the screen, not the chassis. Opening it rounds the
-    trapezoid to the iPhone glass. The original gold UI already fills that
-    glass; do not also clip to a smaller rounded rect or the app sits in a
-    gutter. Never hull or dilate onto the bezel.
-    """
+
+def mask_cab_device(plate: np.ndarray, quad: list, round_px: int) -> np.ndarray:
     cover = fill_quad(plate.shape, quad)
-    glass = cover
     if round_px > 0:
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (round_px, round_px))
-        glass = cv2.morphologyEx(cover, cv2.MORPH_OPEN, kernel)
-    if erode > 0:
-        glass = cv2.erode(
-            glass,
-            cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (erode * 2 + 1, erode * 2 + 1)),
-        )
-    camera = photographed_camera(plate, cover)
-    glass[camera > 0] = 0
-    return glass, cover, camera
+        cover = cv2.morphologyEx(cover, cv2.MORPH_OPEN, kernel)
+    return cover
 
 
-def photographed_camera(plate: np.ndarray, glass: np.ndarray) -> np.ndarray:
-    """The real camera island in the plate, not a guessed iPhone notch."""
-    ys, xs = np.where(glass > 127)
-    if len(xs) == 0:
-        return np.zeros_like(glass)
-    x0, x1 = int(xs.min()), int(xs.max())
-    y0, y1 = int(ys.min()), int(ys.max())
-    top_h = max(10, int((y1 - y0 + 1) * 0.14))
-    xa = x0 + int((x1 - x0) * 0.22)
-    xb = x0 + int((x1 - x0) * 0.78)
-    crop = plate[y0 : y0 + top_h, xa:xb]
-    dark = np.max(crop, axis=2) < 12
-    local = np.zeros(crop.shape[:2], np.uint8)
-    local[dark] = 255
-    local = keep_largest(local)
-    if int(local.sum() / 255) < 40:
-        return np.zeros_like(glass)
-    local = cv2.dilate(local, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5)))
-    out = np.zeros_like(glass)
-    out[y0 : y0 + local.shape[0], xa : xa + local.shape[1]] = local
-    return out
+def mask_cab_fingers(plate: np.ndarray, device: np.ndarray) -> np.ndarray:
+    """Keep the wrapping hand. Only skin on the chassis rim, grown from outside."""
+    hsv = cv2.cvtColor(plate, cv2.COLOR_RGB2HSV)
+    hue, sat, val = hsv[:, :, 0], hsv[:, :, 1], hsv[:, :, 2]
+    red = plate[:, :, 0].astype(np.int16)
+    green = plate[:, :, 1].astype(np.int16)
+    blue = plate[:, :, 2].astype(np.int16)
+    skin = (hue < 25) & (sat > 25) & (val > 30) & (val < 190) & (red > green + 5) & (red > blue + 8)
+    inner = cv2.erode(device, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (21, 21)))
+    rim = (device > 127) & (inner == 0)
+    near = cv2.dilate(device, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (21, 21)))
+    finger = np.where((device == 0) & skin, 255, 0).astype(np.uint8)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+    for _ in range(14):
+        grown = cv2.dilate(finger, kernel)
+        add = (grown > 0) & skin & (near > 127)
+        finger = np.where(add, 255, finger).astype(np.uint8)
+    finger = np.where((finger > 0) | (skin & rim), 255, 0).astype(np.uint8)
+    finger = cv2.dilate(finger, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5)))
+    return cv2.bitwise_and(finger, near)
 
 
 def order_quad(points: np.ndarray) -> np.ndarray:
@@ -212,20 +199,21 @@ def quad_from_mask(mask: np.ndarray) -> np.ndarray:
     return order_quad(cv2.boxPoints(cv2.minAreaRect(points)))
 
 
-def warp_ui(ui: np.ndarray, plate_shape: tuple[int, int], quad: np.ndarray) -> np.ndarray:
+def warp_ui(ui: np.ndarray, plate_shape: tuple[int, ...], quad: np.ndarray) -> np.ndarray:
     height, width = ui.shape[:2]
     src = np.array(
         [[0, 0], [width - 1, 0], [0, height - 1], [width - 1, height - 1]],
         np.float32,
     )
     matrix = cv2.getPerspectiveTransform(src, quad)
+    flags = cv2.INTER_LINEAR if ui.ndim == 2 else cv2.INTER_LANCZOS4
     return cv2.warpPerspective(
         ui,
         matrix,
         (plate_shape[1], plate_shape[0]),
-        flags=cv2.INTER_LANCZOS4,
+        flags=flags,
         borderMode=cv2.BORDER_CONSTANT,
-        borderValue=(0, 0, 0),
+        borderValue=0,
     )
 
 
@@ -238,6 +226,36 @@ def composite(
 ) -> np.ndarray:
     warped = warp_ui(ui, plate.shape, quad).astype(np.float32)
     alpha = cv2.GaussianBlur(mask.astype(np.float32) / 255.0, (0, 0), max(0.4, feather))
+    alpha = np.clip(alpha, 0, 1)[..., None]
+    out = plate.astype(np.float32) * (1.0 - alpha) + warped * alpha
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
+def grade_cab_phone(ui: np.ndarray) -> np.ndarray:
+    """Warm the studio screenshot so it sits in the tungsten cab."""
+    out = ui.astype(np.float32)
+    out[..., 0] *= 1.04
+    out[..., 1] *= 0.97
+    out[..., 2] *= 0.88
+    out = (out - 128.0) * 0.94 + 128.0
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
+def composite_device(
+    plate: np.ndarray,
+    ui: np.ndarray,
+    device_quad: np.ndarray,
+    finger: np.ndarray,
+    feather: float,
+) -> np.ndarray:
+    radius = int(round(DEVICE_RADIUS * (ui.shape[1] / DEVICE_WIDTH)))
+    ui_alpha = rounded_rect_mask(ui.shape[0], ui.shape[1], radius)
+    graded = grade_cab_phone(ui)
+    warped = warp_ui(graded, plate.shape, device_quad).astype(np.float32)
+    alpha = warp_ui(ui_alpha, plate.shape, device_quad).astype(np.float32) / 255.0
+    alpha[finger > 127] = 0
+    alpha = cv2.GaussianBlur(alpha, (0, 0), max(0.4, feather))
+    alpha[finger > 127] = 0
     alpha = np.clip(alpha, 0, 1)[..., None]
     out = plate.astype(np.float32) * (1.0 - alpha) + warped * alpha
     return np.clip(out, 0, 255).astype(np.uint8)
@@ -268,29 +286,23 @@ def leftover_gold(plate: np.ndarray, result: np.ndarray, mask: np.ndarray) -> in
     hsv_r = cv2.cvtColor(result, cv2.COLOR_RGB2HSV)
     was_gold = (hsv_p[:, :, 0] > 10) & (hsv_p[:, :, 0] < 30) & (hsv_p[:, :, 1] > 80) & (hsv_p[:, :, 2] > 70)
     still_gold = (hsv_r[:, :, 0] > 10) & (hsv_r[:, :, 0] < 30) & (hsv_r[:, :, 1] > 80) & (hsv_r[:, :, 2] > 70)
-    ys, _ = np.where(mask > 127)
-    if len(ys) == 0:
-        return 0
-    y_cut = int(ys.min() + 0.78 * (ys.max() - ys.min()))
-    band = np.zeros(mask.shape, bool)
-    band[y_cut:] = True
-    return int((was_gold & still_gold & (mask > 127) & band).sum())
+    return int((was_gold & still_gold & (mask > 127)).sum())
 
 
-def cab_rim_original_fraction(result: np.ndarray, plate: np.ndarray, mask: np.ndarray) -> float:
-    inner = cv2.erode(mask, np.ones((7, 7), np.uint8))
-    band = (mask > 127) & (inner == 0)
-    ys, _ = np.where(mask > 127)
-    if len(ys) == 0:
+def cab_bezel_original_fraction(result: np.ndarray, plate: np.ndarray, device: np.ndarray) -> float:
+    inner = cv2.erode(device, np.ones((21, 21), np.uint8))
+    bezel = (device > 127) & (inner == 0)
+    ys, xs = np.where(device > 127)
+    if len(xs) == 0:
         return 1.0
+    x0, x1 = int(xs.min()), int(xs.max())
     y0, y1 = int(ys.min()), int(ys.max())
-    h = y1 - y0
-    band[: int(y0 + 0.12 * h)] = False
-    band[int(y0 + 0.88 * h) :] = False
-    if not band.any():
+    bezel[:, : int(x0 + 0.22 * (x1 - x0))] = False
+    bezel[int(y0 + 0.88 * (y1 - y0)) :, :] = False
+    if not bezel.any():
         return 1.0
-    diff = np.abs(result[band].astype(np.int16) - plate[band].astype(np.int16)).mean(axis=1)
-    return float((diff < 8).mean())
+    diff = np.abs(result[bezel].astype(np.int16) - plate[bezel].astype(np.int16)).mean(axis=1)
+    return float((diff < 10).mean())
 
 
 def overlay_mask(plate: np.ndarray, mask: np.ndarray, path: Path) -> None:
@@ -355,53 +367,18 @@ def process(
 ) -> None:
     cfg = PLATES[slug]
     plate = load_rgb(cfg["plate"])
-    cover = None
-    camera = None
+    finger = None
 
     if cfg["kind"] == "hand":
         mask = mask_hand(plate, close=cfg["close"], dilate=cfg["dilate"])
         quad = quad_from_mask(mask)
     else:
-        mask, cover, camera = mask_cab(
-            plate,
-            cfg["quad"],
-            round_px=cfg["round"],
-            erode=cfg["erode"],
-        )
-        grow = int(cfg.get("glass_dilate", 0))
-        if grow > 0:
-            mask = cv2.dilate(
-                mask,
-                cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (grow * 2 + 1, grow * 2 + 1)),
-            )
-        if camera is not None:
-            mask[camera > 0] = 0
-        # Expand the measured screen, not the min-area rect of the whole glass.
-        # Mapping onto that rect pulled the status bar over the camera island.
+        mask = mask_cab_device(plate, cfg["quad"], round_px=cfg["round"])
+        finger = mask_cab_fingers(plate, mask)
         quad = np.array(cfg["quad"], np.float32)
-        if grow > 0:
-            center = quad.mean(axis=0)
-            for i, point in enumerate(quad):
-                vec = point - center
-                norm = np.linalg.norm(vec)
-                if norm > 0:
-                    quad[i] = point + vec / norm * grow
-        dusk = np.array([20, 22, 26], np.uint8)
-        painted = plate.copy()
-        hide = mask.copy()
-        painted[hide > 127] = dusk
-        plate = painted
-        spilled = 0
-        for x, y in cfg["bezel_samples"]:
-            if mask[y, x] > 127:
-                spilled += 1
-        if spilled:
-            raise RuntimeError(
-                f"{slug}: UI mask landed on the photographed bezel ({spilled} sample points)."
-            )
 
     if int(mask.sum() / 255) < 20_000:
-        raise RuntimeError(f"{slug}: glass mask is too small ({int(mask.sum() / 255)} px).")
+        raise RuntimeError(f"{slug}: device mask is too small ({int(mask.sum() / 255)} px).")
 
     plate_hi = upscale(plate, cv2.INTER_LANCZOS4)
     mask_hi = cv2.resize(
@@ -411,13 +388,25 @@ def process(
     )
     quad_hi = quad * SCALE
     feather = float(cfg["feather"]) * SCALE
-    result = composite(plate_hi, ui, mask_hi, quad_hi, feather)
+
+    if cfg["kind"] == "device":
+        finger_hi = cv2.resize(
+            finger,
+            (plate_hi.shape[1], plate_hi.shape[0]),
+            interpolation=cv2.INTER_LINEAR,
+        )
+        result = composite_device(plate_hi, ui, quad_hi, finger_hi, feather)
+    else:
+        result = composite(plate_hi, ui, mask_hi, quad_hi, feather)
+
     preview = cv2.resize(result, (1536, 1024), interpolation=cv2.INTER_AREA)
 
     if debug_dir:
         debug_dir.mkdir(parents=True, exist_ok=True)
         Image.fromarray(mask).save(debug_dir / f"{slug}-mask.png")
         overlay_mask(load_rgb(cfg["plate"]), mask, debug_dir / f"{slug}-mask-over.png")
+        if finger is not None:
+            overlay_mask(load_rgb(cfg["plate"]), finger, debug_dir / f"{slug}-fingers.png")
         Image.fromarray(preview).save(debug_dir / f"{slug}-result.png")
         crop_phone(preview, mask, debug_dir / f"{slug}-phone.png")
 
@@ -431,12 +420,14 @@ def process(
         extra = f"leftover-blue={blue} cream-hit={cream}"
     else:
         gold = leftover_gold(load_rgb(cfg["plate"]), preview, mask)
-        rim = cab_rim_original_fraction(preview, load_rgb(cfg["plate"]), mask)
-        extra = f"leftover-gold={gold} rim-original={rim:.3f}"
-        if not skip_checks and rim > 0.28:
+        bezel = cab_bezel_original_fraction(preview, load_rgb(cfg["plate"]), mask)
+        extra = f"leftover-gold={gold} bezel-original={bezel:.3f}"
+        if not skip_checks and bezel > 0.38:
             raise SystemExit(
-                f"{slug}: photographed glass still showing at the rim ({rim:.3f})."
+                f"{slug}: photographed chassis still showing ({bezel:.3f})."
             )
+        if not skip_checks and gold > 80:
+            raise SystemExit(f"{slug}: original gold UI is still in the glass ({gold} px).")
 
     if cfg["kind"] == "hand" and cfg.get("hero_pad"):
         result = crop_to_glass(result, mask, int(cfg["hero_pad"]))
@@ -484,7 +475,7 @@ def load_uis(specs: list[str], slugs: list[str]) -> dict[str, np.ndarray]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Composite PhoneIms into the photographed glass.")
+    parser = argparse.ArgumentParser(description="Composite PhoneIms into the photographed phones.")
     parser.add_argument(
         "--ui",
         required=True,

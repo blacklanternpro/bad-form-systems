@@ -28,7 +28,7 @@ interface PhoneImsProps {
   paint: ImsPaintId;
   /** Which yard's build to render. There is no default: picking is the point. */
   build: ImsBuildId;
-  /** Override the build's selected tab. Capture is a viewfinder, not the job. */
+  /** Override the build's selected tab. Capture is a dense document camera. */
   tab?: ImsFieldTabId;
 }
 
@@ -113,7 +113,7 @@ export function PhoneIms({ paint, build, tab }: PhoneImsProps) {
       </div>
 
       <header className="ims-phone-bar">
-        <span className="ims-phone-bar-job ims-num">{isCapture ? "Capture" : field.jobNo}</span>
+        <span className="ims-phone-bar-job ims-num">{field.jobNo}</span>
         <span className="ims-sync">
           <CloudSlash size={15} weight="bold" aria-hidden />
           {field.sync.queuedLabel}
@@ -122,19 +122,52 @@ export function PhoneIms({ paint, build, tab }: PhoneImsProps) {
 
       <div className="ims-phone-body">
         {isCapture ? (
-          <div className="ims-finder">
-            <div className="ims-finder-glass">
-              <div className="ims-finder-live" aria-hidden="true" />
-              <div className="ims-finder-frame" aria-hidden="true" />
-              <span className="ims-finder-mode">Document</span>
-              <span className="ims-finder-hint">Hold over the paper</span>
-            </div>
-            <div className="ims-finder-shutter" aria-hidden="true">
-              <span className="ims-finder-shutter-ring">
-                <span className="ims-finder-shutter-dot" />
+          <>
+            <div className="ims-capture-chip">
+              <span className="ims-capture-chip-copy">
+                <span className="ims-capture-chip-title">{field.jobTitle}</span>
+                <span className="ims-job-meta">
+                  {field.jobMeta}
+                  <span className="ims-dot" aria-hidden="true" />
+                  {field.jobScope}
+                </span>
               </span>
+              <span className="ims-state">{field.stateLabel}</span>
             </div>
-          </div>
+            <div className="ims-finder">
+              <div className="ims-finder-glass">
+                <div className="ims-finder-live" aria-hidden="true" />
+                <div className="ims-finder-paper" aria-hidden="true" />
+                <div className="ims-finder-frame" aria-hidden="true" />
+                <span className="ims-finder-mode">Document</span>
+                <span className="ims-finder-hint">Hold over the paper</span>
+              </div>
+              <div className="ims-finder-modes" aria-hidden="true">
+                <span className="ims-finder-mode-chip ims-finder-mode-chip-active">Document</span>
+                <span className="ims-finder-mode-chip">Site</span>
+                <span className="ims-finder-mode-chip">Meter</span>
+              </div>
+              <div className="ims-finder-shutter" aria-hidden="true">
+                <span className="ims-finder-shutter-ring">
+                  <span className="ims-finder-shutter-dot" />
+                </span>
+              </div>
+            </div>
+            <div className="ims-feed ims-feed-capture">
+              <div className="ims-feed-head">
+                <p className="ims-feed-heading">Last captured</p>
+                <span className="ims-feed-note">{field.sync.offlineNote}</span>
+              </div>
+              <ul className="ims-capture-list">
+                {field.feed
+                  .filter((row) => !row.thumb)
+                  .slice(0, 2)
+                  .map((row) => (
+                    <CaptureRow key={row.id} row={row} />
+                  ))}
+              </ul>
+            </div>
+          </>
         ) : (
           <>
             <div className="ims-job-head">

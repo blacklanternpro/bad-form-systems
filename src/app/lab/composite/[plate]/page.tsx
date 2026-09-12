@@ -53,7 +53,7 @@ export default async function CompositePage({
         <p className="type-docket text-sm text-brand-steel">
           Lab only. {still.stage.width} by {still.stage.height}, writes {still.output}
           {phoneFile
-            ? ". Phone stills are keyed from the plate by scripts/composite-phone.py."
+            ? ". Phone stills: the hand is keyed from the plate; the cab drops a whole Capture phone into the photograph."
             : ""}
         </p>
         <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">

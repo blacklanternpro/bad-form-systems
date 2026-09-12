@@ -203,12 +203,51 @@
   background: var(--ims-ground);
 }
 
+.ims-capture-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px 8px 12px;
+  border: 1px solid var(--ims-hairline);
+  border-radius: var(--ims-r);
+  background: var(--ims-surface);
+}
+
+.ims-capture-chip-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ims-capture-chip-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+[data-ims-tab="capture"] .ims-phone-body {
+  gap: 10px;
+  padding: 10px 14px 0;
+}
+
+[data-ims-tab="capture"] .ims-feed-capture {
+  flex: 0 0 auto;
+}
+
+[data-ims-tab="capture"] .ims-capture-row {
+  padding: 8px 0;
+}
+
 .ims-finder {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
 }
 
 .ims-finder-glass {
@@ -226,6 +265,20 @@
   background:
     radial-gradient(120% 80% at 50% 40%, rgb(40 36 28 / 0.4), transparent 55%),
     repeating-linear-gradient(180deg, rgb(255 255 255 / 0.03) 0 1px, transparent 1px 8px);
+}
+
+.ims-finder-paper {
+  position: absolute;
+  inset: 36px 22px 48px;
+  border-radius: 2px;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 17px,
+      rgb(28 24 20 / 0.12) 17px 18px
+    ),
+    linear-gradient(180deg, #f4ead0, #e7d7b0);
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.45);
 }
 
 .ims-finder-frame {
@@ -303,6 +356,33 @@
   height: 54px;
   border-radius: 999px;
   background: var(--ims-action);
+}
+
+.ims-finder-modes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ims-finder-mode-chip {
+  display: grid;
+  place-items: center;
+  min-height: 32px;
+  border: 1px solid var(--ims-hairline);
+  border-radius: var(--ims-r-sm);
+  background: var(--ims-surface);
+  color: var(--ims-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ims-finder-mode-chip-active {
+  border-color: var(--ims-action);
+  background: var(--ims-action);
+  color: var(--ims-action-ink);
 }
 
 .ims-job-head {
@@ -593,6 +673,66 @@
   border-radius: 99px;
   background: var(--ims-ink);
   opacity: 0.22;
+}
+
+/* Whole-phone stills. Cab composites this chassis, not a glass crop. */
+.ims-device {
+  --ims-device-w: 418px;
+  --ims-device-h: 872px;
+  --ims-device-bezel: 14px;
+  --ims-device-r: 54px;
+  position: relative;
+  width: var(--ims-device-w);
+  height: var(--ims-device-h);
+  padding: var(--ims-device-bezel);
+  border-radius: var(--ims-device-r);
+  background: #2c2926;
+  box-shadow:
+    inset 0 0 0 1px rgb(232 214 180 / 0.22),
+    inset 0 0 0 3px #0e0c0b,
+    inset 0 1px 0 rgb(255 255 255 / 0.12);
+  box-sizing: border-box;
+}
+
+.ims-device-glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--ims-device-r) - 12px);
+  background: #14161a;
+}
+
+.ims-device-island {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  z-index: 3;
+  width: 118px;
+  height: 34px;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  background: #050608;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+.ims-device-side {
+  position: absolute;
+  width: 3px;
+  background: #1a1816;
+  border-radius: 1px;
+}
+
+.ims-device-side-l {
+  top: 148px;
+  left: 0;
+  height: 92px;
+}
+
+.ims-device-side-r {
+  top: 188px;
+  right: 0;
+  height: 52px;
 }
 
 /* Desk ------------------------------------------------------------------ */
@@ -1139,6 +1279,8 @@ html:has([data-ims-capture-page]) body {
 html:has([data-ims-capture-page]) body > header,
 html:has([data-ims-capture-page]) body > footer,
 html:has([data-ims-capture-page]) body > a[href="#main"],
+html:has([data-ims-capture-page]) body > a[href="#content"],
+html:has([data-ims-capture-page]) .skip-link,
 html:has([data-ims-capture-page]) nextjs-portal {
   display: none !important;
 }

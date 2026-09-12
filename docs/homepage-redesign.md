@@ -31,7 +31,7 @@ The page has to answer three things the previous cut only asserted:
 - Zero em-dashes. No en-dash used as a separator anywhere visible.
 - Prices are draft only and live on `/pricing` behind their disclaimer. Not on this page.
 - No pills, labels, or type overlaid on photographs. No scroll cues. No section-number eyebrows.
-- Never let an image model draw the product UI. The cab still is the original photograph with `PhoneIms` Capture composited into the glass, not a generated plate.
+- Never let an image model draw the product UI. The cab still is the original photograph with a whole `PhoneIms` Capture phone dropped into the hand, not a generated plate.
 - Exactly one finished product screen renders live on this page: the generic day-painted field app. A second one turns the product band into a feature tour.
 - One conversion label: `Book a site visit`. Nav labels and contact form field names do not change.
 - Light only. No `dark:` variants.
@@ -69,7 +69,7 @@ Two rules that are easy to break:
 | Surface | What it is |
 | --- | --- |
 | Hero hand still | `pour`, Kemerton, dusk. Tuesday points at it. |
-| Cab still | Original cab photograph. Generic Capture tab in the glass. Not Kemerton. |
+| Cab still | Original cab photograph. A whole generic Capture phone in the fingers. Not Kemerton. |
 | Live phone in the product band | `generic`, day paint. Unattributed. |
 | Office laptop still | The same generic board, `DeskIms` day. |
 
@@ -83,12 +83,12 @@ Laptop glass is a rectangle, so a four-point CSS warp is enough. That is `/lab/c
 
 iPhone glass is not a rectangle. The hero hand still is still composited the way a retoucher would: `scripts/composite-phone.py` keys the photographed glass (bright blue on white) and warps a screenshot of `PhoneIms` `pour` into that region, at 2x, with no blur on the UI. The file written for the homepage is then cropped to that phone. The full 3072x2048 plate left the glass at ~300px on the hero, which reads as the old photographed screen.
 
-The cab still uses the original overhead photograph, not a generated plate. `npm run stills cab` warps `PhoneIms` generic Capture (`dusk`, `?view=capture`) into the measured glass, grown to the photographed rim and punched around the camera island. A smaller mask left the original screen showing around Capture, which reads as a screenshot pasted inside the phone. Do not replace that plate with an image-model photograph. `python3 scripts/check-stills.py` fails both of those regressions.
+The cab still uses the original overhead photograph, not a generated plate. `npm run stills cab` shoots a whole `PhoneIms` generic Capture device (`dusk`, `?view=capture&frame=device`) and drops it into the hand, keeping the wrapping fingers. Do not warp HTML into that photographed iPhone, and do not replace the plate with an image-model photograph. `python3 scripts/check-stills.py` fails both of those regressions.
 
 Pipeline:
 
 1. `src/content/stills.ts` holds each plate, its output name, and `fieldBuild` (phones).
-2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x for phone plates, runs the Python compositor, and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV. Cab uses the Capture tab. Hand uses the job tab.
+2. `npm run stills` (dev server must be running) screenshots `PhoneIms` at 3x for phone plates, runs the Python compositor, and CSS-warps the desk board down to 1536x1024. Headless Chrome needs its own `--user-data-dir` if a GUI Chrome is already open. The compositor needs `python3` with Pillow, NumPy, and OpenCV. Cab shoots the whole Capture phone. Hand uses the job tab.
 3. Reshoot `hand` after a change to the concreter field app. Reshoot `cab` after a change to the generic Capture tab. Reshoot `desk` after a change to the generic board.
 
 If the hand plate is ever replaced, shoot the phone with a blank black (or chroma-green) screen and no UI in the glass.
@@ -103,7 +103,7 @@ The homepage renders one of them: the generic field app, day paint, in the produ
 
 Headings inside the product screens are paragraphs, not `h1` / `h2`. They are product chrome embedded in a marketing page and must not enter its heading outline.
 
-`PhoneIms` with `tab="capture"` is a viewfinder, used in the lab (`?view=capture`). The live breakout stays on the job tab.
+`PhoneIms` with `tab="capture"` is a document camera (job chip, paper finder, last-captured strip), used in the lab (`?view=capture`) and in the cab still. The live breakout stays on the job tab.
 
 ## Motion
 

@@ -49,7 +49,7 @@ const cabStill = {
   width: 3072,
   height: 2048,
   alt: "Overhead in a dusty ute: a work-worn hand holding a phone open to a capture screen, with a paper docket on the other thigh.",
-  demoNote: "Demo capture screen. Not a live customer job, and not the hero's Kemerton day.",
+  demoNote: "Demo Capture phone in the ute. Not a live customer job, and not the hero's Kemerton day.",
   objectPositionClass: "object-[38%_30%] xl:object-[40%_26%]",
 } satisfies OverviewStill;
 

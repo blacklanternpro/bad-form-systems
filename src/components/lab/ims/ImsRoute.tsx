@@ -21,6 +21,7 @@ type ImsRouteProps =
       build: ImsBuildId;
       capture: boolean;
       tab?: ImsFieldTabId;
+      frame?: "device";
     }
   | { device: "desk"; paint: ImsPaintId; capture: boolean };
 
@@ -43,9 +44,19 @@ export function ImsRoute(props: ImsRouteProps) {
     );
 
   if (capture) {
+    const deviceFrame = props.device === "phone" && props.frame === "device";
     return (
       <div data-ims-capture-page="" className="ims-capture-page">
-        {screen}
+        {deviceFrame ? (
+          <div className="ims-device" data-ims-device-frame="">
+            <div className="ims-device-side ims-device-side-l" aria-hidden="true" />
+            <div className="ims-device-side ims-device-side-r" aria-hidden="true" />
+            <div className="ims-device-island" aria-hidden="true" />
+            <div className="ims-device-glass">{screen}</div>
+          </div>
+        ) : (
+          screen
+        )}
       </div>
     );
   }

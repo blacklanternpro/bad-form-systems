@@ -38,7 +38,8 @@ export function ProductBand() {
 
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
         {/* Live phone is the generic system, day paint, not the concreter
-            dusk app in the hero. The cab photograph above is atmosphere. */}
+            dusk app in the hero. The cab photograph above is atmosphere: ute,
+            docket, and a native Capture phone in the fingers. */}
         <div className="flex flex-col gap-10 lg:flex-row-reverse lg:items-center lg:gap-16">
           <div className="lg:flex-1">
             <h2

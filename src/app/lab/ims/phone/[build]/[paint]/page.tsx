@@ -47,7 +47,7 @@ export default async function PhoneBuildPage({
   params,
   searchParams,
 }: PhoneParams & {
-  searchParams: Promise<{ capture?: string | string[]; view?: string | string[] }>;
+  searchParams: Promise<{ capture?: string | string[]; view?: string | string[]; frame?: string | string[] }>;
 }) {
   const { build, paint } = await params;
   if (!isBuild(build) || !isPaint(paint)) notFound();
@@ -56,6 +56,8 @@ export default async function PhoneBuildPage({
   const capture = (Array.isArray(query.capture) ? query.capture[0] : query.capture) === "1";
   const viewRaw = Array.isArray(query.view) ? query.view[0] : query.view;
   const tab = isTab(viewRaw) ? viewRaw : undefined;
+  const frameRaw = Array.isArray(query.frame) ? query.frame[0] : query.frame;
+  const frame = frameRaw === "device" ? "device" : undefined;
 
-  return <ImsRoute device="phone" build={build} paint={paint} capture={capture} tab={tab} />;
+  return <ImsRoute device="phone" build={build} paint={paint} capture={capture} tab={tab} frame={frame} />;
 }
