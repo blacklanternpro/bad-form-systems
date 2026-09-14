@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DayLoop, Layers } from "@/components/coexistence/CoexistenceBlocks";
+import { DayLoop, GrowStops, Layers } from "@/components/coexistence/CoexistenceBlocks";
 import { PageFrame, PageIntro } from "@/components/chrome/PageFrame";
 import { coexistence } from "@/content/coexistence";
 
@@ -14,6 +14,7 @@ export default function CoexistencePage() {
       <PageIntro title={coexistence.title} body={coexistence.body} />
       <Layers />
       <DayLoop />
+      <GrowStops />
     </PageFrame>
   );
 }

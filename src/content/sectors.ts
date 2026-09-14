@@ -9,6 +9,7 @@ export type Sector = {
   title: string;
   body: string;
   modulesHeading: string;
+  modulesFoot: string;
   modules: { title: string; body: string }[];
   scenarioHeading: string;
   problem: string;
@@ -18,9 +19,9 @@ export type Sector = {
 export const sectorsIndex = {
   metaTitle: "South West sectors",
   metaDescription:
-    "Custom operations systems for South West WA trade contractors, earthmovers, fabricators, and regional fleets.",
+    "Custom job systems for South West WA trade contractors, earthmovers, fabricators, and regional fleets.",
   title: "Built for the work that runs this region",
-  body: "Trade crews, earthmovers, fabricators, and regional fleets around Bunbury, Kemerton, Collie, and the wider South West. Not agencies. Not retail.",
+  body: "Trade crews, earthmovers, fabricators, and regional fleets around Bunbury, Kemerton, Collie, and the wider South West. After an audit we build the system this yard owns. Not a scanner. Not another unused login.",
 };
 
 export const sectors: Record<SectorSlug, Sector> = {
@@ -29,59 +30,63 @@ export const sectors: Record<SectorSlug, Sector> = {
     navLabel: "Trades",
     places: "Australind, Bunbury, Treendale, Dunsborough",
     title: "Electrical, plumbing, HVAC, and builders on the road",
-    body: "For contractors running a few vans up to a couple of crews. Profit usually dies in unsigned extras, wholesaler dockets on the dash, and invoicing from the kitchen table after the week is over.",
-    modulesHeading: "What we typically build",
+    body: "After an audit we build the job system this crew will actually open. Variations, hours, certificates, and the wholesaler paper, in one place. Xero stays the books.",
+    modulesHeading: "What this yard would run first",
+    modulesFoot: "The rest is added when the work is real, not on day one.",
     modules: [
       {
         title: "Variation on the phone",
         body: "Extra downlights, a relocated trench, a signed extra on the spot. The work is on the job card before anyone leaves site.",
       },
       {
-        title: "Wholesaler docket photo",
-        body: "Reece, Middy's, Rexel: photograph the receipt before it hits the dash, and it lands on the right job.",
+        title: "Hours on the job, not a pad",
+        body: "One-tap site sign-in so labour sits against the stage you quoted, not a weekly reconstruction.",
       },
       {
         title: "Certificates from site",
-        body: "Testing, backflow, gas compliance: generated on site and sent to the client without a second office pass.",
+        body: "Testing, backflow, gas compliance: numbered in your series and locked once issued.",
       },
       {
-        title: "Hours on the job, not a pad",
-        body: "One-tap site sign-in so labour sits against the stage you quoted, not a weekly reconstruction.",
+        title: "Wholesaler paper",
+        body: "Reece, Middy's, Rexel: the receipt lands on the right job instead of the dash.",
       },
     ],
     scenarioHeading: "What this looks like",
     problem:
-      "The crew will not live in a heavy job app. The owner spends the weekend matching supplier dockets into Xero.",
-    approach: "A short mobile flow, camera on the receipt, jobs that the office can invoice without reconstructing the week.",
+      "The week lives in Excel, WhatsApp, and a job app the crew stopped opening. The owner reconstructs it on the weekend.",
+    approach:
+      "A short flow this crew will use, jobs the office can invoice without rebuilding the week, and drafts waiting in Xero.",
   },
   civil: {
     slug: "civil",
     navLabel: "Civil",
     places: "Picton, Davenport, Capel, Kemerton",
     title: "Earthmoving, wet hire, and quarry cartage",
-    body: "Wet-hire excavators, graders, side-tippers off a Roelands pile. When tip dockets stay in the cab, the invoice is already late and the tonnes are already fuzzy.",
-    modulesHeading: "What we typically build",
+    body: "Wet-hire excavators, graders, side-tippers off a Roelands pile. The system this yard would run first is hire, pre-start, hours, and tonnes on the job, not a pile of cab paper at knock-off.",
+    modulesHeading: "What this yard would run first",
+    modulesFoot: "The rest is added when the work is real, not on day one.",
     modules: [
       {
         title: "Wet and dry hire",
-        body: "Meter hours, operator, and standby without a second spreadsheet.",
-      },
-      {
-        title: "Quarry ticket photo",
-        body: "Photograph the ticket. Tonnage and grade hit the job against the order.",
+        body: "Meter hours, operator, and standby without a second spreadsheet. Minimum hours built in.",
       },
       {
         title: "Pre-start in the cab",
-        body: "A short daily check. Faults that should stop dispatch are visible before the machine rolls.",
+        body: "A short daily check. A failed pass can block that machine until a fresh one is in.",
       },
       {
         title: "Hours signed on a phone",
         body: "Head contractor signs wet-hire hours on site. That signature rides with the draft invoice.",
       },
+      {
+        title: "Quarry ticket",
+        body: "Tonnage and grade hit the job against the order, not a reconstruction from the glovebox.",
+      },
     ],
     scenarioHeading: "What this looks like",
-    problem: "Sunday night sorting paper from gloveboxes. Invoices follow a week later.",
-    approach: "Cab capture for operators, dockets photographed the same day, drafts waiting in Xero instead of a pile on the desk.",
+    problem: "Hire hours, tonnes, and pre-starts live in three books. The invoice is already late.",
+    approach:
+      "Hire, pre-start, hours, and tonnes on the same job while it is still running. Drafts waiting in Xero.",
   },
   fab: {
     slug: "fab",
@@ -89,7 +94,8 @@ export const sectors: Record<SectorSlug, Sector> = {
     places: "Halifax, Bunbury Port, Collie",
     title: "Boilermaking, structural, and mechanical",
     body: "A service-call app falls over on cut plate, NDI, and multi-stage sub-assemblies. The floor needs a kiosk, not eighteen menus.",
-    modulesHeading: "What we typically build",
+    modulesHeading: "What this yard would run first",
+    modulesFoot: "The rest is added when the work is real, not on day one.",
     modules: [
       {
         title: "Stage and ITP",
@@ -101,7 +107,7 @@ export const sectors: Record<SectorSlug, Sector> = {
       },
       {
         title: "Workshop kiosk",
-        body: "A rugged tablet on the floor. Hours against the job without a login ritual.",
+        body: "A rugged tablet on the floor. Two buttons. Hours against the job without a login ritual.",
       },
       {
         title: "Offcuts and consumables",
@@ -118,7 +124,8 @@ export const sectors: Record<SectorSlug, Sector> = {
     places: "Greenbushes, Busselton, Collie",
     title: "Plant hire and regional transport",
     body: "Floats, CoR, and service intervals spread across more than one South West yard. Attachments and hours are easy to lose if they only live in someone's book.",
-    modulesHeading: "What we typically build",
+    modulesHeading: "What this yard would run first",
+    modulesFoot: "The rest is added when the work is real, not on day one.",
     modules: [
       {
         title: "Float and mobilisation",

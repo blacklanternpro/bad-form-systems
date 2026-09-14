@@ -43,6 +43,7 @@ export function SectorPanel({ sector }: { sector: Sector }) {
             </li>
           ))}
         </ul>
+        <p className="type-meta mt-4">{sector.modulesFoot}</p>
       </div>
       <aside className="lg:pt-10">
         <h3 className="type-title mb-4 text-lg text-brand-ink">{sector.scenarioHeading}</h3>

@@ -3,7 +3,7 @@ export const contactCopy = {
   metaDescription:
     "Book a yard or workshop walkthrough in Bunbury and the South West. No slide deck.",
   title: "Book a site visit",
-  body: "We come to the yard, shop, or site. We look at jobs, dockets, and how invoices leave. Then we say plainly whether we can help. Picton, Davenport, Halifax, Treendale, Australind, Kemerton, Collie, and the rest of the South West.",
+  body: "We come to the yard or the shop. You see a demo yard on a phone and a laptop. We look at how the week actually runs, then say plainly what your yard would own first. Picton, Davenport, Halifax, Treendale, Australind, Kemerton, Collie, and the rest of the South West.",
   aside: "Bunbury based. No lock-in to talk.",
   submit: "Send the request",
   sending: "Sending the request…",
@@ -26,8 +26,8 @@ export const contactCopy = {
       label: "Accounting tool",
     },
     notes: {
-      label: "Worst paperwork bottleneck right now",
-      placeholder: "Wholesaler dockets lost in the vans, Sunday night into Xero…",
+      label: "Where the week actually lives",
+      placeholder: "Jobs in Excel, variations on paper, three apps the crew will not open",
     },
   },
   accountingOptions: [

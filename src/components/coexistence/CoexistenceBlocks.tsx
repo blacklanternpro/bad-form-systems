@@ -1,4 +1,3 @@
-import { Check } from "@phosphor-icons/react/ssr";
 import { coexistence } from "@/content/coexistence";
 
 export function Layers() {
@@ -15,9 +14,8 @@ export function Layers() {
             <p className="type-body mb-6 text-brand-steel">{layer.body}</p>
             <ul className="space-y-2.5">
               {layer.items.map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm text-brand-ink">
-                  <Check size={16} className="mt-0.5 shrink-0 text-brand-cobalt" aria-hidden />
-                  <span>{item}</span>
+                <li key={item} className="border-l-2 border-brand-ply pl-3 text-sm text-brand-ink">
+                  {item}
                 </li>
               ))}
             </ul>
@@ -30,7 +28,7 @@ export function Layers() {
 
 export function DayLoop() {
   return (
-    <div>
+    <div className="mb-16">
       <h2 className="type-title mb-8 text-2xl text-brand-ink sm:text-3xl">{coexistence.loopTitle}</h2>
       <ol className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {coexistence.loop.map((step) => (
@@ -39,6 +37,22 @@ export function DayLoop() {
             <p className="type-meta mt-1">{step.place}</p>
             <p className="mt-4 font-medium text-brand-ink">{step.lead}</p>
             <p className="mt-2 text-sm leading-relaxed text-brand-steel">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+export function GrowStops() {
+  return (
+    <div>
+      <h2 className="type-title mb-2 text-2xl text-brand-ink sm:text-3xl">{coexistence.growTitle}</h2>
+      <ol className="max-w-3xl list-decimal pl-6 marker:font-[family-name:var(--font-docket)] marker:text-brand-steel">
+        {coexistence.grow.map((stop) => (
+          <li key={stop.title} className="border-b border-brand-ply py-6 pl-2 last:border-b-0 last:pb-0">
+            <h3 className="type-hero mb-3 text-[1.15rem] text-brand-ink md:text-[1.25rem]">{stop.title}</h3>
+            <p className="type-docket max-w-[48ch] text-[0.95rem] leading-relaxed text-brand-ink">{stop.body}</p>
           </li>
         ))}
       </ol>
