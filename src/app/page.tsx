@@ -6,12 +6,12 @@ import { VisitClose } from "@/components/overview/VisitClose";
 import { overview } from "@/content/overview";
 
 const HOME_DIRECTION = `<!--
-THESIS: A South West owner leaves knowing the ledger stays, the crew can capture from the ute, and the next step is a yard visit, not another SaaS hero.
-OWN-WORLD: Incumbent paper/docket system. Type lives on cream. Stills are photographs. Stamp button is the visit verb.
-STORY: Paper offer, cab still, two objections, office still, how the work is taken on, book.
-FIRST VIEWPORT: Cream paper, headline, walk, stamp Book a site visit, text link How we sit beside Xero.
-FORM: Paper then still, not type on pixels. Asymmetric truths. Numbered process. No landscape table.
-FINISH: Desktop and mobile pass. IMS still readable. No plates, slab, mirror, or burst regressions.
+THESIS: First viewport names the 2am problem (glovebox week) then the relief (a job system this yard keeps). Visit is the next step.
+OWN-WORLD: Paper as NCR carbon + perforated tear-off. Type on cream. Stamp is the visit verb.
+STORY: Paper open (this slice), then stills and later blocks.
+FIRST VIEWPORT: Headline, carbon walk, perforation, stamp Book a site visit, How Sunday night stops.
+FORM: Tear-off stub. No type on photographs.
+FINISH: SE to 4K. Stamp visible without scroll. No brochure verbs.
 -->`;
 
 export default function HomePage() {

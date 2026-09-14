@@ -13,13 +13,13 @@ export type OverviewBeat = {
 };
 
 export const overview = {
-  metaTitle: "BAD FORM Systems | Operations systems for South West WA",
+  metaTitle: "BAD FORM Systems | The week is still in the glovebox",
   metaDescription:
-    "Keep Xero or MYOB. Custom IMS and ute capture for South West yards. Evaluation is a site visit.",
-  headline: "The job system sits beside the books.",
+    "Supplier dockets, unsigned extras, Sunday night in Xero. Job software your yard keeps, beside the books you already run. Book a site visit in the South West.",
+  headline: "The week is still in the glovebox.",
   body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk, then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
   walkLine:
-    "Keep Xero or MYOB. We build the job system the crew will use. Next step is a yard visit.",
+    "Dockets on the dash. Extras unsigned. Sunday night in Xero. We build the job system this yard keeps.",
   cabStill: {
     src: "/images/hero-cab.webp",
     width: 1536,
@@ -37,7 +37,7 @@ export const overview = {
     objectPositionClass: "object-[78%_22%] xl:object-[74%_20%]",
   } satisfies OverviewStill,
   primaryCta: { href: "/contact", label: "Book a site visit" },
-  secondaryCta: { href: "/coexistence", label: "How we sit beside Xero" },
+  secondaryCta: { href: "/coexistence", label: "How Sunday night stops" },
   fieldApp: {
     jobNo: "10482",
   },

@@ -1,5 +1,7 @@
 # Homepage redesign spec
 
+**Superseded** for story and copy by [site-overhaul.md](site-overhaul.md). Visual keep/kill (no type on stills, paper tokens, stamp CTA) still applies.
+
 Approved structure and copy for the BAD FORM Systems homepage. Recut Next.js only after this file is the source of truth. Superdesign canvas drafts (paper-first, split-dock, docket-sheet) are unused.
 
 ## Design read

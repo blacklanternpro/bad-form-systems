@@ -4,13 +4,19 @@ import { overview } from "@/content/overview";
 export function PaperOpen() {
   return (
     <section className="bg-brand-black">
-      <div className="mx-auto w-full max-w-6xl px-4 pt-10 pb-12 sm:px-6 lg:px-8 lg:pt-16 lg:pb-16">
-        <h1 className="type-hero mb-5 max-w-[20ch] text-[2.5rem] font-bold text-brand-ink xl:text-[3rem]">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-10 pb-10 sm:px-6 lg:px-8 lg:pt-16 lg:pb-12">
+        <h1 className="type-hero mb-6 max-w-[16ch] text-[1.85rem] font-bold text-brand-ink sm:max-w-[20ch] sm:text-[2.5rem] xl:text-[3rem]">
           {overview.headline}
         </h1>
-        <p className="type-docket mb-8 max-w-[36ch] border-t border-brand-ply pt-3 text-base text-brand-ink">
-          {overview.walkLine}
-        </p>
+
+        <div className="ncr-copy mb-6 max-w-[40ch]">
+          <p className="type-docket text-[0.95rem] leading-relaxed text-brand-ink sm:text-base">
+            {overview.walkLine}
+          </p>
+        </div>
+
+        <div className="docket-perf mb-6 max-w-xl" aria-hidden="true" />
+
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
           <Link href={overview.primaryCta.href} className="btn-primary min-h-11">
             {overview.primaryCta.label}
