@@ -12,19 +12,24 @@ export type OverviewBeat = {
   body: string;
 };
 
+export type FrontNote = {
+  title: string;
+  body: string;
+};
+
 export const overview = {
-  metaTitle: "BAD FORM Systems | Operations systems for South West WA",
+  metaTitle: "BAD FORM Systems | Your yard's own job system, South West WA",
   metaDescription:
-    "Keep Xero or MYOB. Custom IMS and ute capture for South West yards. Evaluation is a site visit.",
-  headline: "The job system sits beside the books.",
-  body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk, then gets lost. Start with a receipt-parser pilot, or go all the way to jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
+    "We sit in the yard, audit the work, and build the system this business owns. Jobs, costing, plant, variations, certificates, the ute. Xero or MYOB stay the books.",
+  headline: "Excel, paper, checklists, three apps.",
+  body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk, then gets lost. The full build is jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
   walkLine:
-    "Keep Xero or MYOB. We build the job system the crew will use. Next step is a yard visit.",
+    "One custom system. Built for this yard. Jobs, costing, plant, variations, the ute. Xero stays the books.",
   cabStill: {
     src: "/images/hero-cab.webp",
     width: 1536,
     height: 1024,
-    alt: "Overhead in a dusty ute: a work-worn hand on a phone open to a theoretical field IMS, and a paper docket on the other thigh.",
+    alt: "Overhead in a dusty ute: a work-worn hand on a phone open to a theoretical field job system, and a paper docket on the other thigh.",
     demoNote: "Demo layout. Not a live product shot.",
     objectPositionClass: "object-[38%_28%] xl:object-[40%_24%]",
   } satisfies OverviewStill,
@@ -33,40 +38,42 @@ export const overview = {
     width: 1536,
     height: 1024,
     alt: "Site-office laptop open on a theoretical BAD FORM Systems jobs dashboard, with hi-vis and dockets in a South West yard office.",
-    demoNote: "Theoretical office IMS. Demo layout, not a live customer system.",
+    demoNote: "Theoretical office job system. Demo layout, not a live customer system.",
     objectPositionClass: "object-[78%_22%] xl:object-[74%_20%]",
   } satisfies OverviewStill,
   primaryCta: { href: "/contact", label: "Book a site visit" },
-  secondaryCta: { href: "/coexistence", label: "How we sit beside Xero" },
+  secondaryCta: { href: "/coexistence", label: "What we actually build" },
   fieldApp: {
     jobNo: "10482",
   },
-  truths: {
-    lead: {
-      title: "The ledger stays",
-      body: "You do not rip out accounting. Xero or MYOB remain the books. IMS is built beside them.",
+  fronts: {
+    rented: {
+      title: "Rented job apps",
+      body: "Generic screens the crew stops opening. Your data lives inside someone else's plan.",
     },
-    support: {
-      title: "We come to the yard",
-      body: "Evaluation is a walkthrough in the South West, not a demo call from another city.",
+    oneOff: {
+      title: "One-off custom builds",
+      body: "Yours until the developer moves on. Then it is nobody's.",
     },
+    closer:
+      "One system this yard owns. Your name on it, only the parts you run, kept current from Bunbury. Add civil, fab, or fleet when that work is real.",
   },
   workHeading: "How we work",
   beats: [
     {
-      title: "Sit on the ute first",
-      body: "We sit in the office and on the ute before we write a line.",
+      title: "Sit in the yard first",
+      body: "We sit in the office and on the ute before we write a line. The audit is the brief.",
     },
     {
-      title: "Custom IMS plus cab capture",
-      body: "Not another SaaS login. Screens this crew will actually open.",
+      title: "Build the whole job system",
+      body: "Jobs, costing, plant, variations, certificates, the ute. Photographing paper is one door in, not the product.",
     },
     {
-      title: "Built in the South West",
-      body: "Build happens here. You are not a remote ticket.",
+      title: "Keep it current from Bunbury",
+      body: "Your name on it. Add civil, fab, or fleet when that work is real. You are not a remote ticket.",
     },
   ] satisfies OverviewBeat[],
-  closeLine: "If the books stay and the crew will use it, we should be on the yard.",
+  closeLine: "If this yard should own its job system, we should be on site.",
   landscape: {
     title: "Where the work actually lives",
     body: "Most South West yards already have a ledger they trust. The gap is everything scattered before a line hits Xero or MYOB: Excel, paper, checklists, forms, and apps that do not talk.",
@@ -85,10 +92,10 @@ export const overview = {
         highlight: true,
         layer: "Jobs and the field",
         tools: "Excel, WhatsApp, clipboards, glovebox dockets, checklists",
-        gap: "Hours, variations, forms, and supplier dockets live in people's heads and on paper until someone types them up.",
-        strategy: "Digitise that workflow. Pilot on dockets, or build the full job and field layer this yard actually runs.",
+        gap: "Hours, variations, forms, and supplier paper live in people's heads and on pads until someone types them up.",
+        strategy: "Audit the workflow. Build the job system this yard actually runs.",
         mobileSummary: "Spreadsheets, chats, paper, and forms. This is the work we take on.",
-        mobileAction: "Pilot or full custom system. Field capture included.",
+        mobileAction: "A custom system for this operation.",
       },
       {
         highlight: false,
@@ -103,7 +110,7 @@ export const overview = {
     footerNote: "The point is not more software. It is one workflow for work that currently lives in five places.",
     footerLink: {
       href: "/coexistence",
-      label: "See how the three layers fit",
+      label: "What we actually build",
     },
   },
 };

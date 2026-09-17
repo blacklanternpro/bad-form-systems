@@ -135,6 +135,31 @@ select {
     background: var(--color-brand-amber-dark);
   }
 
+  .btn-primary:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  .ncr-copy {
+    position: relative;
+    background: var(--color-brand-card);
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-brand-ink);
+    box-shadow: 4px 4px 0 var(--color-brand-ply);
+  }
+
+  .docket-perf {
+    height: 14px;
+    border-top: 1px dashed var(--color-brand-ink);
+    border-bottom: 1px dashed var(--color-brand-ink);
+    background-image: radial-gradient(
+      circle at 7px 7px,
+      var(--color-brand-sheet) 2.5px,
+      transparent 2.8px
+    );
+    background-size: 14px 14px;
+    background-color: var(--color-brand-black);
+  }
+
   .btn-primary:disabled {
     cursor: not-allowed;
     opacity: 0.55;
