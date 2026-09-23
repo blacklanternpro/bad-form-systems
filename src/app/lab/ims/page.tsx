@@ -17,7 +17,7 @@ export default function ImsLabIndexPage() {
       <p className="type-docket mb-10 text-sm text-brand-steel">
         Homepage stills stay on the rollback plates.{" "}
         <Link href="/lab" className="btn-text text-sm">
-          Docket lab
+          See a theoretical system
         </Link>
       </p>
       <ImsCompare />

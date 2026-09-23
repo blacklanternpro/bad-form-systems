@@ -1,6 +1,6 @@
 # Homepage redesign spec
 
-**Superseded** for story and copy by [site-overhaul.md](site-overhaul.md). Visual keep/kill (no type on stills, paper tokens, stamp CTA) still applies.
+**Story and copy** now follow [site-overhaul.md](site-overhaul.md): own, expand, support locally. Visual keep/kill in this file still applies (no type on stills, paper tokens, stamp CTA).
 
 Approved structure and copy for the BAD FORM Systems homepage. Recut Next.js only after this file is the source of truth. Superdesign canvas drafts (paper-first, split-dock, docket-sheet) are unused.
 
@@ -32,7 +32,7 @@ One job for this page: decide whether BAD FORM Systems is worth a yard visit. No
 - Ply lockup (BAD FORM condensed + typewriter Systems).
 - Stamp yellow is the visit verb. Header CTA stays `Book a site visit`.
 - JOB NO. 10482 from `xl`.
-- Nav labels stay System / Process / Sectors / Contact.
+- Nav labels stay System / Build / Sectors / Contact. Footer also lists Lab.
 - Contact form field names stay.
 - No invented clients, testimonials, quotes, or metrics.
 - Existing type roles: Barlow for UI, Barlow Condensed for the lockup only, Courier Prime for docket lines.
@@ -56,7 +56,7 @@ Six sections. Each has one job. Layout family used once.
 ```text
 1. Paper open     cream first viewport: headline, walk, stamp + text link
 2. Cab still      photograph only (IMS readable, no type on pixels)
-3. Two truths     ledger stays + evaluation is a yard visit
+3. Two truths     this company owns it + we still come to the yard
                   (asymmetric: one lead + one supporting, not two equal cards)
 4. Office still   photograph only
 5. How we work    three beats as a numbered process list, not a 3-card grid
@@ -75,14 +75,14 @@ No em-dashes. No invented proof. Sentence case in source; `.type-hero` may upper
 
 **Headline** (max 2 lines desktop):
 
-The job system sits beside the books.
+The job system this company owns.
 
-**Walk** (19 words; trimmed from the plan draft to meet the 20-word hero cap):
+**Walk** (18 words):
 
-Keep Xero or MYOB. We build the job system the crew will use. Next step is a yard visit.
+Built for this yard. Added to as you grow. Supported from the South West. Xero stays the books.
 
 **Primary CTA:** Book a site visit → `/contact`  
-**Secondary CTA:** How we sit beside Xero → `/coexistence`
+**Secondary CTA:** How it stays yours → `/coexistence`
 
 No eyebrow. No tagline under the buttons. No JOB NO. in this block (header already has it from `xl`).
 
@@ -98,13 +98,13 @@ Demo note: Demo layout. Not a live product shot.
 
 **Lead**
 
-Title: The ledger stays  
-Body: You do not rip out accounting. Xero or MYOB remain the books. IMS is built beside them.
+Title: This company owns it.  
+Body: Not a rented job app. Software built for this yard, kept by this yard, added to when the work changes.
 
 **Support**
 
-Title: We come to the yard  
-Body: Evaluation is a walkthrough in the South West, not a demo call from another city.
+Title: We still come to the yard.  
+Body: Build, extras, and support are scoped on site in the South West, not from another city's ticket queue.
 
 ### Office still
 
@@ -118,18 +118,18 @@ Demo note: Theoretical office IMS. Demo layout, not a live customer system.
 
 No "Step 1 / Step 2 / Step 3" labels. The verb is the label. Render as an ordered list so sequence is in the markup, not as three equal cards.
 
-1. Title: Sit on the ute first  
+1. Title: Sit on the ute first.  
    Body: We sit in the office and on the ute before we write a line.
 
-2. Title: Custom IMS plus cab capture  
-   Body: Not another SaaS login. Screens this crew will actually open.
+2. Title: Build software this company owns.  
+   Body: Not a rented login. A job system built for this yard and kept by this yard.
 
-3. Title: Built in the South West  
-   Body: Build happens here. You are not a remote ticket.
+3. Title: Add to it and support it here.  
+   Body: Extras when the work changes. Support from the South West, not another city's ticket queue.
 
 ### Close
 
-If the books stay and the crew will use it, we should be on the yard.
+If this yard should own the job system, we should be on site.
 
 CTA: Book a site visit → `/contact`
 
@@ -195,7 +195,7 @@ One banner landmark: do not nest `<header>` inside the homepage. Paper open is a
 
 ## Done when
 
-- First viewport is cream paper with headline, walk, stamp, and Xero link. Stamp visible without scroll at 1440 and 390. Cab still may peek under the paper block; type does not sit on the still.
+- First viewport is cream paper with headline, walk, stamp, and How it stays yours. Stamp visible without scroll at 1440 and 390. Cab still may peek under the paper block; type does not sit on the still.
 - No type, burst, or plate on either still. Phone and laptop IMS remain readable.
 - No 2-col/3-col docket dump. No landscape table on `/`.
 - CTAs hit `/contact` and `/coexistence`. Nav labels unchanged.

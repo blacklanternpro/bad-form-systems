@@ -26,9 +26,9 @@ Owners and crews work from yards, utes, cabs, and workshops across Bunbury and t
 
 ## Capabilities and Constraints
 
-Confirmed on the current site: marketing pages for the offer, and a contact form that only delivers mail when Resend or a mailto fallback is configured.
+Confirmed on the current site: marketing pages for the offer, a theoretical lab (docket path plus phone and desk screens, all labelled demo), a recast growth-path page with no published dollars, and a contact form that only delivers mail when Resend or a mailto fallback is configured.
 
-Ghost-tax calculator, docket-ingestion demo, and published price bands are retired from public chrome. They are not the product.
+Ghost-tax calculator stays as an unlinked, noindex illustration. It is not a lead magnet.
 
 Undecided / not product facts: published price bands, delivery-day SLAs, named clients, sector “typical profiles,” and any percentage or dollar-drag statistics. Those originated in a draft dump and must stay marked draft until replaced with real figures.
 
@@ -40,7 +40,7 @@ Logo lockups currently in `public/` (D1 plate) are real BAD FORM assets; whether
 
 Public copy never uses: instance, packs, modules, kernel, platform, Foundry, DAYBOOK, pipeline, SaaS, all-in-one, seamless, streamline, elevate, next-gen, digital transformation, synthetic. Say: your own job system, your name on it, add civil / fab / fleet, paper trail, docket, read clean, sent to review, draft, demo yard, kept current, supported from Bunbury.
 
-The marketing homepage must make the service legible in the first viewport: scattered work, then a custom system this yard owns. Photographs are demo atmosphere, never a fake client, and never a product you buy off the page.
+The marketing homepage must make the service legible in the first viewport: this company owns the job system, added to as it grows, supported from the South West. Photographs are demo atmosphere, never a fake client, and never a product you buy off the page.
 
 ## Evidence on Hand
 
@@ -55,4 +55,5 @@ Absent and must not be fabricated: real customer names, testimonials, case studi
 3. The owner is the buyer. Speak to the person who can book a yard visit.
 4. Field adoption is the product. If the crew will not use it in the ute, it does not ship.
 5. Local presence is the sales motion. Evaluation happens at the yard.
-6. Proof is earned. No invented clients, quotes, or numbers.
+6. The company owns the operating system as an asset. BAD FORM expands it and supports it locally. The ledger stays. Do not claim source-code IP transfer, escrow, or a GitHub repo unless that is confirmed.
+7. Proof is earned. No invented clients, quotes, or numbers.

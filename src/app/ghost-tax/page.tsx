@@ -6,6 +6,7 @@ import { calculatorCopy } from "@/content/calculator";
 export const metadata: Metadata = {
   title: calculatorCopy.metaTitle,
   description: calculatorCopy.metaDescription,
+  robots: { index: false, follow: false },
 };
 
 export default function GhostTaxPage() {
