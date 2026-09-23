@@ -9,9 +9,9 @@ export type ImsJobRow = {
 };
 
 export const imsCopy = {
-  labTitle: "IMS screens",
+  labTitle: "See a theoretical system",
   labBody:
-    "Lab only. Theoretical field and office chrome. Same job system, two paints. Not a shipped product.",
+    "Theoretical phone and desk screens. Same job system, two paints. Demo layouts, not a shipped customer system.",
   jobTitle: "Kemerton pad",
   demo: "DEMO",
   demoNote: "Theoretical IMS. Demo layout, not a live customer job.",
@@ -82,15 +82,15 @@ export const imsCopy = {
     },
     {
       job: "Picton access",
-      hours: "—",
+      hours: "-",
       plant: "EX20",
       status: "draft",
       statusLabel: "draft",
     },
     {
       job: "Collie pump",
-      hours: "—",
-      plant: "—",
+      hours: "-",
+      plant: "-",
       status: "prestart",
       statusLabel: "pre-start",
     },

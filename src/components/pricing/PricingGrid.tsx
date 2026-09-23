@@ -14,7 +14,6 @@ export function PricingGrid() {
               <h2 className="type-title text-2xl text-brand-ink">{tier.title}</h2>
               <p className="type-meta mt-1">{tier.timing}</p>
               <p className="type-body mt-4 text-brand-steel">{tier.blurb}</p>
-              <p className="type-data mt-5 text-xl text-brand-ink">{tier.price}</p>
             </div>
             <ul className="space-y-2.5">
               {tier.items.map((item) => (

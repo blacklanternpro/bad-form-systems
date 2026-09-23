@@ -1,9 +1,9 @@
 export const labCopy = {
-  metaTitle: "Docket lab",
+  metaTitle: "See a theoretical system",
   metaDescription:
-    "Demo: messy field notes turned into a draft invoice-shaped payload. Sample data, not a live customer job.",
-  title: "Docket lab",
-  body: "This is a demonstration. Paste messy notes or use a sample. The engine tries to pull line items, GST, and a draft ledger-shaped payload. Without a configured model key it returns a local sample so you can still see the shape.",
+    "Theoretical proof: messy field notes turned into a draft ledger-shaped payload. Sample data, not a live customer job.",
+  title: "See a theoretical system",
+  body: "Proof of a custom path, not a gimmick. Paste messy notes or use a sample. The engine tries to pull line items, GST, and a draft ledger-shaped payload. The phone and desk screens show the visual. Without a configured model key it returns a local sample so you can still see the shape.",
   inputLabel: "Field note, receipt text, or cab log",
   processLabel: "Process docket",
   outputHeading: "Normalised payload",

@@ -31,8 +31,8 @@ export const sectors: Record<SectorSlug, Sector> = {
     places: "Australind, Bunbury, Treendale, Dunsborough",
     title: "Electrical, plumbing, HVAC, and builders on the road",
     body: "After an audit we build the job system this crew will actually open. Variations, hours, certificates, and the wholesaler paper, in one place. Xero stays the books.",
-    modulesHeading: "What this yard would run first",
-    modulesFoot: "The rest is added when the work is real, not on day one.",
+    modulesHeading: "What this yard can own first",
+    modulesFoot: "Extras are added later, not dumped on day one.",
     modules: [
       {
         title: "Variation on the phone",
@@ -63,8 +63,8 @@ export const sectors: Record<SectorSlug, Sector> = {
     places: "Picton, Davenport, Capel, Kemerton",
     title: "Earthmoving, wet hire, and quarry cartage",
     body: "Wet-hire excavators, graders, side-tippers off a Roelands pile. The system this yard would run first is hire, pre-start, hours, and tonnes on the job, not a pile of cab paper at knock-off.",
-    modulesHeading: "What this yard would run first",
-    modulesFoot: "The rest is added when the work is real, not on day one.",
+    modulesHeading: "What this yard can own first",
+    modulesFoot: "Extras are added later, not dumped on day one.",
     modules: [
       {
         title: "Wet and dry hire",
@@ -94,8 +94,8 @@ export const sectors: Record<SectorSlug, Sector> = {
     places: "Halifax, Bunbury Port, Collie",
     title: "Boilermaking, structural, and mechanical",
     body: "A service-call app falls over on cut plate, NDI, and multi-stage sub-assemblies. The floor needs a kiosk, not eighteen menus.",
-    modulesHeading: "What this yard would run first",
-    modulesFoot: "The rest is added when the work is real, not on day one.",
+    modulesHeading: "What this yard can own first",
+    modulesFoot: "Extras are added later, not dumped on day one.",
     modules: [
       {
         title: "Stage and ITP",
@@ -124,8 +124,8 @@ export const sectors: Record<SectorSlug, Sector> = {
     places: "Greenbushes, Busselton, Collie",
     title: "Plant hire and regional transport",
     body: "Floats, CoR, and service intervals spread across more than one South West yard. Attachments and hours are easy to lose if they only live in someone's book.",
-    modulesHeading: "What this yard would run first",
-    modulesFoot: "The rest is added when the work is real, not on day one.",
+    modulesHeading: "What this yard can own first",
+    modulesFoot: "Extras are added later, not dumped on day one.",
     modules: [
       {
         title: "Float and mobilisation",

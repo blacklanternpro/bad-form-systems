@@ -3,7 +3,7 @@ export const contactCopy = {
   metaDescription:
     "Book a yard or workshop walkthrough in Bunbury and the South West. No slide deck.",
   title: "Book a site visit",
-  body: "We come to the yard or the shop. You see a demo yard on a phone and a laptop. We look at how the week actually runs, then say plainly what your yard would own first. Picton, Davenport, Halifax, Treendale, Australind, Kemerton, Collie, and the rest of the South West.",
+  body: "The visit is how we decide what you would own first, what can wait, and how we would support it from here. We come to the yard or the shop. Picton, Davenport, Halifax, Treendale, Australind, Kemerton, Collie, and the rest of the South West.",
   aside: "Bunbury based. No lock-in to talk.",
   submit: "Send the request",
   sending: "Sending the request…",

@@ -12,19 +12,14 @@ export type OverviewBeat = {
   body: string;
 };
 
-export type FrontNote = {
-  title: string;
-  body: string;
-};
-
 export const overview = {
-  metaTitle: "BAD FORM Systems | Your yard's own job system, South West WA",
+  metaTitle: "BAD FORM Systems | The job system this company owns",
   metaDescription:
-    "We sit in the yard, audit the work, and build the system this business owns. Jobs, costing, plant, variations, certificates, the ute. Xero or MYOB stay the books.",
-  headline: "Excel, paper, checklists, three apps.",
-  body: "We digitise the work that currently lives in spreadsheets, pads, forms, and logins that do not talk, then gets lost. The full build is jobs, costing, plant, variations, certificates, and the ute. Xero stays the books.",
+    "Custom job software this company owns. Built for this yard, added to as you grow, supported from the South West. Xero or MYOB stay the books.",
+  headline: "The job system this company owns.",
+  body: "Software built for this yard, kept by this yard, added to when the work changes, and supported from the South West. Xero stays the books.",
   walkLine:
-    "One custom system. Built for this yard. Jobs, costing, plant, variations, the ute. Xero stays the books.",
+    "Built for this yard. Added to as you grow. Supported from the South West. Xero stays the books.",
   cabStill: {
     src: "/images/hero-cab.webp",
     width: 1536,
@@ -42,38 +37,36 @@ export const overview = {
     objectPositionClass: "object-[78%_22%] xl:object-[74%_20%]",
   } satisfies OverviewStill,
   primaryCta: { href: "/contact", label: "Book a site visit" },
-  secondaryCta: { href: "/coexistence", label: "What we actually build" },
+  secondaryCta: { href: "/coexistence", label: "How it stays yours" },
   fieldApp: {
     jobNo: "10482",
   },
-  fronts: {
-    rented: {
-      title: "Rented job apps",
-      body: "Generic screens the crew stops opening. Your data lives inside someone else's plan.",
+  truths: {
+    lead: {
+      title: "This company owns it.",
+      body: "Not a rented job app. Software built for this yard, kept by this yard, added to when the work changes.",
     },
-    oneOff: {
-      title: "One-off custom builds",
-      body: "Yours until the developer moves on. Then it is nobody's.",
+    support: {
+      title: "We still come to the yard.",
+      body: "Build, extras, and support are scoped on site in the South West, not from another city's ticket queue.",
     },
-    closer:
-      "One system this yard owns. Your name on it, only the parts you run, kept current from Bunbury. Add civil, fab, or fleet when that work is real.",
   },
   workHeading: "How we work",
   beats: [
     {
-      title: "Sit in the yard first",
-      body: "We sit in the office and on the ute before we write a line. The audit is the brief.",
+      title: "Sit on the ute first.",
+      body: "We sit in the office and on the ute before we write a line.",
     },
     {
-      title: "Build the whole job system",
-      body: "Jobs, costing, plant, variations, certificates, the ute. Photographing paper is one door in, not the product.",
+      title: "Build software this company owns.",
+      body: "Not a rented login. A job system built for this yard and kept by this yard.",
     },
     {
-      title: "Keep it current from Bunbury",
-      body: "Your name on it. Add civil, fab, or fleet when that work is real. You are not a remote ticket.",
+      title: "Add to it and support it here.",
+      body: "Extras when the work changes. Support from the South West, not another city's ticket queue.",
     },
   ] satisfies OverviewBeat[],
-  closeLine: "If this yard should own its job system, we should be on site.",
+  closeLine: "If this yard should own the job system, we should be on site.",
   landscape: {
     title: "Where the work actually lives",
     body: "Most South West yards already have a ledger they trust. The gap is everything scattered before a line hits Xero or MYOB: Excel, paper, checklists, forms, and apps that do not talk.",
@@ -110,7 +103,7 @@ export const overview = {
     footerNote: "The point is not more software. It is one workflow for work that currently lives in five places.",
     footerLink: {
       href: "/coexistence",
-      label: "What we actually build",
+      label: "How it stays yours",
     },
   },
 };

@@ -1,15 +1,15 @@
 export const coexistence = {
-  metaTitle: "What we actually build",
+  metaTitle: "How it stays yours",
   metaDescription:
-    "A custom job system this yard owns: quote, board, costing, plant, variations, certificates, the ute. Xero or MYOB stay the books.",
-  title: "The whole job. Not a scanner.",
-  body: "We sit in the yard, audit the work, and build the system this business owns. Quote the job, put the gang on the board, photograph the paper, check it at the desk, watch the job cost move, push a draft to Xero or MYOB. Nothing else crosses into the books.",
+    "You own the job system. Add to it as the yard changes. We support it from the South West. Xero or MYOB stay the books.",
+  title: "You own the job system. The ledger stays.",
+  body: "Built for this yard, kept by this yard, added to when the work changes. Crews use it in the ute. We stay on it from the South West. Xero or MYOB remain the books.",
   layers: [
     {
-      owner: "The yard owns this",
+      owner: "You own this",
       title: "Job system",
       stack: "Built for this yard",
-      body: "The week runs here. Jobs, plant, costing, dispatch, variations, certificates. Only the parts this operation actually runs. Shaped around your work, not a generic trade template.",
+      body: "The week runs here. Jobs, plant, costing, dispatch, variations, certificates. Only the parts this operation actually runs. A company asset, not a rented login.",
       items: [
         "Replaces the master spreadsheet",
         "Job cost visible while the job is live",
@@ -17,14 +17,14 @@ export const coexistence = {
       ],
     },
     {
-      owner: "Added when the work is real",
-      title: "Civil, fab, fleet",
-      stack: "Not day one",
-      body: "Start with the work that hurts. Add a sister yard, a fabrication floor, or a plant book when that work shows up. One maintained system underneath, so you are never stranded on a side project.",
+      owner: "Crews use this",
+      title: "Ute and cab",
+      stack: "Phone, photo, voice",
+      body: "The bit in the pocket. Photograph a quarry ticket or wholesaler docket. Speak a short hours note. Pre-start and sign-off without a desktop workflow on a dusty screen.",
       items: [
-        "Your name on it from the start",
-        "Your word for a job",
-        "Take your data whenever you want",
+        "Works when the phone has no signal",
+        "Line items pulled from the photo",
+        "No app-store install required",
       ],
     },
     {
@@ -36,6 +36,17 @@ export const coexistence = {
         "No bookkeeper retraining",
         "Bank rec stays in the ledger",
         "Invoices drafted, not reinvented",
+      ],
+    },
+    {
+      owner: "We stay on it",
+      title: "Add and support",
+      stack: "On-yard, from Bunbury",
+      body: "Extras when the work is real: civil, fab, fleet, another yard. Support is scoped on site in the South West, not from another city's ticket queue.",
+      items: [
+        "Add what the work needs, not a catalogue",
+        "Visit sets what can wait",
+        "Supported from Bunbury",
       ],
     },
   ],
@@ -69,16 +80,21 @@ export const coexistence = {
   growTitle: "How it grows",
   grow: [
     {
-      title: "Start with the paper that hurts most",
-      body: "Wholesaler tickets, quarry dockets, or unsigned variations. Prove the week can live in one place.",
+      title: "Start with one painful path",
+      body: "Dockets, variations, or wet hire. Prove the week can live in one place.",
     },
     {
-      title: "Own the job system",
+      title: "Own the job view",
       body: "Jobs, board, costing, drafts. The crew phone and the office desk are the same system.",
     },
     {
-      title: "Add what the work needs",
+      title: "Add the next extra when the yard is ready",
       body: "Civil, fab, fleet, another yard. A yard visit sets scope and price. No lock-in to talk.",
     },
   ],
+  labLink: {
+    href: "/lab/ims",
+    label: "See a theoretical system",
+    note: "Phone and desk screens. Demo layouts, not a customer system.",
+  },
 };

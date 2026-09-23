@@ -5,7 +5,7 @@ export function PaperOpen() {
   return (
     <section className="bg-brand-black">
       <div className="mx-auto w-full max-w-6xl px-4 pt-10 pb-10 sm:px-6 lg:px-8 lg:pt-16 lg:pb-12">
-        <h1 className="type-hero mb-6 max-w-[16ch] text-[1.85rem] font-bold text-brand-ink sm:max-w-[20ch] sm:text-[2.5rem] xl:text-[3rem]">
+        <h1 className="type-hero mb-6 max-w-[20ch] text-[1.85rem] font-bold text-brand-ink sm:text-[2.5rem] xl:text-[3rem]">
           {overview.headline}
         </h1>
 
